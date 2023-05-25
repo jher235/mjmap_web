@@ -91,9 +91,11 @@
   background-color: #fff;
   border-radius: 40%;
   color: gray;
-
+  border-style: solid;
 }
 
 
-
+.Dormitory{
+  background-color: gold;
+}
 
