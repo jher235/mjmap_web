@@ -96,6 +96,16 @@
 
 
 .Dormitory{
-  background-color: gold;
+  background-color: rgb(125, 235, 0);
 }
 
+#user{
+  font-size: 1px;
+  width:80%;
+  height:3%;
+  padding:3px;
+  border-style: solid;
+  background-color: gold;
+  border-radius: 100%;
+  font-style:initial
+}
