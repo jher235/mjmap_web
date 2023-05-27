@@ -15,7 +15,15 @@ function App() {
   const [maplong,setMaplong] = useState(127.18803)
   const [map,setMap] = useState()
   const [maplevel,setMaplevel] = useState(4)
+  const [inputText,setInputText] = useState("")
 
+
+  const onsubmit=(event)=>{
+    event.preventDefault()
+    console.log(inputText)
+    
+
+  }
   const customOverayonoff=()=>{
     console.log("level=",maplevel, "mapposition=",maplat,maplong)
     //   setMaplat(map.getCenter().La)
@@ -33,7 +41,7 @@ function App() {
     }
   }
   }
-
+  
   const geoOk=(position)=>{
     console.log(position.coords.latitude);
     console.log(position.coords.longitude);
@@ -813,6 +821,11 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
        <h1>명지도</h1>
        <button onClick={customOverayonoff}>표시</button>
        <button onClick={find_my_position}>내 위치</button>
+       <text>Y_</text>
+       <form onChange={onsubmit}>
+       <input onChange={(event)=>setInputText(event.target.value)} placeholder="강의실 번호 검색" />
+      <button onClick={onsubmit}>검색</button>
+      </form>
       </div>
       <div id="map"></div>
       {loading? <h1 className='loading'>Loading...</h1>:null}
