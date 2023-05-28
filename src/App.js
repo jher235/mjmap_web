@@ -16,12 +16,26 @@ function App() {
   const [map,setMap] = useState()
   const [maplevel,setMaplevel] = useState(4)
   const [inputText,setInputText] = useState()
+  const [buildNum,setBuildNum] = useState('')
+  const [buildPosition,setBuildPosition] = useState()
 
+
+  const test=()=>
+  {
+    var movehere = new kakao.maps.LatLng(37.22100,127.18803)
+    map.setCenter(movehere)
+    //setBuildNum("y34")
+  }
 
   const onsubmit=(event)=>{
     event.preventDefault();
     if(inputText!==""){
      console.log("submit",inputText);
+     setBuildNum('y'+inputText)
+    //  console.log(JSON.stringify(buildNum))
+     console.log(buildNum)
+     setMaplevel(3)
+     
     setInputText("");
     }
     
@@ -32,6 +46,7 @@ function App() {
     //   setMaplat(map.getCenter().La)
     //   setMaplong(map.getCenter().Ma)
      setCustomOveray(!customOveray)
+ 
   }
   const find_my_position=()=>{
     if(map){
@@ -73,7 +88,8 @@ function App() {
     console.log("lon",map.getCenter().Ma)
   }
 
-  // 37.22100, 127.18803
+
+
   useEffect(()=>{
     try{
   const container = document.getElementById('map')
@@ -85,16 +101,11 @@ function App() {
    console.log(container)
     if(container){
 const map = new kakao.maps.Map(container, mapOptions);
-  const marker = new kakao.maps.Marker({
-    position: new kakao.maps.LatLng(37.22150, 127.18684), // 마커의 좌표
-    map: map // 마커를 표시할 지도 객체
-  });
+  
   setLoading(false); 
   setMap(map)
   // console.log("lat",map.getCenter().La)
   // console.log("lon",map.getCenter().Ma)
- 
-  
 
   if(customOveray){
     var y83 = new kakao.maps.CustomOverlay({
@@ -321,14 +332,26 @@ const map = new kakao.maps.Map(container, mapOptions);
         xAnchor: 0.5, // 컨텐츠의 x 위치
         yAnchor: 0.5 // 컨텐츠의 y 위치
       });
-    
+    //console.log("build",buildNum)
+   console.log("build",eval(buildNum).getPosition())
+    map.setCenter(eval(buildNum).getPosition())
+
+    var marker = new kakao.maps.Marker({
+      position: eval(buildNum).getPosition()
+    });
+    marker.setMap(map);
   //  document.querySelector(".customoveray").setMap(null)
      }
  }  
 
 }catch(e){
 console.log(e)}
-},[customOveray])
+},[customOveray,buildNum])
+
+
+
+
+
 
 if(map){
 kakao.maps.event.addListener(map, 'center_changed', function() {
@@ -355,6 +378,7 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
        <input type='text' value={inputText} onChange={(event)=>setInputText(event.target.value)} placeholder="강의실 번호 검색" />
       <button onClick={onsubmit}>검색</button>
       </form>
+      <button onClick={test}>test</button>
       </div>
       <div id="map"></div>
       {loading? <h1 className='loading'>Loading...</h1>:null}
