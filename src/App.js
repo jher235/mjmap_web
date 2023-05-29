@@ -18,22 +18,32 @@ function App() {
   const [inputText,setInputText] = useState()
   const [buildNum,setBuildNum] = useState('')
   const [buildPosition,setBuildPosition] = useState()
+  const [floor,setFloor] = useState()
 
 
   const test=()=>
   {
-    var movehere = new kakao.maps.LatLng(37.22100,127.18803)
-    map.setCenter(movehere)
-    //setBuildNum("y34")
+    
   }
 
   const onsubmit=(event)=>{
     event.preventDefault();
     if(inputText!==""){
      console.log("submit",inputText);
-     setBuildNum('y'+inputText)
-    //  console.log(JSON.stringify(buildNum))
-     console.log(buildNum)
+     if(inputText.length===3){
+     setBuildNum('y');
+     setFloor(inputText[0]);
+     }
+     else if(inputText.length===4){
+    setBuildNum('y'+inputText[0]);
+    setFloor(inputText[1]);
+     }
+     else if(inputText.length===5){
+      setBuildNum('y'+inputText[0]+inputText[1]);
+      setFloor(inputText[2]);
+     }
+     
+     console.log("buildNum",buildNum)
      setMaplevel(3)
      
     setInputText("");
@@ -336,6 +346,7 @@ const map = new kakao.maps.Map(container, mapOptions);
    console.log("build",eval(buildNum).getPosition())
     map.setCenter(eval(buildNum).getPosition())
 
+
     var marker = new kakao.maps.Marker({
       position: eval(buildNum).getPosition()
     });
@@ -379,6 +390,7 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
       <button onClick={onsubmit}>검색</button>
       </form>
       <button onClick={test}>test</button>
+      {floor?<text>{floor}층</text>:null}
       </div>
       <div id="map"></div>
       {loading? <h1 className='loading'>Loading...</h1>:null}
