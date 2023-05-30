@@ -16,17 +16,37 @@ function App() {
   const [map,setMap] = useState()
   const [maplevel,setMaplevel] = useState(4)
   const [inputText,setInputText] = useState()
+  const [buildNum,setBuildNum] = useState('')
+  const [buildPosition,setBuildPosition] = useState()
+  const [floor,setFloor] = useState()
+  const [dormitory,setDormitory] = useState(true)
+
 
   const test=()=>
   {
-    var movehere = new kakao.maps.LatLng(37.22100,127.18803)
-    map.setCenter(movehere)
+    setDormitory(!dormitory);
   }
 
   const onsubmit=(event)=>{
     event.preventDefault();
     if(inputText!==""){
      console.log("submit",inputText);
+     if(inputText.length===3){
+     setBuildNum('y');
+     setFloor(inputText[0]);
+     }
+     else if(inputText.length===4){
+    setBuildNum('y'+inputText[0]);
+    setFloor(inputText[1]);
+     }
+     else if(inputText.length===5){
+      setBuildNum('y'+inputText[0]+inputText[1]);
+      setFloor(inputText[2]);
+     }
+     
+     console.log("buildNum",buildNum)
+     setMaplevel(3)
+     
     setInputText("");
     }
     
@@ -37,6 +57,7 @@ function App() {
     //   setMaplat(map.getCenter().La)
     //   setMaplong(map.getCenter().Ma)
      setCustomOveray(!customOveray)
+ 
   }
   const find_my_position=()=>{
     if(map){
@@ -79,31 +100,6 @@ function App() {
   }
 
 
-  useEffect(()=>{
-  if(customOveray){
-
-      var y34  = new kakao.maps.CustomOverlay({
-        map: map,
-        content: '<div class="customOveray Dormitory">Y34_5동</div>', 
-        position: new kakao.maps.LatLng(37.223716, 127.182789), // 커스텀 오버레이를 표시할 좌표
-        xAnchor: 0.5, // 컨텐츠의 x 위치
-        yAnchor: 0.5 // 컨텐츠의 y 위치
-      });
-      var y35 = new kakao.maps.CustomOverlay({
-        map: map,
-        content: '<div class="customOveray Dormitory">Y35_복지동</div>', 
-        position: new kakao.maps.LatLng(37.223814, 127.183199), // 커스텀 오버레이를 표시할 좌표
-        xAnchor: 0.5, // 컨텐츠의 x 위치
-        yAnchor: 0.5 // 컨텐츠의 y 위치
-      });
-    
-  //  document.querySelector(".customoveray").setMap(null)
-     }
-  },
-  [customOveray])
-
-
-
 
   useEffect(()=>{
     try{
@@ -119,12 +115,56 @@ const map = new kakao.maps.Map(container, mapOptions);
   
   setLoading(false); 
   setMap(map)
+  // console.log("lat",map.getCenter().La)
+  // console.log("lon",map.getCenter().Ma)
 
+  if(customOveray){
+    var y83 = new kakao.maps.CustomOverlay({
+      map: map,
+      content: '<div class="customOveray">:Y83_모형실험동`${maplevel}`</div>',
+      position: new kakao.maps.LatLng(37.21878, 127.183336), // 커스텀 오버레이를 표시할 좌표
+      xAnchor: 0.5, // 컨텐츠의 x 위치
+      yAnchor: 0.5 // 컨텐츠의  = new kakao.maps.CustomOverlay({
+    })
+      var y82 = new kakao.maps.CustomOverlay({
+      map: map,
+      content: '<div class="customOveray">Y82_온실</div>', 
+      position: new kakao.maps.LatLng(37.223865, 127.185108), // 커스텀 오버레이를 표시할 좌표
+      xAnchor: 0.5, // 컨텐츠의 x 위치
+      yAnchor: 0.5 // 컨텐츠의 y  = new kakao.maps.CustomOverlay({
+    })
+      var y = new kakao.maps.CustomOverlay({
+      map: map,
+        content: '<div class="customOveray">Y_1공학관</div>', 
+        position: new kakao.maps.LatLng(37.222494, 127.187176), // 커스텀 오버레이를 표시할 좌표
+        xAnchor: 0.5, // 컨텐츠의 x 위치
+        yAnchor: 0.5 // 컨텐츠의 y  = new kakao.maps.CustomOverlay({
+      })
+
+    //console.log("build",buildNum)
+   console.log("build",eval(buildNum).getPosition())
+    map.setCenter(eval(buildNum).getPosition())
+
+
+    var marker = new kakao.maps.Marker({
+      position: eval(buildNum).getPosition()
+    });
+    marker.setMap(map);
+ 
+
+    if(dormitory){
+    var dormitoryElements = document.querySelectorAll(".Dormitory");
+    for (var i = 0; i < dormitoryElements.length; i++) {
+      var element = dormitoryElements[i];
+      element.classList.toggle("Dormitory"); // "hidden" 클래스를 토글하여 숨기기/보이기 상태 전환
+    }}
+
+  }
  }  
 
 }catch(e){
 console.log(e)}
-},[customOveray])
+},[customOveray,buildNum,dormitory])
 
 
 
@@ -157,6 +197,7 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
       <button onClick={onsubmit}>검색</button>
       </form>
       <button onClick={test}>test</button>
+      {floor?<text>{floor}층</text>:null}
       </div>
       <div id="map"></div>
       {loading? <h1 className='loading'>Loading...</h1>:null}

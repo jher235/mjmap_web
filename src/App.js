@@ -19,11 +19,12 @@ function App() {
   const [buildNum,setBuildNum] = useState('')
   const [buildPosition,setBuildPosition] = useState()
   const [floor,setFloor] = useState()
+  const [dormitory,setDormitory] = useState(true)
 
 
   const test=()=>
   {
-    
+    setDormitory(!dormitory);
   }
 
   const onsubmit=(event)=>{
@@ -120,7 +121,7 @@ const map = new kakao.maps.Map(container, mapOptions);
   if(customOveray){
     var y83 = new kakao.maps.CustomOverlay({
       map: map,
-      content: '<div class="customOveray">Y83_모형실험동</div>', 
+      content: '<div class="customOveray">:Y83_모형실험동`${maplevel}`</div>',
       position: new kakao.maps.LatLng(37.21878, 127.183336), // 커스텀 오버레이를 표시할 좌표
       xAnchor: 0.5, // 컨텐츠의 x 위치
       yAnchor: 0.5 // 컨텐츠의  = new kakao.maps.CustomOverlay({
@@ -347,17 +348,27 @@ const map = new kakao.maps.Map(container, mapOptions);
     map.setCenter(eval(buildNum).getPosition())
 
 
-    var marker = new kakao.maps.Marker({
-      position: eval(buildNum).getPosition()
-    });
-    marker.setMap(map);
-  //  document.querySelector(".customoveray").setMap(null)
-     }
- }  
+    
+
+    if(dormitory){
+    var dormitoryElements = document.querySelectorAll(".Dormitory");
+    for (var i = 0; i < dormitoryElements.length; i++) {
+      var element = dormitoryElements[i];
+      element.classList.toggle("Dormitory"); // "hidden" 클래스를 토글하여 숨기기/보이기 상태 전환
+    }}
+
+  }
+ 
+  var marker = new kakao.maps.Marker({
+    position: eval(buildNum).getPosition()
+  });
+  marker.setMap(map); //표시 버튼에 같이 사라지지 않도록
+
+}  
 
 }catch(e){
 console.log(e)}
-},[customOveray,buildNum])
+},[customOveray,buildNum,dormitory])
 
 
 
@@ -392,6 +403,7 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
       <button onClick={test}>test</button>
       {floor?<text>{floor}층</text>:null}
       </div>
+      <div className='title2'><button>편의점</button><button>식당</button><button>카페</button></div>
       <div id="map"></div>
       {loading? <h1 className='loading'>Loading...</h1>:null}
        

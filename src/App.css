@@ -59,6 +59,18 @@
   font-size: 30px;
 }
 
+.title2 {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color:aliceblue;
+  font-family: 'East Sea Dokdo', cursive;
+  font-size: 30px;
+}
+
+
 #map{
   margin-top: 10px;
   width: 80%;
@@ -108,4 +120,8 @@
   background-color: gold;
   border-radius: 100%;
   font-style:initial
+}
+
+.hidden{
+  display:none;
 }
