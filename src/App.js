@@ -31,7 +31,10 @@ function App() {
     event.preventDefault();
     if(inputText!==""){
      console.log("submit",inputText);
-     if(inputText.length===3){
+     if(inputText.length<3 || inputText.length>6){
+      alert("강의실 번호를 제대로 입력해주세요!")
+     }
+    else if(inputText.length===3){
      setBuildNum('y');
      setFloor(inputText[0]);
      }
@@ -397,7 +400,7 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
        <button onClick={find_my_position}>내 위치</button>
        <text>Y_</text>
        <form onSubmit={onsubmit}>
-       <input type='text' value={inputText} onChange={(event)=>setInputText(event.target.value)} placeholder="강의실 번호 검색" />
+       <input type='number' value={inputText} onChange={(event)=>setInputText(event.target.value)} placeholder="강의실 번호 검색" />
       <button onClick={onsubmit}>검색</button>
       </form>
       <button onClick={test}>test</button>
