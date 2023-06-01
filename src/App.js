@@ -199,13 +199,7 @@ const map = new kakao.maps.Map(container, mapOptions);
         xAnchor: 0.5, // 컨텐츠의 x 위치
         yAnchor: 0.5 // 컨텐츠의 y 위치
       });
-      var y10 = new kakao.maps.CustomOverlay({
-        map: map,
-        content: '<div class="customOveray Dormitory">Y10_선수숙소</div>', 
-        position: new kakao.maps.LatLng(37.221533, 127.19169), // 커스텀 오버레이를 표시할 좌표
-        xAnchor: 0.5, // 컨텐츠의 x 위치
-        yAnchor: 0.5 // 컨텐츠의 y 위치
-      });
+      
       var y11 = new kakao.maps.CustomOverlay({
         map: map,
         content: '<div class="customOveray">Y11_학군단</div>', 
@@ -304,6 +298,14 @@ const map = new kakao.maps.Map(container, mapOptions);
         xAnchor: 0.5, // 컨텐츠의 x 위치
         yAnchor: 0.5 // 컨텐츠의 y 위치
       });
+      if(dormitory){
+      var y10 = new kakao.maps.CustomOverlay({
+        map: map,
+        content: '<div class="customOveray Dormitory">Y10_선수숙소</div>', 
+        position: new kakao.maps.LatLng(37.221533, 127.19169), // 커스텀 오버레이를 표시할 좌표
+        xAnchor: 0.5, // 컨텐츠의 x 위치
+        yAnchor: 0.5 // 컨텐츠의 y 위치
+      });
       var y30 = new kakao.maps.CustomOverlay({
         map: map,
         content: '<div class="customOveray Dormitory">Y30_명현관</div>', 
@@ -346,20 +348,13 @@ const map = new kakao.maps.Map(container, mapOptions);
         xAnchor: 0.5, // 컨텐츠의 x 위치
         yAnchor: 0.5 // 컨텐츠의 y 위치
       });
+    }
     //console.log("build",buildNum)
    console.log("build",eval(buildNum).getPosition())
     map.setCenter(eval(buildNum).getPosition())
 
 
     
-
-    if(dormitory){
-    var dormitoryElements = document.querySelectorAll(".Dormitory");
-    for (var i = 0; i < dormitoryElements.length; i++) {
-      var element = dormitoryElements[i];
-      element.classList.toggle("Dormitory"); // "hidden" 클래스를 토글하여 숨기기/보이기 상태 전환
-    }}
-
   }
  
   var marker = new kakao.maps.Marker({
