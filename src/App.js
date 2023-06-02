@@ -20,6 +20,7 @@ function App() {
   const [buildPosition,setBuildPosition] = useState()
   const [floor,setFloor] = useState()
   const [dormitory,setDormitory] = useState(true)
+  const [amenity, setAmenity] = useState(false)
 
 
   const test=()=>
