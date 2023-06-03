@@ -125,3 +125,7 @@
 .hidden{
   display:none;
 }
+
+.convenience{
+  background-color: bisque;
+}

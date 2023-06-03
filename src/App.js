@@ -21,7 +21,13 @@ function App() {
   const [floor,setFloor] = useState()
   const [dormitory,setDormitory] = useState(true)
   const [amenity, setAmenity] = useState(false)
+  const [convenience,setConvenience] = useState(false)
 
+
+
+  const displayconvenience = () =>{
+    setConvenience(!convenience);
+  }
 
   const test=()=>
   {
@@ -350,6 +356,16 @@ const map = new kakao.maps.Map(container, mapOptions);
         yAnchor: 0.5 // 컨텐츠의 y 위치
       });
     }
+
+    if(convenience){
+    var con1 = new kakao.maps.CustomOverlay({
+      map: map,
+      content: '<div class="customOveray convenience">gs편의점</div>', 
+      position: new kakao.maps.LatLng(37.222136, 127.188501), // 커스텀 오버레이를 표시할 좌표
+      xAnchor: 0.5, // 컨텐츠의 x 위치
+      yAnchor: 0.5 // 컨텐츠의 y 위치
+    });
+  }
     //console.log("build",buildNum)
    console.log("build",eval(buildNum).getPosition())
     map.setCenter(eval(buildNum).getPosition())
@@ -367,7 +383,7 @@ const map = new kakao.maps.Map(container, mapOptions);
 
 }catch(e){
 console.log(e)}
-},[customOveray,buildNum,dormitory])
+},[customOveray,buildNum,dormitory,convenience])
 
 
 
@@ -402,7 +418,7 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
       <button onClick={test}>test</button>
       {floor?<text>{floor}층</text>:null}
       </div>
-      <div className='title2'><button>편의점</button><button>식당</button><button>카페</button></div>
+      <div className='title2'><button onClick={displayconvenience}>편의점</button><button>식당</button><button>카페</button></div>
       <div id="map"></div>
       {loading? <h1 className='loading'>Loading...</h1>:null}
        
