@@ -365,6 +365,13 @@ const map = new kakao.maps.Map(container, mapOptions);
       xAnchor: 0.5, // 컨텐츠의 x 위치
       yAnchor: 0.5 // 컨텐츠의 y 위치
     });
+    var con2 = new kakao.maps.CustomOverlay({
+      map: map,
+      content: '<div class="customOveray convenience">편의점2</div>', 
+      position: new kakao.maps.LatLng(37.223388, 127.187222), // 커스텀 오버레이를 표시할 좌표
+      xAnchor: 0.5, // 컨텐츠의 x 위치
+      yAnchor: 0.5 // 컨텐츠의 y 위치
+    });
   }
     //console.log("build",buildNum)
    console.log("build",eval(buildNum).getPosition())
