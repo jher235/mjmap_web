@@ -425,7 +425,7 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
       <button onClick={test}>test</button>
       {floor?<text>{floor}층</text>:null}
       </div>
-      <div className='title2'><button onClick={displayconvenience}>편의점</button><button>식당</button><button>카페</button></div>
+      <div className='title2'><button onMouseUp={seeconv}>편의시설</button><button onClick={displayconvenience}>편의점</button><button>식당</button><button>카페</button></div>
       <div id="map"></div>
       {loading? <h1 className='loading'>Loading...</h1>:null}
        
