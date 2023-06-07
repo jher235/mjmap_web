@@ -34,6 +34,11 @@ function App() {
     setDormitory(!dormitory);
   }
 
+  const veiwDomitory=()=>
+  {
+    setDormitory(!dormitory);
+  }
+
   const onsubmit=(event)=>{
     event.preventDefault();
     if(inputText!==""){
@@ -423,6 +428,7 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
       <button onClick={onsubmit}>검색</button>
       </form>
       <button onClick={test}>test</button>
+      <button onClick={veiwDomitory}>기숙사</button>
       {floor?<text>{floor}층</text>:null}
       </div>
       <div className='title2'><button onMouseUp={seeconv}>편의시설</button><button onClick={displayconvenience}>편의점</button><button>식당</button><button>카페</button></div>
