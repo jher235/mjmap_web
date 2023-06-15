@@ -1,21 +1,27 @@
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {useEffect,useState,} from 'react';
+
+import './App.css';
+import {Button,Navbar} from 'react-bootstrap'
+
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 
 const {kakao} = window;
 
-
+const firstLat = 37.222000
+const firstLong = 127.186729
 
 function App() {
   const [loading,setLoading] = useState(true)
   const [customOveray,setCustomOveray] = useState(true)
   const [mylat,setMylat] = useState('')
   const [mylong,setMylong] = useState('')
-  const [maplat,setMaplat] = useState(37.22100)
-  const [maplong,setMaplong] = useState(127.18803)
+  const [maplat,setMaplat] = useState(firstLat)
+  const [maplong,setMaplong] = useState(firstLong)
   const [map,setMap] = useState()
   const [maplevel,setMaplevel] = useState(4)
-  const [inputText,setInputText] = useState()
+  const [inputText,setInputText] = useState("")
   const [buildNum,setBuildNum] = useState('')
   const [buildPosition,setBuildPosition] = useState()
   const [floor,setFloor] = useState()
@@ -24,6 +30,14 @@ function App() {
   const [convenience,setConvenience] = useState(false)
 
 
+  const findCampus = ()=>{
+    if(map){
+    
+     var move = new kakao.maps.LatLng(firstLat,firstLong)
+       map.setCenter(move)
+      
+    }
+  }
 
   const displayconvenience = () =>{
     setConvenience(!convenience);
@@ -41,10 +55,11 @@ function App() {
 
   const onsubmit=(event)=>{
     event.preventDefault();
-    if(inputText!==""){
+ 
+    if(inputText!==0){
      console.log("submit",inputText);
      if(inputText.length<3 || inputText.length>6){
-      alert("강의실 번호를 제대로 입력해주세요!")
+      alert("강의실 번호를 제대로 입력해주세요! :(")
      }
     else if(inputText.length===3){
      setBuildNum('y');
@@ -64,9 +79,11 @@ function App() {
      
     setInputText("");
     }
-    
+    else{
+     alert("빈칸은 입력할 수 없습니다 :(")
+    }
+  };
 
-  }
   const customOverayonoff=()=>{
     console.log("level=",maplevel, "mapposition=",maplat,maplong)
     //   setMaplat(map.getCenter().La)
@@ -416,28 +433,84 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
 }
 
   return (
+
+    <div   className='app-container'>
+
+
+   
     
-    <div className='app-container'>
-      <div className='title'>
-       <h1>명지도</h1>
-       <button onClick={customOverayonoff}>표시</button>
-       <button onClick={find_my_position}>내 위치</button>
-       <text>Y_</text>
-       <form onSubmit={onsubmit}>
-       <input type='number' value={inputText} onChange={(event)=>setInputText(event.target.value)} placeholder="강의실 번호 검색" />
-      <button onClick={onsubmit}>검색</button>
+{/*       
+    <div  className='title'>
+
+
+<h1>명지도</h1>
+<button onClick={customOverayonoff}>표시</button>
+<button onClick={find_my_position}>내 위치</button>
+<text>Y_</text>
+<form onSubmit={onsubmit}>
+<input type='number' value={inputText} onChange={(event)=>setInputText(event.target.value)} placeholder="강의실 번호 검색" />
+<button onClick={onsubmit}>검색</button>
+</form>
+<button onClick={test}>test</button>
+<button onClick={veiwDomitory}>기숙사</button>
+{floor?<text>{floor}층</text>:null}
+</div> */}
+
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand titlePlus" href="#" ><h1>명지도</h1></a>
+
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        {/* <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li> */}
+        <li class="nav-item">
+          <a class="nav-link" onClick={findCampus} href="#">자연캠</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onClick={find_my_position} href="#">내 위치</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" onClick={customOverayonoff} href="#">건물번호</a>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            편의시설
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">식당</a></li>
+            <li><a class="dropdown-item" href="#">편의점</a></li>
+            <li><a class="dropdown-item" href="#">도서관&서점</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="search" >
+      <text >Y_</text>
+      <form onSubmit={onsubmit}>
+      <input class='search1'type='number' value={inputText} onChange={(event)=>setInputText(event.target.value)} placeholder="강의실 번호 검색" />
+      <button class='search1' onClick={onsubmit} >검색</button>
       </form>
-      <button onClick={test}>test</button>
-      <button onClick={veiwDomitory}>기숙사</button>
-      {floor?<text>{floor}층</text>:null}
       </div>
-      <div className='title2'><button onMouseUp={seeconv}>편의시설</button><button onClick={displayconvenience}>편의점</button><button>식당</button><button>카페</button></div>
+
+    </div>
+  </div>
+</nav>
+      
+      {/* <div className='title2'><button>편의시설</button><button onClick={displayconvenience}>편의점</button><button>식당</button><button>카페</button></div> */}
       <div id="map"></div>
       {loading? <h1 className='loading'>Loading...</h1>:null}
        
      
     </div>
-    
+ 
   );
 }
 

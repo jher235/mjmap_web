@@ -1,6 +1,6 @@
 import './App.css';
 import {useEffect,useState,} from 'react';
-
+import 'bootstrap/dist/css/bootstrap/css'
 
 const {kakao} = window;
 
@@ -188,6 +188,9 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
     
     <div className='app-container'>
       <div className='title'>
+
+      
+
        <h1>명지도</h1>
        <button onClick={customOverayonoff}>표시</button>
        <button onClick={find_my_position}>내 위치</button>
