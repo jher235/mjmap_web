@@ -145,9 +145,27 @@ font-size: 30px;
   border-radius: 12%;
   border-color: darkgray;
   border-style:solid;
+  
 }
 
 .titlePlus{
 
   font-family: 'East Sea Dokdo', cursive;
+}
+
+
+.floor{
+  font-family: 'East Sea Dokdo', cursive;
+  margin-left: 10px;
+  font-size: xx-large;
+}
+
+.loginWord{
+  
+  display: block;
+}
+
+.loginInput{
+  display: block;
+  
 }

@@ -1,11 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useEffect,useState,} from 'react';
-
 import './App.css';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowRightToBracket} from "@fortawesome/free-solid-svg-icons";
 import {Button,Navbar} from 'react-bootstrap'
 
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
+<script src="https://kit.fontawesome.com/51ed27ab31"></script>
 
 const {kakao} = window;
 
@@ -89,7 +91,7 @@ function App() {
     //   setMaplat(map.getCenter().La)
     //   setMaplong(map.getCenter().Ma)
      setCustomOveray(!customOveray)
- 
+     var move = new kakao.maps.LatLng(mylat,mylong)
   }
   const find_my_position=()=>{
     if(map){
@@ -458,7 +460,7 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
 
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand titlePlus" href="#" ><h1>명지도</h1></a>
+    <a class="navbar-brand titlePlus ms-4" href="#" ><h1>명지도</h1></a>
 
 
     
@@ -488,21 +490,59 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
             <li><a class="dropdown-item" href="#">식당</a></li>
             <li><a class="dropdown-item" href="#">편의점</a></li>
             <li><a class="dropdown-item" href="#">도서관&서점</a></li>
+            <li><a class="dropdown-item" onClick={veiwDomitory}>기숙사</a></li>
           </ul>
         </li>
       </ul>
 
-      <div class="search" >
-      <text >Y_</text>
+        
+
+      <div class="search floor" >
+      <text class="floor">Y_</text>
       <form onSubmit={onsubmit}>
       <input class='search1'type='number' value={inputText} onChange={(event)=>setInputText(event.target.value)} placeholder="강의실 번호 검색" />
-      <button class='search1' onClick={onsubmit} >검색</button>
+      <button class='search1 btn-sm btn-block' onClick={onsubmit} >검색</button>
+      {floor?<text class="floor">{floor}층</text>:null}
       </form>
+      
       </div>
-
+      
+      <ul class="navbar-nav ms-auto me-5 ">
+        <li class="nav-item">
+          <a class="nav-link btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal" href="#">Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></a>
+          
+        </li>
+      </ul>
+      
+     
     </div>
   </div>
 </nav>
+
+
+
+
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="loginModalLabel"><FontAwesomeIcon icon={faArrowRightToBracket}/>   Log In</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <text class="loginWord">Id</text>
+       <input class="loginInput"></input>
+
+       <text class="loginWord">Password</text>
+       <input class="loginInput"></input>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary me-auto" href="#">Sign Up</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
       
       {/* <div className='title2'><button>편의시설</button><button onClick={displayconvenience}>편의점</button><button>식당</button><button>카페</button></div> */}
       <div id="map"></div>
