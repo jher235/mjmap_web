@@ -27,7 +27,7 @@ function App() {
   const [buildNum,setBuildNum] = useState('')
   const [buildPosition,setBuildPosition] = useState()
   const [floor,setFloor] = useState()
-  const [dormitory,setDormitory] = useState(true)
+  const [dormitory,setDormitory] = useState(false)
   const [amenity, setAmenity] = useState(false)
   const [convenience,setConvenience] = useState(false)
 
@@ -473,13 +473,13 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li> */}
         <li class="nav-item">
-          <a class="nav-link" onClick={findCampus} href="#">자연캠</a>
+          <a role="button" class="nav-link" onClick={findCampus} href="#">자연캠</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" onClick={find_my_position} href="#">내 위치</a>
+          <a role="button" class="nav-link" onClick={find_my_position} href="#">내 위치</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" onClick={customOverayonoff} href="#">건물번호</a>
+          <a role="button" class="nav-link" onClick={customOverayonoff} href="#">건물번호</a>
         </li>
         
         <li class="nav-item dropdown">
