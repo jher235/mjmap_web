@@ -1,0 +1,100 @@
+import React, { useState } from "react";
+import axios from "axios";
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faFacebook, faGithub } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {useNavigate} from "react-router-dom"
+import "../css/login.css";
+
+
+function Login(props){
+    
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
+
+    
+  const handleChange = (event) => {
+    const target = event.target;
+    if (target.name === "username") {
+      setUsername(target.value);
+    } else if (target.name === "password") {
+      setPassword(target.value);
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("[Login.js] handleSubmit");
+    axios
+      .post("http://localhost:8000/users/login/", {
+        username: username,
+        password: password,
+      })
+      .then((response) => {
+        if (response.status < 300) {
+          console.log("[Login.js] Call props.doLogin");
+          if (props.doLogin) {
+            props.doLogin();
+          }
+          localStorage.setItem("token", response.data["token"]);
+          localStorage.setItem("userId", response.data["UserID"]);
+          localStorage.setItem("username", username);
+          console.log(response.data);
+          navigate("/");
+        }
+      });
+  };
+
+
+
+
+
+
+
+
+  return (
+    <body>
+    <main className="form-signin ">
+    <form onSubmit={handleSubmit}>
+      
+      <h1 className=" mb-3 fw-normal logintext">Log In</h1>
+      <div className="form-floating">
+        <input
+          type="text"
+          className="form-control"
+          name="username"
+          id="floatingInput"
+          placeholder="Id"
+          onChange={handleChange}
+          required
+        />
+        <label htmlFor="floatingInput">Id</label>
+      </div>
+      <div className="form-floating">
+        <input
+          type="password"
+          className="form-control"
+          name="password"
+          id="floatingPassword"
+          placeholder="Password"
+          onChange={handleChange}
+          required
+        />
+        <label htmlFor="floatingPassword">Password</label>
+      </div>
+      <div className="checkbox mb-3">
+      </div>
+      <button className="w-100 btn btn-lg btn-light" type="submit">
+        Sign in
+      </button>
+      
+    </form>
+  </main>
+  </body>
+  );
+}
+
+export default Login;
