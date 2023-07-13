@@ -10,7 +10,7 @@ html{
   justify-content: center;
 }
 
-.form-signin {
+.form-signup {
   width: 100%;
   max-width: 330px;
   padding: 15px;
@@ -21,27 +21,48 @@ html{
   font-weight: 400;
 }
 
-.form-signin .form-floating:focus-within {
+.form-signup .form-floating:focus-within {
   z-index: 2;
 }
 
-.form-signin input[type="text"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+.form-signup input[name="username"] {
+    border-radius: 5px;
+  margin-bottom: 50px;
 }
 
-.form-signin input[type="password"] {
+.form-signup input[name="password"]{
+    border-radius: 5px;
+    border-bottom-right-radius: 0;
+     border-bottom-left-radius: 0;
+    margin-bottom: -1px;
+}
+
+.form-signup input[name="password2"]{
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    
+     margin-bottom: 50px;
+  }
+  
+
+.form-signup input[name="email"] {
   margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  
+  border-radius: 5px;
 }
 
+.form-signup input[name="nickname"] {
+  margin-bottom: 30px;
+  
+  border-radius: 5px;
+}
 
 .logintext {
     color:aliceblue;
     border-radius: 20;
 }
+
+
 
 
 .pluslink{

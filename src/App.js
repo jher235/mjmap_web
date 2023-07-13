@@ -562,6 +562,9 @@
 
 import {useState, useEffect } from "react";
 import Login from "./routes/Login";
+import Home from "./routes/Home";
+import Register from "./routes/Register";
+
 import{
   BrowserRouter as Router,
   Routes,
@@ -570,7 +573,7 @@ import{
 } from "react-router-dom";
 
 
-import Home from "./routes/Home"
+
 //basename={process.env.PUBLIC_URL}
 function App() {
   return(<Router basename={process.env.PUBLIC_URL} >
@@ -578,6 +581,7 @@ function App() {
       <Route path={"/"} element={<Home />}/>
       <Route path={"/login"} element={<Login />} />
       <Route path={"/hi"} element ={<h1>hi</h1>} />
+      <Route path={"/register"} element ={<Register/>} />
     </Routes>
   </Router>);
 }

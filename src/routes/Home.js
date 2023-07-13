@@ -4,7 +4,7 @@ import '../css/home.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRightToBracket} from "@fortawesome/free-solid-svg-icons";
 import {Button,Navbar} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
@@ -31,7 +31,7 @@ function Home() {
   const [dormitory,setDormitory] = useState(false)
   const [amenity, setAmenity] = useState(false)
   const [convenience,setConvenience] = useState(false)
-
+  const navigate = useNavigate()
 
   const findCampus = ()=>{
     if(map){
@@ -51,6 +51,11 @@ function Home() {
     setDormitory(!dormitory);
   }
 
+  const handleLogout=()=>{
+    localStorage.removeItem("username");
+    localStorage.removeItem("token");
+    navigate('/');
+  }
   const veiwDomitory=()=>
   {
     setDormitory(!dormitory);
@@ -508,13 +513,25 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
       
       </div>
       
-      <ul class="navbar-nav ms-auto me-5 ">
-        <li class="nav-item">
+      <ul class="navbar-nav ms-auto login-margin ">
+        
           {/* <a class="nav-link btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal" href="#">Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></a>
            */}
-           <Link to="/login" class="nav-link btn btn-primary" >Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></Link>
+           {localStorage.getItem("token") ? 
+             <li class="nav-item dropdown ">
+                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  {localStorage.getItem("username")}
+                </a>
+              <ul class="dropdown-menu ">
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><a class="dropdown-item" onClick={handleLogout}>Log Out</a></li>
+              </ul>
+            </li>  : 
+             <li class="nav-item"> <Link to="/login" class="nav-link btn btn-primary" >Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></Link></li>
+           }
           
-        </li>
+          
+        
       </ul>
       
      

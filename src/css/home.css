@@ -169,3 +169,14 @@
     display: block;
     
   }
+
+  /* .dropdown-menu {
+    
+  } */
+
+
+
+  .login-margin {
+    margin-right: 6rem;  /* 원하는 거리만큼 설정하세요 */
+  }
+

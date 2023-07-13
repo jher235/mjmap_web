@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
-import { faFacebook, faGithub } from "@fortawesome/free-brands-svg-icons";
+import {faArrowRightToBracket} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {useNavigate} from "react-router-dom"
+import {useNavigate, Link} from "react-router-dom"
 import "../css/login.css";
 
 
@@ -45,7 +43,12 @@ function Login(props){
           console.log(response.data);
           navigate("/");
         }
-      });
+      })
+      .catch((error)=>{
+        console.error("Error:",error);
+        alert("사용자 정보가 존재하지 않습니다!")
+
+      })
   };
 
 
@@ -56,7 +59,7 @@ function Login(props){
 
 
   return (
-    <body>
+    <div className="body">
     <main className="form-signin ">
     <form onSubmit={handleSubmit}>
       
@@ -90,10 +93,13 @@ function Login(props){
       <button className="w-100 btn btn-lg btn-light" type="submit">
         Sign in
       </button>
-      
+      <div className="pluslink ">
+        <Link to="/" className="homelink">Home</Link>
+        <Link to="/register" className="calink" >Create<br/>account</Link>
+      </div>
     </form>
   </main>
-  </body>
+  </div>
   );
 }
 
