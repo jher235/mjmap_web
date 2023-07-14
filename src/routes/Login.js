@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect, useReducer } from "react";
 import axios from "axios";
 import {faArrowRightToBracket} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,6 +13,11 @@ function Login(props){
     const navigate = useNavigate();
 
 
+  useEffect(()=>{
+      if(localStorage.getItem("token") != null){
+          localStorage.clear();
+      }
+  },[])
     
   const handleChange = (event) => {
     const target = event.target;

@@ -53,8 +53,7 @@ function Home() {
   }
 
   const handleLogout=()=>{
-    localStorage.removeItem("username");
-    localStorage.removeItem("token");
+    localStorage.clear();
     navigate('/');
   }
   const veiwDomitory=()=>
