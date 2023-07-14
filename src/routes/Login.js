@@ -40,6 +40,7 @@ function Login(props){
           localStorage.setItem("token", response.data["token"]);
           localStorage.setItem("userId", response.data["UserID"]);
           localStorage.setItem("username", username);
+          localStorage.setItem("usernum", response.data["usernum"])
           console.log(response.data);
           navigate("/");
         }

@@ -31,6 +31,7 @@ function Home() {
   const [dormitory,setDormitory] = useState(false)
   const [amenity, setAmenity] = useState(false)
   const [convenience,setConvenience] = useState(false)
+  const [myOverlay,setMyOverlay] = useState("")
   const navigate = useNavigate()
 
   const findCampus = ()=>{
@@ -61,10 +62,10 @@ function Home() {
     setDormitory(!dormitory);
   }
 
-  const onsubmit=(event)=>{
+  const onsubmit=(event)=>{         //강의실 검색
     event.preventDefault();
  
-    if(inputText!==0){
+    if(inputText!==0){                  
      console.log("submit",inputText);
      if(inputText.length<3 || inputText.length>6){
       alert("강의실 번호를 제대로 입력해주세요! :(")
@@ -99,6 +100,7 @@ function Home() {
      setCustomOveray(!customOveray)
      var move = new kakao.maps.LatLng(mylat,mylong)
   }
+
   const find_my_position=()=>{
     if(map){
     if(mylong && mylat){
@@ -121,18 +123,27 @@ function Home() {
     console.log("위치를 알 수 없습니다")
   }
   useEffect(()=>{
-  navigator.geolocation.getCurrentPosition(geoOk,geoError);
+  const watchId = navigator.geolocation.watchPosition(geoOk,geoError);
   console.log(mylat,mylong);
 
- if (mylat && mylong && map){
-  var my = new kakao.maps.CustomOverlay({
-    map: map,
-    content: '<div id="user">MY</div>', 
-    position: new kakao.maps.LatLng(mylat,mylong), // 커스텀 오버레이를 표시할 좌표
-    xAnchor: 0.5, // 컨텐츠의 x 위치
-    yAnchor: 0.5 // 컨텐츠의  = new kakao.maps.CustomOverlay({
-  })}}
-  ,[mylat, mylong, map]);
+    if (mylat && mylong && map){
+      if (myOverlay){
+        myOverlay.setMap(null);
+      }
+      var me = new kakao.maps.CustomOverlay({
+        map: map,
+        content: '<div id="user">Me</div>', 
+        position: new kakao.maps.LatLng(mylat,mylong), // 커스텀 오버레이를 표시할 좌표
+        xAnchor: 0.5, // 컨텐츠의 x 위치
+        yAnchor: 0.5 // 컨텐츠의  = new kakao.maps.CustomOverlay({
+      })
+      setMyOverlay(me)
+    }
+
+    return()=>{
+      navigator.geolocation.clearWatch(watchId)
+    }
+  },[mylat, mylong, map]);
 
   if(map){
     console.log("lat",map.getCenter().La)

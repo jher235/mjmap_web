@@ -14,7 +14,9 @@ function Register(props){
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
     const [email, setEmail] = useState("");
+    const [nickname, setNickname] = useState("");
     const navigate = useNavigate();
+
 
 
     
@@ -28,7 +30,9 @@ function Register(props){
         setPassword2(target.value);
     }   else if (target.name === "email"){
         setEmail(target.value);
-    } 
+    } else if (target.name === "nickname"){
+        setNickname(target.value);
+    }
         
   };
 
@@ -48,20 +52,21 @@ function Register(props){
           if (props.doLogin) {
             props.doLogin();
           }
-          navigate("/login");
+          navigate("/login")
         }
       })
       .catch((error)=>{
         console.error("Error:",error);
         
         console.log(error.response);
+        if(error.response.data){
         const errorData = error.response.data
         for(const field in errorData){
             const errorMessage = errorData[field]
             alert(`${field}:${errorMessage[0]}`)
-        }        
-
+        }}
       })
+    
   };
 
 
@@ -126,18 +131,7 @@ function Register(props){
         />
         <label htmlFor="floatingEmail">Email</label>
       </div>
-      <div className="form-floating">
-        <input
-          type="text"
-          className="form-control"
-          name="nickname"
-          id="floatingNickname"
-          placeholder="Nickname"
-          onChange={handleChange}
-          required
-        />
-        <label htmlFor="floatingNickname">Nickname</label>
-      </div>
+      
       <div className="checkbox mb-3">
       </div>
       <button className="w-100 btn btn-lg btn-light" type="submit">
