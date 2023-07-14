@@ -18,6 +18,12 @@ function Register(props){
     const navigate = useNavigate();
 
 
+  
+    useEffect(()=>{
+      if(localStorage.getItem("token") != null){
+          localStorage.clear();
+      }
+  },[])
 
     
   const handleChange = (event) => {
