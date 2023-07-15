@@ -476,7 +476,7 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
 
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand titlePlus ms-4" href="#" ><h1>명지도</h1></a>
+    <Link to="/" class="nav-link ms-4 me-3"><a class="nav-link titlePlus " ><h1>명지도</h1></a></Link>
 
 
     
@@ -509,6 +509,9 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
             <li><a class="dropdown-item" onClick={veiwDomitory}>기숙사</a></li>
           </ul>
         </li>
+        <li>
+          <Link to="post_list" class="nav-link">게시판</Link>
+        </li>
       </ul>
 
         
@@ -537,7 +540,7 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
                   <li><a class="dropdown-item" onClick={handleLogout}>Log Out</a></li>
               </ul>
             </li>  : 
-             <li class="nav-item"> <Link to="/login" class="nav-link btn btn-primary" >Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></Link></li>
+             <li class="nav-item"> <Link to="/login" class="nav-link btn btn-light" >Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></Link></li>
            }
           
           

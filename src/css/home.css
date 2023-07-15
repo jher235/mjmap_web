@@ -149,8 +149,8 @@
   }
   
   .titlePlus{
-  
     font-family: 'East Sea Dokdo', cursive;
+    
   }
   
   
@@ -177,6 +177,6 @@
 
 
   .login-margin {
-    margin-right: 6rem;  /* 원하는 거리만큼 설정하세요 */
+    margin-right: 6.5rem;  /* 원하는 거리만큼 설정하세요 */
   }
 
