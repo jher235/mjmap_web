@@ -98,7 +98,7 @@ return(
         <svg className="profile-image  img-fluid ms-3" width="40" height="40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: no-image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/>{value.profile.image? <image>{value.profile.image}</image>:<text font-size="50%" x="50%" y="50%" fill="#aaa" dy=".3em">No-Image</text>}</svg>
           {value.profile.nickname}
           </a><br/>
-        <a className="post-date">{value.published_date}</a>
+        <a className="post-date">{new Date(value.published_date).toLocaleString()}</a>
       </div>
     </div>
     </Fragment>

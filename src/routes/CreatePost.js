@@ -5,7 +5,7 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link, useNavigate} from "react-router-dom"
-import "../css/register.css";
+import "../css/createpost.css";
 
 
 function CreatePost(props){
@@ -15,20 +15,23 @@ function CreatePost(props){
     const [password2, setPassword2] = useState("");
     const [email, setEmail] = useState("");
     const [nickname, setNickname] = useState("");
+    const [file, setFile] = useState(null);
+    const [image, setImage] = useState(null);
     const navigate = useNavigate();
 
 
   
     useEffect(()=>{
-      if(localStorage.getItem("token") != null){
-          localStorage.clear();
+      if(localStorage.getItem("token") === null){
+          alert("권한이 없습니다");
+        navigate("/");
       }
   },[])
 
     
   const handleChange = (event) => {
     const target = event.target;
-    if (target.name === "username") {
+    if (target.name === "title") {
       setUsername(target.value);
     } else if (target.name === "password") {
       setPassword(target.value);
@@ -38,6 +41,10 @@ function CreatePost(props){
         setEmail(target.value);
     } else if (target.name === "nickname"){
         setNickname(target.value);
+    } else if (target.name === "file"){
+      setFile(target.files)
+    } else if(target.name === "image"){
+      setImage(target.files)
     }
         
   };
@@ -87,18 +94,18 @@ function CreatePost(props){
     <main className="form-signup ">
     <form onSubmit={handleSubmit}>
       
-      <h1 className=" mb-3 fw-normal logintext">Create<br/>account</h1>
+      <h1 className=" mb-3 fw-normal logintext">Create Post</h1>
       <div className="form-floating">
         <input
           type="text"
           className="form-control"
-          name="username"
-          id="floatingInput"
+          name="title"
+          id="floatingTitle"
           placeholder="Id"
           onChange={handleChange}
           required
         />
-        <label htmlFor="floatingInput">Id</label>
+        <label htmlFor="floatingTitle">Title</label>
       </div>
       <div className="form-floating">
         <input
@@ -137,7 +144,34 @@ function CreatePost(props){
         />
         <label htmlFor="floatingEmail">Email</label>
       </div>
-      
+
+      <div className="form-floating">
+        <input
+          type="file"
+          className="form-control"
+          name="file"
+          id="floatingFile"
+          placeholder="file"
+          onChange={handleChange}
+          multiple
+        />
+        <label htmlFor="floatingFile">File</label>
+      </div>
+
+      <div className="form-floating">
+        <input
+          type="file"
+          className="form-control"
+          name="email"
+          id="floatingImage"
+          placeholder="Image"
+          onChange={handleChange}
+         multiple 
+         accept="image/*"
+        />
+        <label htmlFor="floatingImage">Image</label>
+      </div>
+
       <div className="checkbox mb-3">
       </div>
       <button className="w-100 btn btn-lg btn-light" type="submit">
