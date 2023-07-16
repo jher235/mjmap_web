@@ -13,9 +13,9 @@ user-select: none;
 }
 }
 
-.body{
+.bgb{
     height: 100vh;
-    display: flex;
+    display: block;
     align-items: center;
     background-color: black;
     justify-content: center;
@@ -66,8 +66,12 @@ user-select: none;
     margin-bottom: 1rem 0; /* Space out the Bootstrap <hr> more */
     width: 80%;
     margin-left: 10%;
-    border-style: solid;
+    border: none;
     margin-top: 3rem;
+    color: aliceblue;
+    height: 4px;
+    background-color: aliceblue;
+    border-radius: 20px;
   }
   
   /* Thin out the marketing headings */
@@ -130,15 +134,29 @@ user-select: none;
     /* rtl:remove */
     letter-spacing: -.05rem;
     font-size: 30px;
+    color: aliceblue;
   }
 
   .post-author{
     text-decoration: none;
-    color: black;
+    color: aliceblue;
     font-weight:1000;
   }
   .post-date{
     text-decoration: none;
     color: gray;
     font-weight:1000;
+  }
+
+  .profile-image{
+    font-size: 1rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    border-radius: 100%;
+  }
+
+  .post-body{
+    color: aliceblue;
   }
