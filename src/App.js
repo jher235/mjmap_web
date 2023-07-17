@@ -585,7 +585,7 @@ function App() {
       <Route path={"/hi"} element ={<h1>hi</h1>} />
       <Route path={"/register"} element ={<Register/>} />
       <Route path={"/post_list"} element ={<Posts/>} />
-      <Route path={"/create_post"} element ={<CreatePost/>}/> 
+      <Route path={"/post_create"} element ={<CreatePost/>}/> 
     </Routes>
   </Router>);
 }

@@ -3,7 +3,7 @@ import "../css/posts.css"
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { useNavigate,Link } from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRightToBracket} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRightToBracket, faPen} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 
@@ -78,7 +78,7 @@ return(
     </div>
 </nav>
 
-  
+  <Link to="/post_create" className="btn btn-light createbt"><FontAwesomeIcon icon={faPen}/> 글쓰기</Link>
  { post.results.map((value)=>(
 
     <Fragment key={value.pk}>
@@ -95,18 +95,22 @@ return(
       </div>
       <div className="col-md-4 order-md-2 post-sub">
         <a className="post-author">by 
-        <svg className="profile-image  img-fluid ms-3" width="40" height="40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: no-image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/>{value.profile.image? <image>{value.profile.image}</image>:<text font-size="50%" x="50%" y="50%" fill="#aaa" dy=".3em">No-Image</text>}</svg>
-          {value.profile.nickname}
-          </a><br/>
-        <a className="post-date">{new Date(value.published_date).toLocaleString()}</a>
+        <svg className="profile-image  img-fluid ms-3 me-3" width="40" height="40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: no-image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/>{value.profile.image? <image>{value.profile.image}</image>:<text font-size="50%" x="50%" y="50%" fill="#aaa" dy=".3em">No-Image</text>}</svg>
+            {value.profile.nickname}
+          </a>
+          <br/>
+          <br/>
+        <a className="post-date"> {new Date(value.published_date).toLocaleString()}</a>
       </div>
     </div>
     </Fragment>
    
 ))}
-  
-
- 
+        <div className="pagebt">
+        <button className="btn btn-light ms-auto">l</button>
+        <block>num</block>
+         <button className="btn btn-light ms-auto">r</button>
+      </div>
   </div>
   </div>
       

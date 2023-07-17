@@ -10,10 +10,9 @@ import "../css/createpost.css";
 
 function CreatePost(props){
     
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [password2, setPassword2] = useState("");
-    const [email, setEmail] = useState("");
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
+    const [category, setCategory] = useState("");
     const [nickname, setNickname] = useState("");
     const [file, setFile] = useState(null);
     const [image, setImage] = useState(null);
@@ -32,32 +31,39 @@ function CreatePost(props){
   const handleChange = (event) => {
     const target = event.target;
     if (target.name === "title") {
-      setUsername(target.value);
-    } else if (target.name === "password") {
-      setPassword(target.value);
-    }  else if (target.name === "password2"){
-        setPassword2(target.value);
-    }   else if (target.name === "email"){
-        setEmail(target.value);
-    } else if (target.name === "nickname"){
-        setNickname(target.value);
+      setTitle(target.value);
+    } else if (target.name === "content") {
+      setContent(target.value);
+    }  else if (target.name === "image"){
+        setImage(target.files);
+    }   else if (target.name === "category"){
+        setCategory(target.value);
     } else if (target.name === "file"){
       setFile(target.files)
-    } else if(target.name === "image"){
-      setImage(target.files)
-    }
+    } 
         
   };
+  
+  const requestdata = {
+        title: title,
+        body: content,
+        category: category,
+  }
+  if (image !==null && image.length!==0 ){
+    requestdata.image = image;
+  }
+  if (file !== null && file.length !==0){
+    requestdata.file = file;
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("[Register.js] handleSubmit");
     axios
-      .post("http://localhost:8000/users/register/", {
-        username: username,
-        password: password,
-        password2: password2,
-        email : email,
+      .post("http://localhost:8000/posts/", requestdata,{
+        headers:{
+          'Authorization': 'Token ' + localStorage.getItem("token")
+        }
       })
       .then((response) => {
         if (response.status < 300) {
@@ -65,7 +71,7 @@ function CreatePost(props){
           if (props.doLogin) {
             props.doLogin();
           }
-          navigate("/login")
+          navigate("/post_list")
         }
       })
       .catch((error)=>{
@@ -74,11 +80,10 @@ function CreatePost(props){
         console.log(error.response);
         if(error.response.data){
         const errorData = error.response.data
-        for(const field in errorData){
-            const errorMessage = errorData[field]
-            alert(`${field}:${errorMessage[0]}`)
-        }}
-      })
+        const errorText = error.response.statusText
+        alert(errorData)
+        
+      }})
     
   };
 
@@ -96,7 +101,7 @@ function CreatePost(props){
       
       <h1 className=" mb-3 fw-normal logintext">Create Post</h1>
       <div className="form-floating">
-        <input
+        <textarea
           type="text"
           className="form-control"
           name="title"
@@ -108,54 +113,16 @@ function CreatePost(props){
         <label htmlFor="floatingTitle">Title</label>
       </div>
       <div className="form-floating">
-        <input
-          type="password"
-          className="form-control"
-          name="password"
-          id="floatingPassword"
-          placeholder="Password"
-          onChange={handleChange}
-          required
-        />
-        <label htmlFor="floatingPassword">Password</label>
-      </div>
-
-      <div className="form-floating">
-        <input
-          type="password"
-          className="form-control"
-          name="password2"
-          id="floatingPassword2"
-          placeholder="Password2"
-          onChange={handleChange}
-          required
-        />
-        <label htmlFor="floatingPassword2">Password2</label>
-      </div>
-      <div className="form-floating">
-        <input
+        <textarea
           type="text"
           className="form-control"
-          name="email"
-          id="floatingEmail"
-          placeholder="Email"
+          name="content"
+          id="floatingContent"
+          placeholder="Content"
           onChange={handleChange}
           required
         />
-        <label htmlFor="floatingEmail">Email</label>
-      </div>
-
-      <div className="form-floating">
-        <input
-          type="file"
-          className="form-control"
-          name="file"
-          id="floatingFile"
-          placeholder="file"
-          onChange={handleChange}
-          multiple
-        />
-        <label htmlFor="floatingFile">File</label>
+        <label htmlFor="floatingContent">Content</label>
       </div>
 
       <div className="form-floating">
@@ -171,14 +138,43 @@ function CreatePost(props){
         />
         <label htmlFor="floatingImage">Image</label>
       </div>
+      
+
+      <div className="form-floating">
+        <input
+          type="file"
+          className="form-control"
+          name="file"
+          id="floatingFile"
+          placeholder="file"
+          onChange={handleChange}
+          multiple
+       />
+        <label htmlFor="floatingFile">File</label>
+      </div>
+
+      <div className="form-floating">
+        <input
+          type="text"
+          className="form-control"
+          name="category"
+          id="floatingCategory"
+          placeholder="Category"
+          onChange={handleChange}
+          
+        />
+        <label htmlFor="floatingCategory">Category</label>
+      </div>
+      
 
       <div className="checkbox mb-3">
       </div>
-      <button className="w-100 btn btn-lg btn-light" type="submit">
-        Sign up
+      <button className="w-50 uploadbt btn btn-lg btn-light" type="submit">
+        Upload Post
       </button>
       <div className="pluslink ">
         <Link to="/" className="homelink">Home</Link>
+        <Link to="/post_list" className="homelink">Back</Link>
       </div>
       
     </form>
