@@ -5,86 +5,77 @@ import { useNavigate,Link } from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRightToBracket, faPen} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import PostNavi from "./PostNavi";
+import PostDetail from "./PostDetail";
 
 
 function Posts(){
   const navigate = useNavigate()
   const [post,setPost] = useState({results:[]})
+  const [page,setPage] = useState(1)
+  const [next, setNext] = useState(null)
+  const [previous,setPrevious] = useState(null)
+  const [reason,setReason] = useState(null)
+  const [postId, setPostId] = useState("")
 
+
+
+ function handlePostDetail(postId){
+    navigate(`/posts/${postId}`);
+
+  }
 
   const handleLogout=()=>{
     localStorage.clear();
-    navigate('/post_list');
+    navigate('/posts');
   }
 
-
+  const older=()=>{
+    if(next !== null)
+    setPage(page+1);
+  }
+  const later=()=>{
+    if(previous !== null){
+    setPage(page-1);
+    }
+  }
 
   useEffect(()=>{
     axios
-    .get("http://127.0.0.1:8000/posts/",{
+    .get(`http://127.0.0.1:8000/posts/?page=${page}`,{
 
     })
     .then(response=>{
       if(response.status<300){
         setPost(response.data);
         console.log(post);
+        setNext(response.data.next);
+        setPrevious(response.data.previous);
+        console.log(next, previous)
+        console.log("page"+page)
       }
     })
-  },[])
+    .catch((error)=>{
+        console.log(error);
+        setReason(error.message);
+        console.log(reason);
+    })
+  },[page])
 
 return(
  <div>
  <div className="bgb">   
- <nav className="content-left navbar navbar-expand-lg bg-body-tertiary ">
-  <div className="container-fluid">
-    <Link to="/" className="nav-link ms-4 me-3"><a className="nav-link titlePlus ms-4" ><h1>명지도</h1></a></Link>
-
-    
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-    <div className="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul className="navbar-nav mx-auto">
-        {/* <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li> */}
-
-        <li className="nav-item">
-          <a className="nav-link title">
-            게시판
-          </a>
-        </li>
-      </ul>
-      <div>
-      <ul className=" navbar-nav ms-auto login-margin ">
-        
-          {/* <a class="nav-link btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal" href="#">Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></a>
-           */}
-           {localStorage.getItem("token") ? 
-             <li className="nav-item dropdown ">
-                <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  {localStorage.getItem("username")}
-                </a>
-              <ul className="dropdown-menu ">
-                  <li><a className="dropdown-item" href="#">Profile</a></li>
-                  <li><a className="dropdown-item" onClick={handleLogout}>Log Out</a></li>
-              </ul>
-            </li>  : 
-             <li className="nav-item"> <Link to="/login" className="nav-link btn btn-light" >Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></Link></li>
-           } 
-        </ul>
-        </div>
-      </div>
-    </div>
-</nav>
+  <PostNavi/>
 
   <Link to="/post_create" className="btn btn-light createbt"><FontAwesomeIcon icon={faPen}/> 글쓰기</Link>
- { post.results.map((value)=>(
+  
+ {post.results.length!=0 ? post.results.map((value)=>(
 
     <Fragment key={value.pk}>
+      
   <hr className="featurette-divider"/>
   
-    <div className="row post">
+    <div className="row post" onClick={()=>handlePostDetail(value.pk)}>
       <div className="col-md-5 order-md-2">
         <h4 className="post-title">{value.title}</h4>
         <p className="lead post-body">{value.body}</p>
@@ -105,15 +96,19 @@ return(
     </div>
     </Fragment>
    
-))}
+)):reason?
+    <div className="loading-container"><h1 className="loading"> {reason}</h1></div>
+    :<div className="loading-container"><h1 className="loading">Loading...</h1></div>
+    }
         <div className="pagebt">
-        <button className="btn btn-light ms-auto">l</button>
-        <block>num</block>
-         <button className="btn btn-light ms-auto">r</button>
+        <button className="btn btn-light" onClick={later}>l</button>
+        <block className="btn btn-secondary pgblock">{page}</block>
+         <button className="btn btn-light" onClick={older}>r</button>
       </div>
   </div>
   </div>
       
+
 )}
 
 

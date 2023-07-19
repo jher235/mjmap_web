@@ -173,6 +173,26 @@ user-select: none;
   }
 
   .pagebt{
+    padding: 10px;
     display: flex;
     justify-content: center;
+  }
+  
+  .loading-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .loading{
+    justify-content: center;
+    align-items: center;
+    padding: 10%;
+    font-size: 150px;
+    color: aliceblue;
+  }
+
+  .pgblock{
+    font-weight: 1000;
+    color: black;
+    /* opacity: 0.5 */
   }

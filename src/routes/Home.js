@@ -510,7 +510,7 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
           </ul>
         </li>
         <li>
-          <Link to="post_list" class="nav-link">게시판</Link>
+          <Link to="posts" class="nav-link">게시판</Link>
         </li>
       </ul>
 

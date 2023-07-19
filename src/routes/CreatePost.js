@@ -71,7 +71,7 @@ function CreatePost(props){
           if (props.doLogin) {
             props.doLogin();
           }
-          navigate("/post_list")
+          navigate("/posts")
         }
       })
       .catch((error)=>{
@@ -174,7 +174,7 @@ function CreatePost(props){
       </button>
       <div className="pluslink ">
         <Link to="/" className="homelink">Home</Link>
-        <Link to="/post_list" className="homelink">Back</Link>
+        <Link to="/posts" className="homelink">Back</Link>
       </div>
       
     </form>
