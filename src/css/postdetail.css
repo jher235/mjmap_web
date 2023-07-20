@@ -70,7 +70,7 @@
         width: 80%;
         margin-left: 10%;
         border: none;
-        margin-top: 3rem;
+        margin: 3%;
         color: aliceblue;
         height: 4px;
         background-color: aliceblue;
@@ -131,24 +131,44 @@
       .post-sub{
         justify-content: end;
       }
+      .post-head{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: end;
+      }
+
       .post-title{
         font-weight: 1000;
         line-height: 1;
         /* rtl:remove */
         letter-spacing: -.05rem;
-        font-size: 30px;
+        font-size: 36px;
         color: aliceblue;
+        flex-grow: 1;
+        align-self: flex-start;
+        margin-bottom: -1%;
       }
-    
+
       .post-author{
+        width: 100%;
         text-decoration: none;
         color: aliceblue;
         font-weight:1000;
+        margin-bottom: -2%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
+    
+      
       .post-date{
         text-decoration: none;
         color: gray;
         font-weight:1000;
+        align-self: center;
+       
+        
       }
     
       .profile-image{
@@ -158,11 +178,14 @@
         -moz-user-select: none;
         user-select: none;
         border-radius: 100%;
+        background-color: aliceblue;
       }
     
       .post-body{
+        padding: 5%;
         color: aliceblue;
       }
+      
     
       .createbt {
         
@@ -190,8 +213,4 @@
         font-size: 150px;
         color: aliceblue;
       }
-      .pgblock{
-        font-weight: 1000;
-        color: black;
-        /* opacity: 0.5 */
-      }
+      
