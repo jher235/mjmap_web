@@ -214,3 +214,56 @@
         color: aliceblue;
       }
       
+
+      .comment-container{
+       padding: 2%;
+       width: 100%;
+      }
+      .comment-title{
+        font-weight: 1000;
+        line-height: 1;
+        /* rtl:remove */
+        font-size: 36px;
+        color: aliceblue;
+       
+        margin-bottom:2% ;
+      }
+      .comment-profile{
+
+      }
+      .comment-text{
+        text-decoration: none;
+        color: aliceblue;
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .comment-date{
+        text-decoration: none;
+        color: gray;
+        font-weight:1000;
+        align-self: center;
+       
+      }
+
+      .comment-form{
+        flex-direction: row;
+        display: flex;
+        justify-content: flex-start;
+        
+        padding: 2%;
+      }
+
+      .comment-input{
+       
+        width: 80%;
+        height: 70px;
+        align-self: center;
+        border-radius: 5px;
+        text-align: left;
+        padding-bottom: 35px;
+        padding-left: 4px;
+        display: flex;
+        resize: vertical;
+        /* overflow: auto; */
+        
+      }

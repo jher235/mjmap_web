@@ -6,6 +6,7 @@ import {faArrowRightToBracket, faPen} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate,Link,useParams } from "react-router-dom";
 import axios from "axios";
 import PostNavi from "./PostNavi";
+import { Fade } from "react-bootstrap";
 
 
 
@@ -58,7 +59,7 @@ function PostDetail(){
   
 
       <div className=" post">
-        <div className="col-md-8 ">
+        <div className="col-md-9 ">
           <div className="post-head ">
             <h4 className="post-title ">{post.title}</h4>
             
@@ -86,17 +87,39 @@ function PostDetail(){
           : <svg className="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid ms-5" width="150" height="150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: no-image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text font-size="50%" x="50%" y="50%" fill="#aaa" dy=".3em">No-Image</text></svg>
           }
           <p className="lead post-body">{post.body}</p>
-        </div>
-        <div className="col-md-3 ">
           
-  
-        </div>
-        <div className="col-md-4 order-md-2 post-sub">
           
-            <br/>
-            <br/>
-          
+        {post.file!==null?
+          <>
+            <hr className="featurette-divider"/>
+            <a href={post.file} target="_blank" rel="noopener noreferrer">{post.file};</a>
+          </>
+          :null
+        }
+                <hr className="featurette-divider"/>
+                  <div className="comment-title">comment</div> 
+                   
+                {post.comments? post.comments.map((value)=>(
+                   <Fragment key={value.pk}>
+                    <div  className="comment-container ms-3">
+                        <div className="comment-profile">
+                          <img src={value.profile.image} className="profile-image  img-fluid ms-3 me-3" width="40" height="40"/>
+                          {value.profile.nickname}
+                          <div className="comment-date ms-4">{new Date(value.date).toLocaleString()}</div>
+                      
+                        </div>
+                        <a className="comment-text ms-3">{value.text}</a>
+                    </div>
+                    </Fragment>
+                )):
+                    <h2>No comment</h2>
+                }
+                <form className="comment-form">
+                  <textarea className="comment-input" placeholder="매너 채팅 부탁드립니다 ㅎㅎ"></textarea>
+                  <button className="btn btn-secondary ">제출</button>
+                </form>  
         </div>
+       
       </div>
       
      
