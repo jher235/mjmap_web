@@ -44,20 +44,31 @@ function CreatePost(props){
         
   };
   
-  const requestdata = {
-        title: title,
-        body: content,
-        category: category,
-  }
-  if (image !==null && image.length!==0 ){
-    requestdata.image = image;
-  }
-  if (file !== null && file.length !==0){
-    requestdata.file = file;
-  }
+ 
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    
+
+  const requestdata = new FormData();
+  requestdata.append("title",title);
+  requestdata.append("body", content);
+  requestdata.append("category", category);
+
+  if (image !==null && image.length!==0 ){
+    for(let i=0; i<image.length; i++)
+    requestdata.append("image", image[i]);
+  }
+  if (file !== null && file.length !==0){
+    for(let i=0; i<file.length; i++)
+    requestdata.append("file", file[i]);
+  }
+
+  
+
+
+
     console.log("[Register.js] handleSubmit");
     axios
       .post("http://localhost:8000/posts/", requestdata,{
@@ -129,7 +140,7 @@ function CreatePost(props){
         <input
           type="file"
           className="form-control"
-          name="email"
+          name="image"
           id="floatingImage"
           placeholder="Image"
           onChange={handleChange}
