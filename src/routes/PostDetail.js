@@ -79,13 +79,16 @@ function PostDetail(){
             
           </div>
           <hr className="featurette-divider"/>
-          {post.image?
-          <>
-          <img className="" src={post.image}/>
-          <hr className="featurette-divider"/> 
-          </>
-          : <svg className="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid ms-5" width="150" height="150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: no-image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text font-size="50%" x="50%" y="50%" fill="#aaa" dy=".3em">No-Image</text></svg>
-          }
+          <div className="post-mainimage">
+            {post.image?
+            <>
+            <img className="post-image" src={post.image}/>
+            <hr className="featurette-divider"/> 
+            </>
+            : <svg className="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid post-noimage" width="150" height="150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: no-image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text font-size="50%" x="50%" y="50%" fill="#aaa" dy=".3em">No-Image</text></svg>
+            }
+          </div>
+
           <p className="lead post-body">{post.body}</p>
           
           
