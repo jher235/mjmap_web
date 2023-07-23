@@ -73,6 +73,7 @@ function PostCreate(props){
     axios
       .post("http://localhost:8000/posts/", requestdata,{
         headers:{
+          'Content-Type': "multipart/form-data",
           'Authorization': 'Token ' + localStorage.getItem("token")
         }
       })

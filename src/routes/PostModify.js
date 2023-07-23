@@ -16,6 +16,9 @@ function PostModify(props){
     const [nickname, setNickname] = useState("");
     const [file, setFile] = useState(null);
     const [image, setImage] = useState(null);
+    const [preImage, setPreImage] = useState(null);
+    const [preFile, setPreFile] = useState(null);
+    const [ddimage, setDdimage] = useState(false);
     const navigate = useNavigate();
     const postid = useParams();
 
@@ -35,16 +38,28 @@ function PostModify(props){
                     console.log(response);
                     setTitle(response.data.title);
                     setContent(response.data.body);
-                    setImage(response.data.image);
-                    setFile(response.data.file);
                     setCategory(response.data.category);
+                    // if(response.data.image!==null){
+                    //   const defaultImage = new FileList()
+                    // }
+                    // setPreImage(response.data.image);
+                    // setPreFile(response.data.file);
                 }
             })
             .catch((error)=>{
                 console.log("에러발생!"+error);
             })
     },[])
+    useEffect(()=>{
+      console.log(image)
 
+     },[image,file])
+
+  
+  const deletedefaultimage=(event)=>{
+    event.preventDefault();
+    setDdimage(true);
+  }
     
   const handleChange = (event) => {
     const target = event.target;
@@ -54,6 +69,7 @@ function PostModify(props){
       setContent(target.value);
     }  else if (target.name === "image"){
         setImage(target.files);
+        console.log(image);
     }   else if (target.name === "category"){
         setCategory(target.value);
     } else if (target.name === "file"){
@@ -82,15 +98,19 @@ function PostModify(props){
     for(let i=0; i<file.length; i++)
     requestdata.append("file", file[i]);
   }
-
+  if(ddimage===true){
+    requestdata.append("remove_image",ddimage);
+  }
+ 
   
 
 
 
     console.log("[Register.js] handleSubmit");
     axios
-      .post("http://localhost:8000/posts/", requestdata,{
+      .put(`http://localhost:8000/posts/${postid.postId}/`, requestdata,{
         headers:{
+          'Content-Type': "multipart/form-data",
           'Authorization': 'Token ' + localStorage.getItem("token")
         }
       })
@@ -100,7 +120,7 @@ function PostModify(props){
           if (props.doLogin) {
             props.doLogin();
           }
-          navigate("/posts")
+          navigate(`/posts/${postid.postId}`)
         }
       })
       .catch((error)=>{
@@ -169,7 +189,9 @@ function PostModify(props){
          accept="image/*"
         />
         <label htmlFor="floatingImage">Image</label>
+        
       </div>
+      <button className="btn btn-light" onClick={deletedefaultimage}>기존 이미지 삭제</button>
       
 
       <div className="form-floating">

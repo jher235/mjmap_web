@@ -52,7 +52,8 @@ function PostDetail(){
    <div>
    <div className="bgb">   
     <PostNavi/>
-  
+    
+    <button className="btn btn-light">삭제하기</button>
     <Link to={`/posts/${postid.postId}/post_modify`} className="btn btn-light createbt"><FontAwesomeIcon icon={faPen}/> 수정하기</Link>
     
    {post !=={} ? 
@@ -106,7 +107,7 @@ function PostDetail(){
                    <Fragment key={value.pk}>
                     <div  className="comment-container ms-3">
                         <div className="comment-profile">
-                          <img src={value.profile.image} className="profile-image  img-fluid ms-3 me-3" width="40" height="40"/>
+                          <img src={value.profile.image} className="nprofile-image  img-fluid ms-3 me-3" width="40" height="40"/>
                           {value.profile.nickname}
                           <div className="comment-date ms-4">{new Date(value.date).toLocaleString()}</div>
                       
