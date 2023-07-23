@@ -5,7 +5,7 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link, useNavigate, useParams} from "react-router-dom"
-import "../css/createpost.css";
+import "../css/postmodify.css";
 
 
 function PostModify(props){
@@ -162,6 +162,7 @@ function PostModify(props){
         />
         <label htmlFor="floatingTitle">Title</label>
       </div>
+
       <div className="form-floating">
         <textarea
           type="text"
@@ -176,6 +177,7 @@ function PostModify(props){
         <label htmlFor="floatingContent">Content</label>
       </div>
 
+    <div className="img-container">
       <div className="form-floating">
         <input
           type="file"
@@ -189,10 +191,9 @@ function PostModify(props){
          accept="image/*"
         />
         <label htmlFor="floatingImage">Image</label>
-        
       </div>
-      <button className="btn btn-light" onClick={deletedefaultimage}>기존 이미지 삭제</button>
-      
+      <button className="btn btn-light deletedefaultbtn" onClick={deletedefaultimage}>기존 이미지 삭제</button>
+      </div>
 
       <div className="form-floating">
         <input

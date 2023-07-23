@@ -206,13 +206,18 @@
         color: aliceblue;
       }
      
-      
-    
-      .createbt {
-        
-        margin-bottom: -3rem;
+      .btn-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        margin-top: 1%;
+      }
+      .deletebtn{
         font-weight: 1000;
-        margin-left: 92%;
+      }
+    
+      .createbtn {
+        font-weight: 1000;
         
       }
     
@@ -288,3 +293,5 @@
         /* overflow: auto; */
         
       }
+
+    

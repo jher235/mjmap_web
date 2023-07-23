@@ -53,9 +53,11 @@ function PostDetail(){
    <div className="bgb">   
     <PostNavi/>
     
-    <button className="btn btn-light">삭제하기</button>
-    <Link to={`/posts/${postid.postId}/post_modify`} className="btn btn-light createbt"><FontAwesomeIcon icon={faPen}/> 수정하기</Link>
-    
+    <div className="btn-container">
+      <button className="btn btn-light deletebtn me-3">삭제하기</button>
+      <Link to={`/posts/${postid.postId}/post_modify`} className="btn btn-light createbtn me-3"><FontAwesomeIcon icon={faPen}/> 수정하기</Link>
+    </div>
+
    {post !=={} ? 
   
 
