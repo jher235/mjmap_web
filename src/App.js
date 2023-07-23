@@ -574,6 +574,7 @@ import{
   Route,
   Link
 } from "react-router-dom";
+import PostModify from "./routes/PostModify";
 
 
 
@@ -588,6 +589,7 @@ function App() {
       <Route path={"/posts"} element ={<Posts/>} />
       <Route path={"/post_create"} element ={<PostCreate/>}/> 
       <Route path={"/posts/:postId"} element={<PostDetail/>}/>
+      <Route path={"/posts/:postId/post_modify"} element={<PostModify/>}/>
     </Routes>
   </Router>);
 }

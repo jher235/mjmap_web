@@ -53,7 +53,7 @@ function PostDetail(){
    <div className="bgb">   
     <PostNavi/>
   
-    <Link to="/post_create" className="btn btn-light createbt"><FontAwesomeIcon icon={faPen}/> 수정하기</Link>
+    <Link to={`/posts/${postid.postId}/post_modify`} className="btn btn-light createbt"><FontAwesomeIcon icon={faPen}/> 수정하기</Link>
     
    {post !=={} ? 
   
@@ -95,7 +95,7 @@ function PostDetail(){
         {post.file!==null?
           <>
             <hr className="featurette-divider"/>
-            <a href={post.file} target="_blank" rel="noopener noreferrer">{post.file};</a>
+            <a href={post.file} target="_blank" download rel="noopener noreferrer">파일</a>
           </>
           :null
         }
