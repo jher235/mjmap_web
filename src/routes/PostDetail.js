@@ -18,10 +18,39 @@ function PostDetail(){
     const [previous,setPrevious] = useState(null)
     const [reason,setReason] = useState(null)
     const postid = useParams();
+    const [deletePost,setDeletePost] = useState(false)
   
   
+    const handledeletePost=(event)=>{
+      axios
+      .delete(`http://127.0.0.1:8000/posts/${postid.postId}/`,{
+        headers:{
+      
+          'Authorization': 'Token ' + localStorage.getItem("token")
+        }
+      })
+      .then((response)=>{
+        if(response.status<300){
+          navigate('/posts')
+        }
+      })
+      .catch((error)=>{
+        console.log(error)
+      })
+    }
   
-
+    // useEffect(()=>(
+    //   axios
+    //   .delete(`http://127.0.0.1:8000/posts/${postid.postId}/`,{})
+    //   .then(response=>{
+    //     if(response.status<300){
+    //       navigate('/posts')
+    //     }
+    //   })
+    //   .catch((error)=>{
+    //     console.log(error)
+    //   })
+    // ),[deletePost])
   
     useEffect(()=>{
       console.log(postid.postId);
@@ -54,7 +83,7 @@ function PostDetail(){
     <PostNavi/>
     
     <div className="btn-container">
-      <button className="btn btn-light deletebtn me-3">삭제하기</button>
+      <button className="btn btn-light deletebtn me-3" onClick={()=>handledeletePost()}>삭제하기</button>
       <Link to={`/posts/${postid.postId}/post_modify`} className="btn btn-light createbtn me-3"><FontAwesomeIcon icon={faPen}/> 수정하기</Link>
     </div>
 
