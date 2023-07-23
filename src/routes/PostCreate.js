@@ -8,7 +8,7 @@ import {Link, useNavigate} from "react-router-dom"
 import "../css/createpost.css";
 
 
-function CreatePost(props){
+function PostCreate(props){
     
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -194,4 +194,4 @@ function CreatePost(props){
   );
 }
 
-export default CreatePost;
+export default PostCreate;

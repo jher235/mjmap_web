@@ -565,7 +565,7 @@ import Login from "./routes/Login";
 import Home from "./routes/Home";
 import Register from "./routes/Register";
 import Posts from "./routes/Posts";
-import CreatePost from "./routes/CreatePost";
+import PostCreate from "./routes/PostCreate";
 import PostDetail from "./routes/PostDetail";
 
 import{
@@ -586,7 +586,7 @@ function App() {
       <Route path={"/hi"} element ={<h1>hi</h1>} />
       <Route path={"/register"} element ={<Register/>} />
       <Route path={"/posts"} element ={<Posts/>} />
-      <Route path={"/post_create"} element ={<CreatePost/>}/> 
+      <Route path={"/post_create"} element ={<PostCreate/>}/> 
       <Route path={"/posts/:postId"} element={<PostDetail/>}/>
     </Routes>
   </Router>);
