@@ -127,7 +127,7 @@ function PostDetail(){
         {post.file!==null?
           <>
             <hr className="featurette-divider"/>
-            <a href={post.file} target="_blank" download rel="noopener noreferrer">파일</a>
+            <a href={post.file} target="_blank" download rel="noopener noreferrer" className="ms-3 post-file">첨부파일</a>
           </>
           :null
         }

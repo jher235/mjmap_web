@@ -205,6 +205,10 @@
         padding: 5%;
         color: aliceblue;
       }
+      
+      .post-file{
+        text-decoration: none;
+      }
      
       .btn-container{
         display: flex;

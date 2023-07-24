@@ -16,9 +16,11 @@ function PostModify(props){
     const [nickname, setNickname] = useState("");
     const [file, setFile] = useState(null);
     const [image, setImage] = useState(null);
-    const [preImage, setPreImage] = useState(null);
-    const [preFile, setPreFile] = useState(null);
-    const [ddimage, setDdimage] = useState(false);
+    const [preImage, setPreImage] = useState(false);
+    const [preFile, setPreFile] = useState(false);
+    const [existPreImage, setExistPreImage] = useState(false);
+    const [existPreFile, setExistPreFile] = useState(false);
+
     const navigate = useNavigate();
     const postid = useParams();
 
@@ -39,11 +41,12 @@ function PostModify(props){
                     setTitle(response.data.title);
                     setContent(response.data.body);
                     setCategory(response.data.category);
-                    // if(response.data.image!==null){
-                    //   const defaultImage = new FileList()
-                    // }
-                    // setPreImage(response.data.image);
-                    // setPreFile(response.data.file);
+                    if(response.data.image!==null){
+                      setExistPreImage(true);
+                    }
+                    if(response.data.file!==null){
+                      setExistPreFile(true);
+                    }
                 }
             })
             .catch((error)=>{
@@ -56,9 +59,14 @@ function PostModify(props){
      },[image,file])
 
   
-  const deletedefaultimage=(event)=>{
+  const deletepreimage=(event)=>{
     event.preventDefault();
-    setDdimage(true);
+    setPreImage(true);
+  }
+
+  const deleteprefile=(event)=>{
+    event.preventDefault();
+    setPreFile(true);
   }
     
   const handleChange = (event) => {
@@ -98,8 +106,11 @@ function PostModify(props){
     for(let i=0; i<file.length; i++)
     requestdata.append("file", file[i]);
   }
-  if(ddimage===true){
-    requestdata.append("remove_image",ddimage);
+  if(preImage===true){
+    requestdata.append("remove_image",preImage);
+  }
+  if(preFile===true){
+    requestdata.append("remove_file", preFile);
   }
  
   
@@ -148,7 +159,7 @@ function PostModify(props){
     <main className="form-signup ">
     <form onSubmit={handleSubmit}>
       
-      <h1 className=" mb-3 fw-normal logintext">Create Post</h1>
+      <h1 className=" mb-3 fw-normal logintext">Modify Post</h1>
       <div className="form-floating">
         <textarea
           type="text"
@@ -192,9 +203,10 @@ function PostModify(props){
         />
         <label htmlFor="floatingImage">Image</label>
       </div>
-      <button className="btn btn-light deletedefaultbtn" onClick={deletedefaultimage}>기존 이미지 삭제</button>
+      {existPreImage? <button className="btn btn-light deletedefaultbtn"  onClick={deletepreimage}>기존 이미지 삭제</button>:null}
       </div>
 
+      <div className="img-container">
       <div className="form-floating">
         <input
           type="file"
@@ -208,6 +220,8 @@ function PostModify(props){
        />
         <label htmlFor="floatingFile">File</label>
       </div>
+       {existPreFile? <button className="btn btn-light deletedefaultbtn" onClick={deleteprefile}>기존 첨부파일 삭제</button>:null}
+       </div>
 
       <div className="form-floating">
         <input
@@ -226,7 +240,7 @@ function PostModify(props){
       <div className="checkbox mb-3">
       </div>
       <button className="w-50 uploadbt btn btn-lg btn-light" type="submit">
-        Upload Post
+        Update Post
       </button>
       <div className="pluslink ">
         <Link to="/" className="homelink">Home</Link>
