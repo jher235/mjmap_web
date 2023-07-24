@@ -83,8 +83,9 @@ function Register(props){
 
 
   return (
-    <div className="body">
-    <main className="form-signup ">
+    <div className="body ">
+      <div className="container">
+    <main className="form-signup me-4">
     <form onSubmit={handleSubmit}>
       
       <h1 className=" mb-3 fw-normal logintext">Create<br/>account</h1>
@@ -149,6 +150,7 @@ function Register(props){
       
     </form>
   </main>
+  </div>
   </div>
   );
 }
