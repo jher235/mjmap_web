@@ -65,7 +65,7 @@ function Login(props){
 
 
   return (
-    <div className="body">
+    <div className="container">
     <main className="form-signin ">
     <form onSubmit={handleSubmit}>
       

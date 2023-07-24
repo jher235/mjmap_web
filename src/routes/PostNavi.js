@@ -15,7 +15,7 @@ function PostNavi(){
 
     const handleLogout=()=>{
         localStorage.clear();
-        navigate('/post_list');
+        navigate('/posts');
       }
     
 
@@ -35,9 +35,9 @@ function PostNavi(){
         </li> */}
 
         <li className="nav-item">
-          <a className="nav-link title">
+          <Link to="/posts" className="nav-link title">
             게시판
-          </a>
+          </Link>
         </li>
       </ul>
       <div>

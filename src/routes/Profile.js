@@ -6,10 +6,10 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRightToBracket, faPen} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import PostNavi from "./PostNavi";
-import PostDetail from "./PostDetail";
 
 
-function Posts(){
+
+function Profile(){
   const navigate = useNavigate()
   const [post,setPost] = useState({results:[]})
   const [page,setPage] = useState(1)
@@ -122,4 +122,4 @@ return(
 
 
 
-export default Posts;
+export default Profile;

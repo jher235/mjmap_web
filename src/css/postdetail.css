@@ -208,6 +208,7 @@
       
       .post-file{
         text-decoration: none;
+        color: aliceblue;
       }
      
       .btn-container{
@@ -259,7 +260,7 @@
         margin-bottom:2% ;
       }
       .comment-profile{
-
+        color: aliceblue;
       }
       .comment-text{
         text-decoration: none;
@@ -297,5 +298,7 @@
         /* overflow: auto; */
         
       }
-
+      .justwatch{
+        padding: 1%;
+      }
     
