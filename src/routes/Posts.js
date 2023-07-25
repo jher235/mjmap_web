@@ -3,7 +3,7 @@ import "../css/posts.css"
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { useNavigate,Link } from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRightToBracket, faPen} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRightToBracket, faPen,faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import PostNavi from "./PostNavi";
 import PostDetail from "./PostDetail";
@@ -110,9 +110,9 @@ return(
     :<div className="loading-container"><h1 className="loading">Loading...</h1></div>
     }
         <div className="pagebt">
-        <button className="btn btn-light" onClick={later}>l</button>
+        <button className="btn btn-light" onClick={later}><FontAwesomeIcon icon={faAngleLeft} /></button>
         <block className="btn btn-secondary pgblock">{page}</block>
-         <button className="btn btn-light" onClick={older}>r</button>
+         <button className="btn btn-light" onClick={older}><FontAwesomeIcon icon={faAngleRight} /></button>
       </div>
   </div>
   </div>

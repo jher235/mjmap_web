@@ -2,10 +2,10 @@ import {Fragment, React, useEffect, useState} from "react"
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { useNavigate,Link,useParams } from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRightToBracket, faPen} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRightToBracket, faPen, faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import PostNavi from "./PostNavi";
-// import "../css/posts.css"
+import profile from "../css/profile.css"
 
 
 function Profile(){
@@ -16,19 +16,49 @@ function Profile(){
   const [previous,setPrevious] = useState(null)
   const [reason,setReason] = useState(null)
   const [postId, setPostId] = useState("")
+  const [profile, setProfile] = useState("")
+  const [profileImage,setProfileImage] = useState()
+  const [profileNickname, setProfileNickname] = useState()
+
   const usernum = useParams()
 
+  const handleChange=(event)=>{
+      const target = event.target;
+      if(target.name === "image"){
+        setProfileImage(target.files[0]);
+      }
+      if(target.name === "nickname"){
+        setProfileNickname(target.value);
+      }
+  }
 
+  const handleModifyProfile = (event)=>{
+      axios
+      .put(`http://127.0.0.1:8000/users/profile/${usernum.usernum}/`,{
+        nickname:profileNickname,
+        image:profileImage
+      },
+      { 
+        headers:{
+          'Content-Type': "multipart/form-data",
+          'Authorization': 'Token ' + localStorage.getItem("token")
+        }
+      })
+      .then((response)=>{
+        if(response.status<300){
+          window.location.assign(`/profile/${usernum.usernum}`);
+        }
+      })
+      .catch((error)=>{
+        console.log(error);
+      })
+  }
 
  function handlePostDetail(postId){
     navigate(`/posts/${postId}`);
 
   }
 
-  const handleLogout=()=>{
-    localStorage.clear();
-    navigate('/posts');
-  }
 
   const older=()=>{
     if(next !== null)
@@ -42,6 +72,21 @@ function Profile(){
 
   useEffect(()=>{
     axios
+    .get(`http://127.0.0.1:8000/users/profile/${usernum.usernum}/`,{})
+    .then((response)=>{
+      if(response.status<300){
+        console.log(response);
+        setProfile(response)
+      }
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+    
+  },[])
+
+  useEffect(()=>{
+    axios
     .get(`http://127.0.0.1:8000/posts/?author=${usernum.usernum}&&page=${page}`,{
 
     })
@@ -51,8 +96,8 @@ function Profile(){
         console.log(post);
         setNext(response.data.next);
         setPrevious(response.data.previous);
-        console.log(next, previous)
-        console.log("page"+page)
+        // console.log(next, previous)
+        // console.log("page"+page)
       }
     })
     .catch((error)=>{
@@ -65,10 +110,69 @@ function Profile(){
 
 return(
  <div>
+  
  <div className="bgb">   
   <PostNavi/>
+  <div className="col-md-5 profilebox">
+    <div className="profile-title-btn-container">
+      <h1 className="profile-title ms-3">Profile Card</h1>
+      <button className="profile-modify-btn btn btn-secondary me-4 "data-bs-toggle="modal" data-bs-target="#profileModifyModal">프로필 수정</button>
+    </div>
+      <div className="profile-content ms-5">
+        {profile?
+        <>
+          UserImage :  <img src={profile.data.image} className="profile-image  img-fluid ms-3 me-3" width="100" height="100"/>
+          <br/>
+          <br/>
+          NickName  : <a className="profile-nickname">{profile.data.nickname}</a>
+          
+        </>
+          :null
+        }
+      </div>
+  </div>
 
-  <Link to="/post_create" className="btn btn-light createbt"><FontAwesomeIcon icon={faPen}/> 글쓰기</Link>
+  <div className="modal fade" id="profileModifyModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="loginModalLabel"><FontAwesomeIcon icon={faArrowRightToBracket}/>   Profile Modify</h1>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body">
+      <text className="profileModalWord">My-Image</text><br/>
+       <input 
+       className=""
+       type="file"
+       name="image"
+       onChange={handleChange}
+       ></input>
+       <br/>
+       <br/>
+       <text className="profileModalWord">My-NickName</text>
+       <input 
+       className="loginInput" 
+       onChange={handleChange}
+       name="nickname"
+       ></input>
+       
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary me-auto" data-bs-dismiss="modal" href="#">Cancel</button>
+        <button type="button" className="btn btn-secondary" onClick={handleModifyProfile}>Modify</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{profile?
+    <div className="profile-post-title ">
+      <h1>{profile.data.nickname}'s Posts</h1>
+    </div>
+    :null
+}
+
   
  {post.results.length!=0 ? post.results.map((value)=>(
 
@@ -111,9 +215,9 @@ return(
     :<div className="loading-container"><h1 className="loading">Loading...</h1></div>
     }
         <div className="pagebt">
-        <button className="btn btn-light" onClick={later}>l</button>
+        <button className="btn btn-light" onClick={later}><FontAwesomeIcon icon={faAngleLeft} /></button>
         <block className="btn btn-secondary pgblock">{page}</block>
-         <button className="btn btn-light" onClick={older}>r</button>
+         <button className="btn btn-light" onClick={older}><FontAwesomeIcon icon={faAngleRight} /></button>
       </div>
   </div>
   </div>
