@@ -51,7 +51,7 @@ function PostNavi(){
                   {localStorage.getItem("username")}
                 </a>
               <ul className="dropdown-menu ">
-                  <li><a className="dropdown-item" href="#">Profile</a></li>
+                  <li><Link to={`/profile/${localStorage.getItem("usernum")}`} className="dropdown-item">Profile</Link></li>
                   <li><a className="dropdown-item" onClick={handleLogout}>Log Out</a></li>
               </ul>
             </li>  : 

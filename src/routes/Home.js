@@ -536,7 +536,7 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
                   {localStorage.getItem("username")}
                 </a>
               <ul class="dropdown-menu ">
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><Link to={`/profile/${localStorage.getItem("usernum")}`} class="dropdown-item" href="#">Profile</Link></li>
                   <li><a class="dropdown-item" onClick={handleLogout}>Log Out</a></li>
               </ul>
             </li>  : 

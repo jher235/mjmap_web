@@ -575,7 +575,7 @@ import{
   Link
 } from "react-router-dom";
 import PostModify from "./routes/PostModify";
-
+import Profile from "./routes/Profile";
 
 
 //basename={process.env.PUBLIC_URL}
@@ -590,6 +590,7 @@ function App() {
       <Route path={"/post_create"} element ={<PostCreate/>}/> 
       <Route path={"/posts/:postId"} element={<PostDetail/>}/>
       <Route path={"/posts/:postId/post_modify"} element={<PostModify/>}/>
+      <Route path={"/profile/:usernum"} element={<Profile/>}/>
     </Routes>
   </Router>);
 }
