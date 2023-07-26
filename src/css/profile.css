@@ -258,3 +258,10 @@
     .profileModalWord{
         font-weight: 800;
     }
+
+    .postdoesnotexist{
+      color: aliceblue;
+      font-size: 100px;
+      padding: 15%;
+      
+    }

@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useEffect,useState,} from 'react';
+import {Fragment, useEffect,useState,} from 'react';
 import '../css/home.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRightToBracket} from "@fortawesome/free-solid-svg-icons";
@@ -36,7 +36,63 @@ function Home() {
   const navigate = useNavigate()
   const [myNickname, setMyNickname] = useState("")
   const [myImage, setMyImage] = useState("")
+  const [myUsernum, setMyUsernum] = useState("")
+  const [myStars, setMyStars] = useState("")
+  const [starNum,setStarNum] = useState("")
+  const [starName, setStarName] = useState("")
 
+  
+
+  const handleStarDelete = (event) =>{
+    const datanum = event.target.getAttribute('datapk')
+    axios
+    .delete(`http://127.0.0.1:8000/users/stars/${datanum}`,{
+      headers:{
+        'Authorization': 'Token ' + localStorage.getItem("token")
+      }
+    })
+    .then((response)=>{
+      if(response.status<300){
+        window.location.assign(`/`);
+      }
+    })
+    .catch((error)=>{
+      console.log(error);
+      console.log(event);
+      console.log(event.target.getAttribute('data-event-id'))
+    })
+  }
+
+  const handleStarSubmit = (event)=>{
+    axios
+    .post(`http://127.0.0.1:8000/users/stars/`,{
+      classnum : starNum,
+      classname : starName
+    },
+    {headers:{
+      'Authorization': 'Token ' + localStorage.getItem("token")
+    }}
+    ).then((response)=>{
+      if(response.status<300){
+
+        window.location.assign(`/`);
+      }
+    })
+    .catch((error)=>{
+      console.log(error);
+      console.log(starName, starNum)
+    })
+  }
+
+  const handleChange = (event)=>{
+    const target = event.target;
+    if(target.name==="classname"){
+      setStarName(target.value);
+    }
+    if(target.name ==="classnum"){
+      setStarNum(target.value);
+    }
+  }
 
   const findCampus = ()=>{
     if(map){
@@ -107,14 +163,14 @@ function Home() {
 
   const find_my_position=()=>{
     if(map){
-    if(mylong && mylat){
-   var move = new kakao.maps.LatLng(mylat,mylong)
-     map.setCenter(move)
-    }
-    else{
-      alert("위치정보가 없습니다")
-    }
-  }
+        if(mylong && mylat){
+          var move = new kakao.maps.LatLng(mylat,mylong)
+            map.setCenter(move)
+        }
+        else{
+          alert("위치정보가 없습니다")
+        }
+     }
   }
   console.log(inputText)
   const geoOk=(position)=>{
@@ -127,32 +183,48 @@ function Home() {
     console.log("위치를 알 수 없습니다")
   }
   useEffect(()=>{
-  const watchId = navigator.geolocation.watchPosition(geoOk,geoError);
-  console.log(mylat,mylong);
+    const watchId = navigator.geolocation.watchPosition(geoOk,geoError);
+    console.log(mylat,mylong);
 
-    if (mylat && mylong && map){
-      if (myOverlay){
-        myOverlay.setMap(null);
+      if (mylat && mylong && map){
+        if (myOverlay){
+          myOverlay.setMap(null);
+        }
+        var me = new kakao.maps.CustomOverlay({
+          map: map,
+          content: '<div id="user">Me</div>', 
+          position: new kakao.maps.LatLng(mylat,mylong), // 커스텀 오버레이를 표시할 좌표
+          xAnchor: 0.5, // 컨텐츠의 x 위치
+          yAnchor: 0.5 // 컨텐츠의  = new kakao.maps.CustomOverlay({
+        })
+        setMyOverlay(me)
       }
-      var me = new kakao.maps.CustomOverlay({
-        map: map,
-        content: '<div id="user">Me</div>', 
-        position: new kakao.maps.LatLng(mylat,mylong), // 커스텀 오버레이를 표시할 좌표
-        xAnchor: 0.5, // 컨텐츠의 x 위치
-        yAnchor: 0.5 // 컨텐츠의  = new kakao.maps.CustomOverlay({
-      })
-      setMyOverlay(me)
-    }
 
-    return()=>{
-      navigator.geolocation.clearWatch(watchId)
-    }
+      return()=>{
+        navigator.geolocation.clearWatch(watchId)
+      }
   },[mylat, mylong, map]);
 
   if(map){
     console.log("lat",map.getCenter().La)
     console.log("lon",map.getCenter().Ma)
   }
+
+
+    useEffect(()=>{
+        axios
+        .get(`http://127.0.0.1:8000/users/profile/${localStorage.getItem("usernum")}/`,{})
+        .then((response)=>{
+          if(response.status<300){
+            setMyStars(response.data.stars);
+            console.log(response);
+          }
+        })
+        .catch((error)=>{
+          console.log(error);
+        })
+    },[myUsernum])
+  
 
   useEffect(()=>{
     axios
@@ -161,6 +233,7 @@ function Home() {
       if(response.status<300){
           setMyNickname(response.data.nickname);
           setMyImage(response.data.image);
+          setMyUsernum(localStorage.getItem('usernum'));
       }
     })
     .catch((error)=>{
@@ -508,13 +581,13 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li> */}
         <li class="nav-item">
-          <a role="button" class="nav-link" onClick={findCampus} href="#">자연캠</a>
+          <a role="button" class="nav-link" onClick={findCampus}>자연캠</a>
         </li>
         <li class="nav-item">
-          <a role="button" class="nav-link" onClick={find_my_position} href="#">내 위치</a>
+          <a role="button" class="nav-link" onClick={find_my_position} >내 위치</a>
         </li>
         <li class="nav-item">
-          <a role="button" class="nav-link" onClick={customOverayonoff} href="#">건물번호</a>
+          <a role="button" class="nav-link" onClick={customOverayonoff}>건물번호</a>
         </li>
         
         <li class="nav-item dropdown">
@@ -601,13 +674,78 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
   </div>
 </div>
       
-      {/* <div className='title2'><button>편의시설</button><button onClick={displayconvenience}>편의점</button><button>식당</button><button>카페</button></div> */}
-      <div id="map"></div>
+    {localStorage.getItem("token")?
+      <>
+      <div className='map-dropdown-container'>
+        <div id="map" className='ms-5'></div>
+        <div className="dropdown-center map-dropdown-main">
+            <button className="btn btn-light dropdown-toggle me-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              내 강의실
+            </button>
+            <ul className="dropdown-menu">
+              {myStars!==""?
+                myStars.map((event)=>(
+                <Fragment>
+                  <li>
+                    <div className="dropdown-item map-dropdown-menu">
+                      <a className='map-dropdown-classnum'>{event.classname}</a>
+                      <a className='btn btn-light map-dropdown-delete-btn' datapk={event.pk} onClick={handleStarDelete}>x</a>
+                    </div>
+                  </li>
+                </Fragment>
+                ))
+                
+                :null
+              }
+              <li><hr class="dropdown-divider"/></li>
+              <li className='dropdown-item' data-bs-toggle="modal" data-bs-target="#profileModifyModal"><a>내 강의실 추가</a></li>
+
+            </ul>
+          </div>
+      </div>
+      </>
+      :<div id="map"></div>
+    }
       {loading? <h1 className='loading'>Loading...</h1>:null}
        
      
+<div className="modal fade" id="profileModifyModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="loginModalLabel"><FontAwesomeIcon icon={faArrowRightToBracket}/>   Profile Modify</h1>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body">
+      <text className="profileModalWord">Class Number</text><br/>
+       <input 
+       className=""
+       type="number"
+       name="classnum"
+       onChange={handleChange}
+       ></input>
+       <br/>
+       <br/>
+       <text className="profileModalWord">Class Name</text>
+       <input 
+       className="loginInput" 
+       type='text'
+      onChange={handleChange}
+       name="classname"
+       ></input>
+       
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary me-auto" data-bs-dismiss="modal" href="#">Cancel</button>
+        <button type="button" className="btn btn-secondary" onClick={handleStarSubmit}>등록</button>
+      </div>
     </div>
- 
+    </div>
+    </div>
+
+
+    </div>
+
   );
 }
 

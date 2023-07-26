@@ -174,7 +174,7 @@ return(
 }
 
   
- {post.results.length!=0 ? post.results.map((value)=>(
+ {post.results.length!==0 ? post.results.map((value)=>(
 
     <Fragment key={value.pk}>
       
@@ -199,7 +199,12 @@ return(
                         <img src={value.profile.image} className="profile-image  img-fluid ms-3 me-3" width="40" height="40"/>
                         {value.profile.nickname}
                     </>
-                    :<a>Loading...</a>
+                    :<>
+                    {/* <a>Loading...</a> */}
+                      <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                    </>
                     }
                   </div>
           </a>
@@ -210,17 +215,19 @@ return(
     </div>
     </Fragment>
    
-)):reason?
-    <div className="loading-container"><h1 className="loading"> {reason}</h1></div>
-    :<div className="loading-container"><h1 className="loading">Loading...</h1></div>
-    }
-        <div className="pagebt">
-        <button className="btn btn-light" onClick={later}><FontAwesomeIcon icon={faAngleLeft} /></button>
-        <block className="btn btn-secondary pgblock">{page}</block>
-         <button className="btn btn-light" onClick={older}><FontAwesomeIcon icon={faAngleRight} /></button>
+    )):reason?
+        <div className="loading-container"><h1 className="loading"> {reason}</h1></div>
+        :<div className="loading-container">
+          <h1 className="postdoesnotexist">Post does not exist</h1>
+          </div>
+        }
+            <div className="pagebt">
+            <button className="btn btn-light" onClick={later}><FontAwesomeIcon icon={faAngleLeft} /></button>
+            <block className="btn btn-secondary pgblock">{page}</block>
+            <button className="btn btn-light" onClick={older}><FontAwesomeIcon icon={faAngleRight} /></button>
+          </div>
       </div>
-  </div>
-  </div>
+      </div>
       
 
 )}

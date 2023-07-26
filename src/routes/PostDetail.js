@@ -142,15 +142,15 @@ function PostDetail(){
                 </div>
             
           </div>
-          <hr className="featurette-divider"/>
+          <hr className="pd-featurette-divider"/>
           <div className="post-mainimage">
             {post.image?
             <>
             <img className="post-image" src={post.image}/>
             </>
-            : <svg className="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid post-noimage" width="150" height="150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: no-image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text font-size="50%" x="50%" y="50%" fill="#aaa" dy=".3em">No-Image</text></svg>
+            : <svg className="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid post-noimage ms-4" width="150" height="150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: no-image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text font-size="50%" x="50%" y="50%" fill="#aaa" dy=".3em">No-Image</text></svg>
             }
-            <hr className="featurette-divider"/>
+            <hr className="pd-featurette-divider"/>
           </div>
 
           <p className="lead post-body">{post.body}</p>
@@ -158,12 +158,12 @@ function PostDetail(){
           
         {post.file!==null?
           <>
-            <hr className="featurette-divider"/>
+            <hr className="pd-featurette-divider"/>
             <a href={post.file} target="_blank" download rel="noopener noreferrer" className="ms-5 post-file"><FontAwesomeIcon icon={faPaperclip}/> 첨부파일</a>
           </>
           :null
         }
-                <hr className="featurette-divider"/>
+                <hr className="pd-featurette-divider"/>
                   <div className="comment-title">comment</div> 
                    
                 {post.comments? post.comments.map((value)=>(
