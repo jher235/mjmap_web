@@ -12,12 +12,28 @@ import axios from "axios";
 function PostNavi(){
 
     const navigate = useNavigate()
+    const [myNickname, setMyNickname] = useState("") 
+    const [myImage, setMyImage ] = useState("")
 
     const handleLogout=()=>{
         localStorage.clear();
         navigate('/posts');
       }
     
+
+      useEffect(()=>{
+        axios
+        .get(`http://127.0.0.1:8000/users/profile/${localStorage.getItem('usernum')}/`,{})
+        .then((response)=>{
+          if(response.status<300){
+              setMyNickname(response.data.nickname);
+              setMyImage(response.data.image);
+          }
+        })
+        .catch((error)=>{
+          console.log(error);
+        })
+      },[])
 
     return(
     <nav className="content-left navbar navbar-expand-lg bg-body-tertiary ">
@@ -48,7 +64,12 @@ function PostNavi(){
            {localStorage.getItem("token") ? 
              <li className="nav-item dropdown ">
                 <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  {localStorage.getItem("username")}
+                  {myNickname!==""?
+                    <>
+                    <img src={myImage} className="profile-image  img-fluid ms-3 me-3" width="40" height="40"/>
+                     {myNickname}
+                  </>
+                  :<a>Loading..</a>}
                 </a>
               <ul className="dropdown-menu ">
                   <li><Link to={`/profile/${localStorage.getItem("usernum")}`} className="dropdown-item">Profile</Link></li>

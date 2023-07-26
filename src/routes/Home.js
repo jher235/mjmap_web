@@ -7,6 +7,7 @@ import {Button,Navbar} from 'react-bootstrap'
 import {Link, useNavigate} from 'react-router-dom'
 
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import axios from 'axios';
 
 <script src="https://kit.fontawesome.com/51ed27ab31"></script>
 
@@ -33,6 +34,9 @@ function Home() {
   const [convenience,setConvenience] = useState(false)
   const [myOverlay,setMyOverlay] = useState("")
   const navigate = useNavigate()
+  const [myNickname, setMyNickname] = useState("")
+  const [myImage, setMyImage] = useState("")
+
 
   const findCampus = ()=>{
     if(map){
@@ -51,8 +55,9 @@ function Home() {
   {
     setDormitory(!dormitory);
   }
+  
 
-  const handleLogout=()=>{
+  const handleLogout=()=>{ //로그아웃
     localStorage.clear();
     navigate('/');
   }
@@ -148,6 +153,20 @@ function Home() {
     console.log("lat",map.getCenter().La)
     console.log("lon",map.getCenter().Ma)
   }
+
+  useEffect(()=>{
+    axios
+    .get(`http://127.0.0.1:8000/users/profile/${localStorage.getItem('usernum')}/`,{})
+    .then((response)=>{
+      if(response.status<300){
+          setMyNickname(response.data.nickname);
+          setMyImage(response.data.image);
+      }
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+  },[])
 
 
 
@@ -533,7 +552,12 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
            {localStorage.getItem("token") ? 
              <li class="nav-item dropdown ">
                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  {localStorage.getItem("username")}
+                  {myNickname!==""?
+                  <>
+                    <img src={myImage} className="profile-image  img-fluid ms-3 me-3" width="40" height="40"/>
+                     {myNickname}
+                  </>
+                  :<a>Loading..</a>}
                 </a>
               <ul class="dropdown-menu ">
                   <li><Link to={`/profile/${localStorage.getItem("usernum")}`} class="dropdown-item" href="#">Profile</Link></li>
