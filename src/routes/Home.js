@@ -41,7 +41,8 @@ function Home() {
   const [starNum,setStarNum] = useState("")
   const [starName, setStarName] = useState("")
   const [targetRoom, setTargetRoom] = useState("")
-  const [targetRoom2, setTargetRoom2] = useState(false)
+  const [aboutEvent, setAboutEvent] = useState("")
+  const [currnetClass, setCurrentClass] = useState("")
 
   
   function ttt(event){
@@ -51,23 +52,19 @@ function Home() {
 
   const handleFindMyLectureRoom= (event)=>{
     const mylectureroom = event.target.getAttribute('mylectureroom');
-   // const mylectureroom = event.target.attributes.mylectureroom.value;
-    console.log(mylectureroom);
-    console.log(event)
-      setTargetRoom(mylectureroom)
-     setInputText(mylectureroom);
-    
-    // if(mylectureroom===inputText){
-    // handleSearch(event);
-    // }
+    setAboutEvent(event)
+ 
+    setTargetRoom(mylectureroom);
+
   }
+  
 
   useEffect(()=>{
-      if(targetRoom){
-        setTargetRoom2(true)
+      if(targetRoom!=="" && aboutEvent!==""){
+        handleSearch2(aboutEvent)
       }
-      setTargetRoom(false)
-  },[targetRoom, inputText])
+      
+  },[targetRoom,aboutEvent])
 
 
   const handleStarDelete = (event) =>{
@@ -130,15 +127,6 @@ function Home() {
     }
   }
 
-  const displayconvenience = () =>{
-    setConvenience(!convenience);
-  }
-
-  const test=()=>
-  {
-    setDormitory(!dormitory);
-  }
-  
 
   const handleLogout=()=>{ //로그아웃
     localStorage.clear();
@@ -148,42 +136,6 @@ function Home() {
   {
     setDormitory(!dormitory);
   }
-
-// useEffect((event)=>{         //강의실 검색
-//   event.preventDefault();
-//   console.log(event)
-
-//   if(inputText.length!==0){                  
-//    console.log("submit",inputText);
-//    if(inputText.length<3 || inputText.length>6){
-//     alert("강의실 번호를 제대로 입력해주세요! :(")
-//    }
-//   else if(inputText.length===3){
-//    setBuildNum('y');
-//    setFloor(inputText[0]);
-//    }
-//    else if(inputText.length===4){
-//   setBuildNum('y'+inputText[0]);
-//   setFloor(inputText[1]);
-//    }
-//    else if(inputText.length===5){
-//     setBuildNum('y'+inputText[0]+inputText[1]);
-//     setFloor(inputText[2]);
-//    }
-   
-//    console.log("buildNum",buildNum)
-//    setMaplevel(3)
-   
-//   setInputText("");
-//   }
-//   else{
-//    alert("빈칸은 입력할 수 없습니다 :(")
-//   };
-// },[targetRoom])
-
-// const handleSearch=(event)=>{
-//   setTargetRoom(event)
-// }
 
 
 const handleSearch=(event)=>{         //강의실 검색
@@ -211,7 +163,43 @@ const handleSearch=(event)=>{         //강의실 검색
    console.log("buildNum",buildNum)
    setMaplevel(3)
    
+  setCurrentClass("Y"+inputText); 
   setInputText("");
+  setAboutEvent("");
+  }
+  else{
+   alert("빈칸은 입력할 수 없습니다 :(")
+  }
+};
+
+const handleSearch2=(event)=>{         //강의실 검색
+  event.preventDefault();
+  console.log(event)
+
+  if(targetRoom.length!==0){                  
+   console.log("submit",targetRoom);
+   if(targetRoom.length<3 || targetRoom.length>6){
+    alert("강의실 번호를 제대로 입력해주세요! :(")
+   }
+  else if(targetRoom.length===3){
+   setBuildNum('y');
+   setFloor(targetRoom[0]);
+   }
+   else if(targetRoom.length===4){
+  setBuildNum('y'+targetRoom[0]);
+  setFloor(targetRoom[1]);
+   }
+   else if(targetRoom.length===5){
+    setBuildNum('y'+targetRoom[0]+targetRoom[1]);
+    setFloor(targetRoom[2]);
+   }
+   
+   console.log("buildNum",buildNum)
+   setMaplevel(3)
+   
+  setCurrentClass("Y"+targetRoom); 
+  setTargetRoom("");
+  setAboutEvent("");
   }
   else{
    alert("빈칸은 입력할 수 없습니다 :(")
@@ -610,7 +598,7 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
 });
 }
 
-  return (
+return (
 
     <div   className='app-container'>
 
@@ -681,7 +669,8 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
       <form onSubmit={handleSearch}>
       <input class='search1'type='number' value={inputText} onChange={(event)=>setInputText(event.target.value)} placeholder="강의실 번호 검색" />
       <button class='search1 btn-sm btn-block' onClick={handleSearch} >검색</button>
-      {floor?<text class="floor">{floor}층</text>:null}
+      {currnetClass!=="" ? <text className='ms-4'>{currnetClass}</text>:null }
+      {floor?<text className="floor ms-3">{floor}층</text>:null}
       </form>
       
       </div>
@@ -717,30 +706,6 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
   </div>
 </nav>
 
-
-
-
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="loginModalLabel"><FontAwesomeIcon icon={faArrowRightToBracket}/>   Log In</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-       <text class="loginWord">Id</text>
-       <input class="loginInput"></input>
-
-       <text class="loginWord">Password</text>
-       <input class="loginInput"></input>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary me-auto" href="#">Sign Up</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
       
     {localStorage.getItem("token")?
       <>
