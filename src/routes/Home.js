@@ -40,13 +40,40 @@ function Home() {
   const [myStars, setMyStars] = useState("")
   const [starNum,setStarNum] = useState("")
   const [starName, setStarName] = useState("")
+  const [targetRoom, setTargetRoom] = useState("")
+  const [targetRoom2, setTargetRoom2] = useState(false)
 
   
+  function ttt(event){
+    handleSearch(event);
+    targetRoom("")
+  }
+
+  const handleFindMyLectureRoom= (event)=>{
+    const mylectureroom = event.target.getAttribute('mylectureroom');
+   // const mylectureroom = event.target.attributes.mylectureroom.value;
+    console.log(mylectureroom);
+    console.log(event)
+      setTargetRoom(mylectureroom)
+     setInputText(mylectureroom);
+    
+    // if(mylectureroom===inputText){
+    // handleSearch(event);
+    // }
+  }
+
+  useEffect(()=>{
+      if(targetRoom){
+        setTargetRoom2(true)
+      }
+      setTargetRoom(false)
+  },[targetRoom, inputText])
+
 
   const handleStarDelete = (event) =>{
-    const datanum = event.target.getAttribute('datapk')
+    const deletenum = event.target.getAttribute('deletepk')
     axios
-    .delete(`http://127.0.0.1:8000/users/stars/${datanum}`,{
+    .delete(`http://127.0.0.1:8000/users/stars/${deletenum}`,{
       headers:{
         'Authorization': 'Token ' + localStorage.getItem("token")
       }
@@ -115,43 +142,84 @@ function Home() {
 
   const handleLogout=()=>{ //로그아웃
     localStorage.clear();
-    navigate('/');
+    window.location.assign(`/`);
   }
   const veiwDomitory=()=>
   {
     setDormitory(!dormitory);
   }
 
-  const onsubmit=(event)=>{         //강의실 검색
-    event.preventDefault();
+// useEffect((event)=>{         //강의실 검색
+//   event.preventDefault();
+//   console.log(event)
+
+//   if(inputText.length!==0){                  
+//    console.log("submit",inputText);
+//    if(inputText.length<3 || inputText.length>6){
+//     alert("강의실 번호를 제대로 입력해주세요! :(")
+//    }
+//   else if(inputText.length===3){
+//    setBuildNum('y');
+//    setFloor(inputText[0]);
+//    }
+//    else if(inputText.length===4){
+//   setBuildNum('y'+inputText[0]);
+//   setFloor(inputText[1]);
+//    }
+//    else if(inputText.length===5){
+//     setBuildNum('y'+inputText[0]+inputText[1]);
+//     setFloor(inputText[2]);
+//    }
+   
+//    console.log("buildNum",buildNum)
+//    setMaplevel(3)
+   
+//   setInputText("");
+//   }
+//   else{
+//    alert("빈칸은 입력할 수 없습니다 :(")
+//   };
+// },[targetRoom])
+
+// const handleSearch=(event)=>{
+//   setTargetRoom(event)
+// }
+
+
+const handleSearch=(event)=>{         //강의실 검색
+  event.preventDefault();
+  console.log(event)
+
+  if(inputText.length!==0){                  
+   console.log("submit",inputText);
+   if(inputText.length<3 || inputText.length>6){
+    alert("강의실 번호를 제대로 입력해주세요! :(")
+   }
+  else if(inputText.length===3){
+   setBuildNum('y');
+   setFloor(inputText[0]);
+   }
+   else if(inputText.length===4){
+  setBuildNum('y'+inputText[0]);
+  setFloor(inputText[1]);
+   }
+   else if(inputText.length===5){
+    setBuildNum('y'+inputText[0]+inputText[1]);
+    setFloor(inputText[2]);
+   }
+   
+   console.log("buildNum",buildNum)
+   setMaplevel(3)
+   
+  setInputText("");
+  }
+  else{
+   alert("빈칸은 입력할 수 없습니다 :(")
+  }
+};
  
-    if(inputText!==0){                  
-     console.log("submit",inputText);
-     if(inputText.length<3 || inputText.length>6){
-      alert("강의실 번호를 제대로 입력해주세요! :(")
-     }
-    else if(inputText.length===3){
-     setBuildNum('y');
-     setFloor(inputText[0]);
-     }
-     else if(inputText.length===4){
-    setBuildNum('y'+inputText[0]);
-    setFloor(inputText[1]);
-     }
-     else if(inputText.length===5){
-      setBuildNum('y'+inputText[0]+inputText[1]);
-      setFloor(inputText[2]);
-     }
-     
-     console.log("buildNum",buildNum)
-     setMaplevel(3)
-     
-    setInputText("");
-    }
-    else{
-     alert("빈칸은 입력할 수 없습니다 :(")
-    }
-  };
+
+
 
   const customOverayonoff=()=>{
     console.log("level=",maplevel, "mapposition=",maplat,maplong)
@@ -610,9 +678,9 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
 
       <div class="search floor" >
       <text class="floor">Y_</text>
-      <form onSubmit={onsubmit}>
+      <form onSubmit={handleSearch}>
       <input class='search1'type='number' value={inputText} onChange={(event)=>setInputText(event.target.value)} placeholder="강의실 번호 검색" />
-      <button class='search1 btn-sm btn-block' onClick={onsubmit} >검색</button>
+      <button class='search1 btn-sm btn-block' onClick={handleSearch} >검색</button>
       {floor?<text class="floor">{floor}층</text>:null}
       </form>
       
@@ -686,10 +754,10 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
               {myStars!==""?
                 myStars.map((event)=>(
                 <Fragment>
-                  <li>
-                    <div className="dropdown-item map-dropdown-menu">
-                      <a className='map-dropdown-classnum'>{event.classname}</a>
-                      <a className='btn btn-light map-dropdown-delete-btn' datapk={event.pk} onClick={handleStarDelete}>x</a>
+                  <li >
+                    <div className="dropdown-item map-dropdown-menu" mylectureroom={event.classnum} onClick={handleFindMyLectureRoom}>
+                      <a className='map-dropdown-classnum' mylectureroom={event.classnum} onClick={handleFindMyLectureRoom}>{event.classname}</a>
+                      <a className='btn btn-light map-dropdown-delete-btn' deletepk={event.pk} onClick={handleStarDelete}>x</a>
                     </div>
                   </li>
                 </Fragment>
