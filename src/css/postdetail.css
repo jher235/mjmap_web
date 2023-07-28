@@ -294,6 +294,7 @@
         padding-left: 4px;
         display: flex;
         resize: vertical;
+       
         /* overflow: auto; */
         
       }

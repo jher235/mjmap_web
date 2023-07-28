@@ -1,0 +1,21 @@
+.footer-container{
+   
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+.footer{
+    width: 100%;
+    margin-top: auto;
+    background-color: white;
+    
+   margin-top: 3rem;
+}
+
+.Footer{
+
+   
+}

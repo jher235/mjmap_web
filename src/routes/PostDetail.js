@@ -7,6 +7,7 @@ import { useNavigate,Link,useParams } from "react-router-dom";
 import axios from "axios";
 import PostNavi from "./PostNavi";
 import { Fade } from "react-bootstrap";
+import Footer from "./Footer"
 
 
 
@@ -195,40 +196,13 @@ function PostDetail(){
       :<div className="loading-container"><h1 className="loading">Loading...</h1></div>
       }
          
+         <Footer/>
     </div>
     </div>
         
   
   )}
   
-
-
-
-// {
-//     const navigate = useNavigate();
-
-
-
-
-
-
-
-//     return(
-//         <div className="container">
-//             <PostNavi/>
-//             <div>title</div>
-//             <hr/>
-//             <div>image</div>
-//             <hr/>
-//             <div>body</div>
-//             <hr/>
-//             <div>comment</div>
-
-
-//        </div> 
-//     )
-// }
-
 
 
 export default PostDetail;

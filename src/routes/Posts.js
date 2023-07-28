@@ -7,6 +7,7 @@ import {faArrowRightToBracket, faPen,faAngleRight, faAngleLeft } from "@fortawes
 import axios from "axios";
 import PostNavi from "./PostNavi";
 import PostDetail from "./PostDetail";
+import Footer from "./Footer"
 
 
 function Posts(){
@@ -114,7 +115,12 @@ return(
         <block className="btn btn-secondary pgblock">{page}</block>
          <button className="btn btn-light" onClick={older}><FontAwesomeIcon icon={faAngleRight} /></button>
       </div>
+
+
+       <Footer/>
   </div>
+
+ 
   </div>
       
 

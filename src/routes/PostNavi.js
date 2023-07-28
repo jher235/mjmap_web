@@ -72,7 +72,7 @@ function PostNavi(){
                   :<a>Loading..</a>}
                 </a>
               <ul className="dropdown-menu ">
-                  <li><Link to={`/profile/${localStorage.getItem("usernum")}`} className="dropdown-item">Profile</Link></li>
+                  <li><a className="dropdown-item" href={`/profile/${localStorage.getItem("usernum")}`}>Profile</a></li>
                   <li><a className="dropdown-item" onClick={handleLogout}>Log Out</a></li>
               </ul>
             </li>  : 

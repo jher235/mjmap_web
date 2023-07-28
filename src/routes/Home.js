@@ -8,6 +8,7 @@ import {Link, useNavigate} from 'react-router-dom'
 
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import axios from 'axios';
+import Footer from "./Footer"
 
 <script src="https://kit.fontawesome.com/51ed27ab31"></script>
 
@@ -727,7 +728,6 @@ return (
                   </li>
                 </Fragment>
                 ))
-                
                 :null
               }
               <li><hr class="dropdown-divider"/></li>
@@ -775,10 +775,11 @@ return (
     </div>
     </div>
     </div>
-
+      
+    <Footer/>
 
     </div>
-
+  
   );
 }
 

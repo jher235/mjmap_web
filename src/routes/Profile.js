@@ -6,6 +6,7 @@ import {faArrowRightToBracket, faPen, faAngleLeft, faAngleRight} from "@fortawes
 import axios from "axios";
 import PostNavi from "./PostNavi";
 import profile from "../css/profile.css"
+import Footer from "./Footer"
 
 
 function Profile(){
@@ -116,7 +117,10 @@ return(
   <div className="col-md-5 profilebox">
     <div className="profile-title-btn-container">
       <h1 className="profile-title ms-3">Profile Card</h1>
-      <button className="profile-modify-btn btn btn-secondary me-4 "data-bs-toggle="modal" data-bs-target="#profileModifyModal">프로필 수정</button>
+      { localStorage.getItem('usernum')===usernum.usernum?
+        <button className="profile-modify-btn btn btn-secondary me-4 "data-bs-toggle="modal" data-bs-target="#profileModifyModal">프로필 수정</button>
+      :null
+      }
     </div>
       <div className="profile-content ms-5">
         {profile?
@@ -167,7 +171,7 @@ return(
 
 
 {profile?
-    <div className="profile-post-title ">
+    <div className="profile-post-title mt-5">
       <h1>{profile.data.nickname}'s Posts</h1>
     </div>
     :null
@@ -221,11 +225,13 @@ return(
           <h1 className="postdoesnotexist">Post does not exist</h1>
           </div>
         }
-            <div className="pagebt">
+            <div className="pagebt mt-5">
             <button className="btn btn-light" onClick={later}><FontAwesomeIcon icon={faAngleLeft} /></button>
             <block className="btn btn-secondary pgblock">{page}</block>
             <button className="btn btn-light" onClick={older}><FontAwesomeIcon icon={faAngleRight} /></button>
           </div>
+
+          <Footer/>
       </div>
       </div>
       
