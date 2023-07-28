@@ -6,7 +6,7 @@ import {faArrowRightToBracket, faPen, faTrashCan, faPaperclip, faXmark } from "@
 import { useNavigate,Link,useParams } from "react-router-dom";
 import axios from "axios";
 import PostNavi from "./PostNavi";
-import { Fade } from "react-bootstrap";
+import { Fade,Modal } from "react-bootstrap";
 import Footer from "./Footer"
 
 
@@ -24,9 +24,41 @@ function PostDetail(){
     const [postAuthor, setPostAuthor] = useState("")
     const [comment,setComment] = useState("")
     const [postnum, setPostnum] = useState("")
+    const [reComment, setReComment] = useState("")
+    const [commentPk, setCommentPk] = useState("")
+
 
     
-  
+
+    const handleStartCommentModify=(event)=>{
+      const commentText = event.currentTarget.getAttribute('data-comment-text')
+      setCommentPk(event.currentTarget.getAttribute('data-comment-pk'))
+      setReComment(commentText);
+    }
+
+    const handleCommentModify=(event)=>{
+   
+
+       
+        axios
+        .put(`http://127.0.0.1:8000/comments/${commentPk}/`,{
+          post:postid.postId,
+          text:reComment
+        },{
+          headers:{
+            'Authorization': 'Token ' + localStorage.getItem("token")
+          }
+        })
+        .then((response)=>{
+          if(response.status<300){
+            window.location.assign(`/posts/${postid.postId}`);
+          }
+        })
+        .catch((error)=>{
+          console.log(error);
+        })
+    }
+
     const handleCommentDelete=(event)=>{
       // console.log(event)
       // console.log(event.currentTarget);
@@ -52,6 +84,9 @@ function PostDetail(){
       const target = event.target;
       if(target.name="comment"){
         setComment(target.value);
+      }
+      if(target.name="commentModify"){
+        setReComment(target.value);
       }
 
     }
@@ -205,7 +240,7 @@ function PostDetail(){
                           <>
                               {parseInt(localStorage.getItem("usernum"),10)===value.profile.user?
                               <>      
-                                <button className="btn btn-light ms-5"><FontAwesomeIcon icon={faPen}/></button>
+                                <button className="btn btn-light ms-5"   data-bs-toggle="modal" data-bs-target="#commentModifyModal"  data-comment-pk={value.pk} data-comment-text={value.text} onClick={handleStartCommentModify}><FontAwesomeIcon icon={faPen}/></button>
                                 <button className="btn btn-light ms-2" data-comment-pk={value.pk} onClick={handleCommentDelete}><FontAwesomeIcon icon={faXmark}/></button>
                               </>
                               :
@@ -244,7 +279,59 @@ function PostDetail(){
          
          <Footer/>
     </div>
+
+    <div className="modal fade" id="commentModifyModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="loginModalLabel"><FontAwesomeIcon icon={faPen}/>   Comment Modify</h1>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body"> 
+
+       <text className="profileModalWord">Comment-Text</text>
+       <input 
+       className="loginInput" 
+       type='text'
+       defaultValue={reComment}
+        onChange={handleChange}
+        value={reComment}
+       name="commentModify"
+       ></input>
+       
+      </div>
+        <div className="modal-footer">
+          <button type="button" className="btn btn-secondary me-auto"  aria-label="Close" data-bs-dismiss="modal" href="#">Cancel</button>
+          <button type="button" className="btn btn-secondary"  onClick={handleCommentModify} >Modify</button>
+        </div>
+      </div>
     </div>
+  </div>  
+    
+  {/* <button className="btn btn-danger" onClick={handleShow}>
+        Open Modal
+      </button>
+
+      <Modal show={true} onHide={handleClose}>
+        <Modal.Header>
+          <Modal.Title>Modal Title</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Your modal content goes here.</Modal.Body>
+        <Modal.Footer>
+          <button onClick={handleClose}>
+            Close
+          </button>
+          <button  onClick={handleClose}>
+            Save Changes
+          </button>
+        </Modal.Footer>
+      </Modal> */}
+    
+  
+
+
+</div>
+        
         
   
   )}
