@@ -737,7 +737,7 @@ return (
           </div>
       </div>
       </>
-      :<div id="map"></div>
+      :<div id="map" ></div>
     }
       {loading? <h1 className='loading'>Loading...</h1>:null}
        

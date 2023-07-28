@@ -301,4 +301,17 @@
       .justwatch{
         padding: 1%;
       }
-    
+
+    .postdetail-profile-text{
+      text-decoration: none;
+      color: aliceblue;
+    }
+
+    .commentpermission-none{
+      font-size: 25px;
+      margin-top: 3rem;
+      color:aliceblue;
+      flex-direction: row;
+      display: flex;
+
+    }

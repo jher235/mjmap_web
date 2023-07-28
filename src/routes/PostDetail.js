@@ -26,6 +26,9 @@ function PostDetail(){
     const [postnum, setPostnum] = useState("")
 
     
+  
+
+
     const handleChange=(event)=>{
       const target = event.target;
       if(target.name="comment"){
@@ -128,14 +131,20 @@ function PostDetail(){
           <div className="post-head ">
             <h4 className="post-title ">{post.title}</h4>
             
-                <div className="post-author">
+                <div className="post-author" >
                 <div className="post-date ms-3"> {new Date(post.published_date).toLocaleString()}</div>
-                 <div>
-                    by 
+                
+                {/* <div href={`/profile/${post.profile.user}`}> */}
+                  <div>
+                    
                     {post.profile?
+                    
                     <>
-                        <img src={post.profile.image} className="profile-image  img-fluid ms-3 me-3" width="40" height="40"/>
-                        {post.profile.nickname}
+                      <a href={`/profile/${post.profile.user}`} className="postdetail-profile-text">
+                          by 
+                          <img src={post.profile.image} className="profile-image  img-fluid ms-3 me-3" width="40" height="40"/>
+                          {post.profile.nickname}
+                      </a>
                     </>
                     :<a>Loading...</a>
                     }
@@ -182,12 +191,18 @@ function PostDetail(){
                 )):
                     <h2>No comment</h2>
                 }
-                <form className="comment-form" onSubmit={(event)=>handleComment(event)}>
-                  <textarea className="comment-input" placeholder="매너 채팅 부탁드립니다 ㅎㅎ" name="comment" onChange={(event)=>handleChange(event)}></textarea>
-                  <button className="btn btn-secondary ">제출</button>
-                </form>  
+                  {localStorage.getItem('token')?
+                    <form className="comment-form" onSubmit={(event)=>handleComment(event)}>
+                      <textarea className="comment-input" placeholder="매너 채팅 부탁드립니다 ㅎㅎ" name="comment" onChange={(event)=>handleChange(event)}></textarea>
+                      <button className="btn btn-secondary">제출</button>
+                    </form> 
+                    : 
+                      <div className="commentpermission-none ms-5" >로그인하여 댓글을 작성해주세요 !
+                        <Link to="/login" className="nav-link btn btn-light ms-5" > <FontAwesomeIcon icon={faArrowRightToBracket} className="me-2"/> Log In</Link>
+                       </div> 
+                }
+                
         </div>
-       
       </div>
       
      

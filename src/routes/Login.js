@@ -4,6 +4,7 @@ import {faArrowRightToBracket} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {useNavigate, Link} from "react-router-dom"
 import "../css/login.css";
+import Footer from "./Footer"
 
 
 function Login(props){
@@ -104,7 +105,9 @@ function Login(props){
         <Link to="/register" className="calink" >Create<br/>account</Link>
       </div>
     </form>
+
   </main>
+
   </div>
   );
 }
