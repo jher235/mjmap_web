@@ -2,7 +2,7 @@ import { React,Fragment,useState,useEffect } from "react";
 import "../css/postdetail.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRightToBracket, faPen, faTrashCan, faPaperclip } from "@fortawesome/free-solid-svg-icons";
+import {faArrowRightToBracket, faPen, faTrashCan, faPaperclip, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate,Link,useParams } from "react-router-dom";
 import axios from "axios";
 import PostNavi from "./PostNavi";
@@ -27,6 +27,25 @@ function PostDetail(){
 
     
   
+    const handleCommentDelete=(event)=>{
+      // console.log(event)
+      // console.log(event.currentTarget);
+      const commentPk = event.currentTarget.getAttribute("data-comment-pk")
+      console.log(commentPk)
+      axios
+      .delete(`http://127.0.0.1:8000/comments/${commentPk}/`,{
+        headers:{
+          'Authorization': 'Token ' + localStorage.getItem("token")
+        }
+      }).then((response)=>{
+        if(response.status<300){
+          window.location.assign(`/posts/${postid.postId}`);
+        }
+      })
+      .catch((error)=>{
+        console.log(error);
+      })
+    }
 
 
     const handleChange=(event)=>{
@@ -182,8 +201,20 @@ function PostDetail(){
                         <div className="comment-profile">
                           <img src={value.profile.image} className="profile-image  img-fluid ms-3 me-3" width="40" height="40"/>
                           {value.profile.nickname}
+                          {value.profile?
+                          <>
+                              {parseInt(localStorage.getItem("usernum"),10)===value.profile.user?
+                              <>      
+                                <button className="btn btn-light ms-5"><FontAwesomeIcon icon={faPen}/></button>
+                                <button className="btn btn-light ms-2" data-comment-pk={value.pk} onClick={handleCommentDelete}><FontAwesomeIcon icon={faXmark}/></button>
+                              </>
+                              :
+                              null
+                              }
+                          </>
+                          :null}
                           <div className="comment-date ms-4">{new Date(value.date).toLocaleString()}</div>
-                      
+                              
                         </div>
                         <a className="comment-text ms-3">{value.text}</a>
                     </div>
