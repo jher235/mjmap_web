@@ -32,7 +32,7 @@ function Home() {
   const [floor,setFloor] = useState()
   const [dormitory,setDormitory] = useState(false)
   const [amenity, setAmenity] = useState(false)
-  const [convenience,setConvenience] = useState(false)
+  const [showConvenience,setShowConvenience] = useState(false)
   const [myOverlay,setMyOverlay] = useState("")
   const navigate = useNavigate()
   const [myNickname, setMyNickname] = useState("")
@@ -44,11 +44,27 @@ function Home() {
   const [targetRoom, setTargetRoom] = useState("")
   const [aboutEvent, setAboutEvent] = useState("")
   const [currnetClass, setCurrentClass] = useState("")
+  const [findMyLectureRoom, setFindMyLectureRoom] = useState(false)
+  const [showCafeteria, setShowCafeteria] = useState(false)
+  const markers = [];
 
+
+
+  const handleShowCafeteria=()=>{
+    
+    setShowConvenience(false);
+    setFindMyLectureRoom(false);
+    
+    setShowCafeteria(!showCafeteria);
+  }
+
+  const handleShowConvenience =()=>{
+    setShowConvenience(!showConvenience);
   
-  function ttt(event){
-    handleSearch(event);
-    targetRoom("")
+    setFindMyLectureRoom(false);
+    setShowCafeteria(false);
+    
+
   }
 
   const handleFindMyLectureRoom= (event)=>{
@@ -167,6 +183,9 @@ const handleSearch=(event)=>{         //강의실 검색
   setCurrentClass("Y"+inputText); 
   setInputText("");
   setAboutEvent("");
+  setShowCafeteria(false)
+  setShowConvenience(false);
+  setFindMyLectureRoom(true);
   }
   else{
    alert("빈칸은 입력할 수 없습니다 :(")
@@ -201,6 +220,9 @@ const handleSearch2=(event)=>{         //강의실 검색
   setCurrentClass("Y"+targetRoom); 
   setTargetRoom("");
   setAboutEvent("");
+  setShowCafeteria(false)
+  setShowConvenience(false);
+  setFindMyLectureRoom(true);
   }
   else{
    alert("빈칸은 입력할 수 없습니다 :(")
@@ -546,40 +568,115 @@ const map = new kakao.maps.Map(container, mapOptions);
       });
     }
 
-    if(convenience){
-    var con1 = new kakao.maps.CustomOverlay({
+    if(showConvenience){
+    var con1 = new kakao.maps.Marker({
       map: map,
-      content: '<div class="customOveray convenience">gs편의점</div>', 
-      position: new kakao.maps.LatLng(37.222136, 127.188501), // 커스텀 오버레이를 표시할 좌표
-      xAnchor: 0.5, // 컨텐츠의 x 위치
-      yAnchor: 0.5 // 컨텐츠의 y 위치
+      position: new kakao.maps.LatLng(37.222135, 127.188526),  
     });
-    var con2 = new kakao.maps.CustomOverlay({
-      map: map,
-      content: '<div class="customOveray convenience">편의점2</div>', 
-      position: new kakao.maps.LatLng(37.223388, 127.187222), // 커스텀 오버레이를 표시할 좌표
-      xAnchor: 0.5, // 컨텐츠의 x 위치
-      yAnchor: 0.5 // 컨텐츠의 y 위치
-    });
-  }
-    //console.log("build",buildNum)
-   console.log("build",eval(buildNum).getPosition())
-    map.setCenter(eval(buildNum).getPosition())
 
+    var con2 = new kakao.maps.Marker({
+      map: map,
+      position: new kakao.maps.LatLng(37.223388, 127.187222), 
+    });
+    var con3 = new kakao.maps.Marker({
+      map: map,
+      position: new kakao.maps.LatLng(37.2192, 127.18255),
+    });
+    var con4 = new kakao.maps.Marker({
+      map: map,
+      position: new kakao.maps.LatLng(37.221188, 127.188584),
+    });
+    var con5 = new kakao.maps.Marker({
+      map: map,
+      position: new kakao.maps.LatLng(37.224024, 127.181838),
+    });
+    var con6 = new kakao.maps.Marker({
+      map: map,
+      position: new kakao.maps.LatLng(37.223814, 127.183199), 
+    });
+   
+
+    kakao.maps.event.addListener(con1, 'click', function() {
+      alert('명진당 지하1층 세븐일레븐');
+    });
+    kakao.maps.event.addListener(con2, 'click', function() {
+      alert('학생회관');
+    });
+    kakao.maps.event.addListener(con3, 'click', function() {
+      alert('3공학관 이마트24');
+    });
+    kakao.maps.event.addListener(con4, 'click', function() {
+      alert('함박관 세븐일레븐');
+    });
+    kakao.maps.event.addListener(con5, 'click', function() {
+      alert('명덕관 1층');
+    });
+    kakao.maps.event.addListener(con6, 'click', function() {
+      alert('기숙사 매점 2층');
+    });
+    
+    }
+  
+    //console.log("build",buildNum)
+  
+    if(showCafeteria){
+      var cafeteria1 = new kakao.maps.Marker({
+        map: map,
+        position: new kakao.maps.LatLng(37.222135, 127.188526), 
+      });
+      var cafeteria2 = new kakao.maps.Marker({
+        map: map,
+        position: new kakao.maps.LatLng(37.223814, 127.183199), 
+      });
+      var cafeteria3 = new kakao.maps.Marker({
+        map: map,
+        position: new kakao.maps.LatLng(37.223388, 127.187222),
+      });
+      var cafeteria4 = new kakao.maps.Marker({
+        map: map,
+        position: new kakao.maps.LatLng(37.220977, 127.187413),
+      });
+      
+      kakao.maps.event.addListener(cafeteria1, 'click', function() {
+        alert('명진당 지하1층');
+      });
+      kakao.maps.event.addListener(cafeteria2, 'click', function() {
+        alert('기숙사식당 1층');
+      });
+      kakao.maps.event.addListener(cafeteria3, 'click', function() {
+        alert('학생회관 1층');
+      });
+      kakao.maps.event.addListener(cafeteria4, 'click', function() {
+        alert('교직원식당 4층');
+      });
+      
+    }
+
+  
 
     
   }
- 
-  var marker = new kakao.maps.Marker({
+
+  if(findMyLectureRoom){
+  console.log("build",eval(buildNum).getPosition())
+  map.setCenter(eval(buildNum).getPosition())
+
+  var myLectureRoom = new kakao.maps.Marker({
+    map: map,
     position: eval(buildNum).getPosition()
   });
-  marker.setMap(map); //표시 버튼에 같이 사라지지 않도록
+  myLectureRoom.setMap(map); //표시 버튼에 같이 사라지지 않도록
+  }
+
+
+  console.log("showConvenience"+showConvenience, "showCafeteria"+ showCafeteria,"findMyLectureRoom", findMyLectureRoom )
+ 
 
 }  
 
 }catch(e){
 console.log(e)}
-},[customOveray,buildNum,dormitory,convenience])
+},[customOveray,buildNum,dormitory,showConvenience, showCafeteria, findMyLectureRoom])
 
 
 
@@ -652,9 +749,9 @@ return (
             편의시설
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">식당</a></li>
-            <li><a class="dropdown-item" href="#">편의점</a></li>
-            <li><a class="dropdown-item" href="#">도서관&서점</a></li>
+            <li><a class="dropdown-item" onClick={handleShowCafeteria}>교내식당</a></li>
+            <li><a class="dropdown-item" onClick={handleShowConvenience}>편의점</a></li>
+            <li><a class="dropdown-item"  >도서관&서점</a></li>
             <li><a class="dropdown-item" onClick={veiwDomitory}>기숙사</a></li>
           </ul>
         </li>
@@ -671,7 +768,7 @@ return (
       <input class='search1'type='number' value={inputText} onChange={(event)=>setInputText(event.target.value)} placeholder="강의실 번호 검색" />
       <button class='search1 btn-sm btn-block' onClick={handleSearch} >검색</button>
       {currnetClass!=="" ? <text className='ms-4'>{currnetClass}</text>:null }
-      {floor?<text className="floor ms-3">{floor}층</text>:null}
+      {floor?(<text className="floor ms-3">{floor==="0"? "지하 1층" : floor +"층"}</text>):null}
       </form>
       
       </div>
