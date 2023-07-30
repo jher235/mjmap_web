@@ -566,89 +566,225 @@ const map = new kakao.maps.Map(container, mapOptions);
         xAnchor: 0.5, // 컨텐츠의 x 위치
         yAnchor: 0.5 // 컨텐츠의 y 위치
       });
-    }
-
-    if(showConvenience){
-    var con1 = new kakao.maps.Marker({
-      map: map,
-      position: new kakao.maps.LatLng(37.222135, 127.188526),  
-    });
-
-    var con2 = new kakao.maps.Marker({
-      map: map,
-      position: new kakao.maps.LatLng(37.223388, 127.187222), 
-    });
-    var con3 = new kakao.maps.Marker({
-      map: map,
-      position: new kakao.maps.LatLng(37.2192, 127.18255),
-    });
-    var con4 = new kakao.maps.Marker({
-      map: map,
-      position: new kakao.maps.LatLng(37.221188, 127.188584),
-    });
-    var con5 = new kakao.maps.Marker({
-      map: map,
-      position: new kakao.maps.LatLng(37.224024, 127.181838),
-    });
-    var con6 = new kakao.maps.Marker({
-      map: map,
-      position: new kakao.maps.LatLng(37.223814, 127.183199), 
-    });
-   
-
-    kakao.maps.event.addListener(con1, 'click', function() {
-      alert('명진당 지하1층 세븐일레븐');
-    });
-    kakao.maps.event.addListener(con2, 'click', function() {
-      alert('학생회관');
-    });
-    kakao.maps.event.addListener(con3, 'click', function() {
-      alert('3공학관 이마트24');
-    });
-    kakao.maps.event.addListener(con4, 'click', function() {
-      alert('함박관 세븐일레븐');
-    });
-    kakao.maps.event.addListener(con5, 'click', function() {
-      alert('명덕관 1층');
-    });
-    kakao.maps.event.addListener(con6, 'click', function() {
-      alert('기숙사 매점 2층');
-    });
     
     }
+
+    // if(showConvenience){
+    // var con1 = new kakao.maps.Marker({
+    //   map: map,
+    //   position: new kakao.maps.LatLng(37.222135, 127.188526),  
+    // });
+
+    // var con2 = new kakao.maps.Marker({
+    //   map: map,
+    //   position: new kakao.maps.LatLng(37.223388, 127.187222), 
+    // });
+    // var con3 = new kakao.maps.Marker({
+    //   map: map,
+    //   position: new kakao.maps.LatLng(37.2192, 127.18255),
+    // });
+    // var con4 = new kakao.maps.Marker({
+    //   map: map,
+    //   position: new kakao.maps.LatLng(37.221188, 127.188584),
+    // });
+    // var con5 = new kakao.maps.Marker({
+    //   map: map,
+    //   position: new kakao.maps.LatLng(37.224024, 127.181838),
+    // });
+    // var con6 = new kakao.maps.Marker({
+    //   map: map,
+    //   position: new kakao.maps.LatLng(37.223814, 127.183199), 
+    // });
+   
+    // const infowindow = new kakao.maps.InfoWindow({
+    //   content: '<div style="padding:5px;">학생회관</div>',
+    // });
+
+    // kakao.maps.event.addListener(con1, 'mouseover', function() {
+      
+    //   infowindow.open(map, con1 )
+    // });
+    // kakao.maps.event.addListener(con1, 'mouseout', function() {
+     
+    //   infowindow.close(map, con1 )
+    // });
+    // kakao.maps.event.addListener(con2, 'click', function() {
+    //   alert('학생회관');
+    // });
+    // kakao.maps.event.addListener(con3, 'click', function() {
+    //   alert('3공학관 이마트24');
+    // });
+    // kakao.maps.event.addListener(con4, 'click', function() {
+    //   alert('함박관 세븐일레븐');
+    // });
+    // kakao.maps.event.addListener(con5, 'click', function() {
+    //   alert('명덕관 1층');
+    // });
+    // kakao.maps.event.addListener(con6, 'click', function() {
+    //   alert('기숙사 매점 2층');
+    // });
+    
+    // }
+
+
+    // if (showConvenience) {
+    //   const markerPositions = [
+    //     new kakao.maps.LatLng(37.222135, 127.188526),
+    //     new kakao.maps.LatLng(37.223388, 127.187222),
+    //     new kakao.maps.LatLng(37.2192, 127.18255),
+    //     new kakao.maps.LatLng(37.221188, 127.188584),
+    //     new kakao.maps.LatLng(37.224024, 127.181838),
+    //     new kakao.maps.LatLng(37.223814, 127.183199),
+    //   ];
+    
+    //   const markerMessages = [
+    //     '명진당 지하1층 세븐일레븐',
+    //     '학생회관',
+    //     '3공학관 이마트24',
+    //     '함박관 세븐일레븐',
+    //     '명덕관 1층',
+    //     '기숙사 매점 2층',
+    //   ];
+    
+    //   markerPositions.forEach((position, index) => {
+    //     const marker = new kakao.maps.Marker({
+    //       map: map,
+    //       position: position,
+    //     });
+    
+    //     const infowindow = new kakao.maps.InfoWindow({
+    //       content: `<div style="padding:5px;">${markerMessages[index]}</div>`,
+    //     });
+    
+    //     // 마우스 오버 시 인포윈도우 열기
+    //     kakao.maps.event.addListener(marker, 'mouseover', function () {
+    //       infowindow.open(map, marker);
+    //     });
+    
+    //     // 마우스 아웃 시 인포윈도우 닫기
+    //     kakao.maps.event.addListener(marker, 'mouseout', function () {
+    //       infowindow.close();
+    //     });
+    //   });
+    // }
+
+    
+
+    if(showConvenience){
+      const markerPositions=[
+        new kakao.maps.LatLng(37.222135, 127.188526),
+        new kakao.maps.LatLng(37.223388, 127.187222),
+        new kakao.maps.LatLng(37.2192, 127.18255),
+        new kakao.maps.LatLng(37.221188, 127.188584),
+        new kakao.maps.LatLng(37.224024, 127.181838),
+        new kakao.maps.LatLng(37.223814, 127.183199),
+      ];
+      
+      const markerMessages = [
+        '명진당 지하1층 세븐일레븐',
+        '학생회관',
+        '3공학관 이마트24',
+        '함박관 세븐일레븐',
+        '명덕관 1층',
+        '기숙사 매점 2층',
+      ];
+    
+
+      markerPositions.forEach((position, index) => {
+          const marker = new kakao.maps.Marker({
+            map: map,
+            position: position,
+          });
+        
+        const infowindow = new kakao.maps.InfoWindow({
+          content:  `<div class="infowindow"><span class="infowindow-content ">${markerMessages[index]}</span></div>`
+        })
+
+        kakao.maps.event.addListener(marker,"mouseover",function(){
+          infowindow.open(map, marker)
+         
+        })
+
+        kakao.maps.event.addListener(marker,"mouseout",function(){
+          infowindow.close()
+       
+        })
+
+          
+      });
+    }
+    
+
   
     //console.log("build",buildNum)
   
     if(showCafeteria){
-      var cafeteria1 = new kakao.maps.Marker({
-        map: map,
-        position: new kakao.maps.LatLng(37.222135, 127.188526), 
-      });
-      var cafeteria2 = new kakao.maps.Marker({
-        map: map,
-        position: new kakao.maps.LatLng(37.223814, 127.183199), 
-      });
-      var cafeteria3 = new kakao.maps.Marker({
-        map: map,
-        position: new kakao.maps.LatLng(37.223388, 127.187222),
-      });
-      var cafeteria4 = new kakao.maps.Marker({
-        map: map,
-        position: new kakao.maps.LatLng(37.220977, 127.187413),
-      });
+
+     const markerPositions = [
+        new kakao.maps.LatLng(37.222135, 127.188526), 
+        new kakao.maps.LatLng(37.223814, 127.183199), 
+        new kakao.maps.LatLng(37.223388, 127.187222),
+        new kakao.maps.LatLng(37.220977, 127.187413),
+      ]
+
+      const markerMessages = [
+        '지하1층 명진당',
+        '1층 기숙사식당',
+        '1층 학생회관',
+        '4층 교직원식당'
+      ]
       
-      kakao.maps.event.addListener(cafeteria1, 'click', function() {
-        alert('명진당 지하1층');
-      });
-      kakao.maps.event.addListener(cafeteria2, 'click', function() {
-        alert('기숙사식당 1층');
-      });
-      kakao.maps.event.addListener(cafeteria3, 'click', function() {
-        alert('학생회관 1층');
-      });
-      kakao.maps.event.addListener(cafeteria4, 'click', function() {
-        alert('교직원식당 4층');
-      });
+
+      markerPositions.forEach((value, index)=>{
+        const marker = new kakao.maps.Marker({
+          map:map,
+          position:value
+        })
+        const infowindow = new kakao.maps.InfoWindow({
+          content: `<div class="infowindow"><span class="infowindow-content">${markerMessages[index]}</span></div>`
+        })
+
+        kakao.maps.event.addListener(marker,"mouseover",function(){
+          infowindow.open(map, marker);
+        })
+
+        kakao.maps.event.addListener(marker,"mouseout",function(){
+          infowindow.close();
+        })
+      })
+
+
+      // var cafeteria1 = new kakao.maps.Marker({
+      //   map: map,
+      //   position: new kakao.maps.LatLng(37.222135, 127.188526), 
+      // });
+      // var cafeteria2 = new kakao.maps.Marker({
+      //   map: map,
+      //   position: new kakao.maps.LatLng(37.223814, 127.183199), 
+      // });
+      // var cafeteria3 = new kakao.maps.Marker({
+      //   map: map,
+      //   position: new kakao.maps.LatLng(37.223388, 127.187222),
+      // });
+      // var cafeteria4 = new kakao.maps.Marker({
+      //   map: map,
+      //   position: new kakao.maps.LatLng(37.220977, 127.187413),
+      // });
+      
+
+
+      // kakao.maps.event.addListener(cafeteria1, 'click', function() {
+      //   alert('명진당 지하1층');
+      // });
+      // kakao.maps.event.addListener(cafeteria2, 'click', function() {
+      //   alert('기숙사식당 1층');
+      // });
+      // kakao.maps.event.addListener(cafeteria3, 'click', function() {
+      //   alert('학생회관 1층');
+      // });
+      // kakao.maps.event.addListener(cafeteria4, 'click', function() {
+      //   alert('교직원식당 4층');
+      // });
       
     }
 
@@ -665,6 +801,18 @@ const map = new kakao.maps.Map(container, mapOptions);
     map: map,
     position: eval(buildNum).getPosition()
   });
+  const infowindow = new kakao.maps.InfoWindow({
+    
+    content: `<div class="infowindow"><span class="infowindow-content">${floor === "0"?"지하1":floor} 층 </span></div>`
+  })
+  kakao.maps.event.addListener(myLectureRoom, "mouseover", function(){
+    infowindow.open(map, myLectureRoom);
+  })
+
+  kakao.maps.event.addListener(myLectureRoom, "mouseout", function(){
+    infowindow.close();
+  })
+
   myLectureRoom.setMap(map); //표시 버튼에 같이 사라지지 않도록
   }
 
