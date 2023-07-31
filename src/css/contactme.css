@@ -1,0 +1,110 @@
+html{
+    height: 100%;
+}
+
+.body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  background-color: black;
+  justify-content: flex-start;
+}
+
+.form-signup {
+
+  width: 100%; 
+ 
+  padding: 20px;
+  margin-top: 1%;
+  margin-left: 5%;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signup .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signup textarea[name="title"] {
+    border-radius: 5px;
+  margin-bottom: 20px;
+  width: 800px;
+}
+
+.form-signup textarea[name="content"]{
+    border-radius: 5px;
+    /* padding: 200px;
+    padding-right: 100%;
+    padding-bottom: 100%; */
+    margin-bottom: 20px;
+    width: 800px;
+    height: 300px;
+    
+}
+
+.form-signup input[name="image"]{
+    border-radius: 5px;
+    width: 500px;
+     margin-bottom: 30px;
+  }
+  
+
+.form-signup input[name="file"] {
+  margin-bottom: 30px;
+  width: 500px;
+  border-radius: 5px;
+}
+
+.form-signup input[name="category"] {
+  margin-bottom: 30px;
+  width: 500px;
+  border-radius: 5px;
+}
+
+.logintext {
+    font-size:50px;
+    color:aliceblue;
+    border-radius: 20;
+}
+
+
+
+
+.pluslink{
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.homelink{
+  justify-content: start;
+  color: aliceblue;
+  text-decoration: none;
+}
+
+.calink{
+  color: aliceblue;
+  justify-content: end;
+  text-decoration: none;
+
+}
+
+.uploadbt{
+  
+  margin-left: 80vw;
+}
+
+
+.position-select{
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    font-weight: 800;
+    margin: 5%;
+    
+
+}

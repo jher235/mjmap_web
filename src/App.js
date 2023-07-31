@@ -577,6 +577,7 @@ import{
 import PostModify from "./routes/PostModify";
 import Profile from "./routes/Profile";
 import Footer from "./routes/Footer";
+import ContactMe from "./routes/ContactMe";
 
 
 
@@ -594,6 +595,7 @@ function App() {
       <Route path={"/posts/:postId/post_modify"} element={<PostModify/>}/>
       <Route path={"/profile/:usernum"} element={<Profile/>}/>
       <Route path={"/footer"} element={<Footer/>}/>
+      <Route path={"/contact_me"} element={<ContactMe/>}/>
     </Routes>
   </Router>);
 }

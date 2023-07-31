@@ -21,7 +21,7 @@ function Footer() {
     <div className="footer-container">
       
       <p className="mb-0"> &copy; jher</p>
-      <p className="mb-0">Connect to me -&gt; <a href="/">Here</a> </p>
+      <p className="mb-0">If you want to contact to me -&gt; <Link to="contact_me" className='contact-btn'>Click Here</Link> </p>
      
     </div>
   </footer>
