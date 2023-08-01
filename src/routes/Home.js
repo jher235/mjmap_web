@@ -46,24 +46,46 @@ function Home() {
   const [currnetClass, setCurrentClass] = useState("")
   const [findMyLectureRoom, setFindMyLectureRoom] = useState(false)
   const [showCafeteria, setShowCafeteria] = useState(false)
-  const markers = [];
+  const [showBusStopStation, setShowBusStopStation] = useState(false)
+  const [showBusStopDowntown, setShowBusStopDowntown] = useState(false)
 
 
-
-  const handleShowCafeteria=()=>{
-    
+  const handleShowBusStopDowntown = ()=>{
     setShowConvenience(false);
     setFindMyLectureRoom(false);
+    setShowCafeteria(false);
+    setShowBusStopStation(false);
+
+    setShowBusStopDowntown(!showBusStopDowntown);
+  }
+
+  const handleShowBusStopStation = ()=>{
+    setShowConvenience(false);
+    setFindMyLectureRoom(false);
+    setShowCafeteria(false);
+    setShowBusStopDowntown(false);
+
+    setShowBusStopStation(!showBusStopStation);
+
+  }
+
+  const handleShowCafeteria=()=>{
+    setShowBusStopDowntown(false);
+    setShowBusStopStation(false);
+    setShowConvenience(false);
+    setFindMyLectureRoom(false);
+    
     
     setShowCafeteria(!showCafeteria);
   }
 
   const handleShowConvenience =()=>{
-    setShowConvenience(!showConvenience);
-  
+    
     setFindMyLectureRoom(false);
     setShowCafeteria(false);
-    
+    setShowBusStopStation(false);
+
+    setShowConvenience(!showConvenience);
 
   }
 
@@ -569,229 +591,452 @@ const map = new kakao.maps.Map(container, mapOptions);
     
     }
 
-    // if(showConvenience){
-    // var con1 = new kakao.maps.Marker({
-    //   map: map,
-    //   position: new kakao.maps.LatLng(37.222135, 127.188526),  
-    // });
-
-    // var con2 = new kakao.maps.Marker({
-    //   map: map,
-    //   position: new kakao.maps.LatLng(37.223388, 127.187222), 
-    // });
-    // var con3 = new kakao.maps.Marker({
-    //   map: map,
-    //   position: new kakao.maps.LatLng(37.2192, 127.18255),
-    // });
-    // var con4 = new kakao.maps.Marker({
-    //   map: map,
-    //   position: new kakao.maps.LatLng(37.221188, 127.188584),
-    // });
-    // var con5 = new kakao.maps.Marker({
-    //   map: map,
-    //   position: new kakao.maps.LatLng(37.224024, 127.181838),
-    // });
-    // var con6 = new kakao.maps.Marker({
-    //   map: map,
-    //   position: new kakao.maps.LatLng(37.223814, 127.183199), 
-    // });
-   
-    // const infowindow = new kakao.maps.InfoWindow({
-    //   content: '<div style="padding:5px;">학생회관</div>',
-    // });
-
-    // kakao.maps.event.addListener(con1, 'mouseover', function() {
-      
-    //   infowindow.open(map, con1 )
-    // });
-    // kakao.maps.event.addListener(con1, 'mouseout', function() {
-     
-    //   infowindow.close(map, con1 )
-    // });
-    // kakao.maps.event.addListener(con2, 'click', function() {
-    //   alert('학생회관');
-    // });
-    // kakao.maps.event.addListener(con3, 'click', function() {
-    //   alert('3공학관 이마트24');
-    // });
-    // kakao.maps.event.addListener(con4, 'click', function() {
-    //   alert('함박관 세븐일레븐');
-    // });
-    // kakao.maps.event.addListener(con5, 'click', function() {
-    //   alert('명덕관 1층');
-    // });
-    // kakao.maps.event.addListener(con6, 'click', function() {
-    //   alert('기숙사 매점 2층');
-    // });
-    
-    // }
-
-
-    // if (showConvenience) {
-    //   const markerPositions = [
-    //     new kakao.maps.LatLng(37.222135, 127.188526),
-    //     new kakao.maps.LatLng(37.223388, 127.187222),
-    //     new kakao.maps.LatLng(37.2192, 127.18255),
-    //     new kakao.maps.LatLng(37.221188, 127.188584),
-    //     new kakao.maps.LatLng(37.224024, 127.181838),
-    //     new kakao.maps.LatLng(37.223814, 127.183199),
-    //   ];
-    
-    //   const markerMessages = [
-    //     '명진당 지하1층 세븐일레븐',
-    //     '학생회관',
-    //     '3공학관 이마트24',
-    //     '함박관 세븐일레븐',
-    //     '명덕관 1층',
-    //     '기숙사 매점 2층',
-    //   ];
-    
-    //   markerPositions.forEach((position, index) => {
-    //     const marker = new kakao.maps.Marker({
-    //       map: map,
-    //       position: position,
-    //     });
-    
-    //     const infowindow = new kakao.maps.InfoWindow({
-    //       content: `<div style="padding:5px;">${markerMessages[index]}</div>`,
-    //     });
-    
-    //     // 마우스 오버 시 인포윈도우 열기
-    //     kakao.maps.event.addListener(marker, 'mouseover', function () {
-    //       infowindow.open(map, marker);
-    //     });
-    
-    //     // 마우스 아웃 시 인포윈도우 닫기
-    //     kakao.maps.event.addListener(marker, 'mouseout', function () {
-    //       infowindow.close();
-    //     });
-    //   });
-    // }
-
-    
-
-    if(showConvenience){
-      const markerPositions=[
-        new kakao.maps.LatLng(37.222135, 127.188526),
-        new kakao.maps.LatLng(37.223388, 127.187222),
-        new kakao.maps.LatLng(37.2192, 127.18255),
-        new kakao.maps.LatLng(37.221188, 127.188584),
-        new kakao.maps.LatLng(37.224024, 127.181838),
-        new kakao.maps.LatLng(37.223814, 127.183199),
-      ];
-      
-      const markerMessages = [
-        '명진당 지하1층 세븐일레븐',
-        '학생회관',
-        '3공학관 이마트24',
-        '함박관 세븐일레븐',
-        '명덕관 1층',
-        '기숙사 매점 2층',
-      ];
-    
-
-      markerPositions.forEach((position, index) => {
-          const marker = new kakao.maps.Marker({
-            map: map,
-            position: position,
-          });
-        
-        const infowindow = new kakao.maps.InfoWindow({
-          content:  `<div class="infowindow"><span class="infowindow-content ">${markerMessages[index]}</span></div>`
-        })
-
-        kakao.maps.event.addListener(marker,"mouseover",function(){
-          infowindow.open(map, marker)
-         
-        })
-
-        kakao.maps.event.addListener(marker,"mouseout",function(){
-          infowindow.close()
-       
-        })
-
-          
-      });
-    }
-    
-
-  
-    //console.log("build",buildNum)
-  
-    if(showCafeteria){
-
-     const markerPositions = [
-        new kakao.maps.LatLng(37.222135, 127.188526), 
-        new kakao.maps.LatLng(37.223814, 127.183199), 
-        new kakao.maps.LatLng(37.223388, 127.187222),
-        new kakao.maps.LatLng(37.220977, 127.187413),
-      ]
-
-      const markerMessages = [
-        '지하1층 명진당',
-        '1층 기숙사식당',
-        '1층 학생회관',
-        '4층 교직원식당'
-      ]
-      
-
-      markerPositions.forEach((value, index)=>{
-        const marker = new kakao.maps.Marker({
-          map:map,
-          position:value
-        })
-        const infowindow = new kakao.maps.InfoWindow({
-          content: `<div class="infowindow"><span class="infowindow-content">${markerMessages[index]}</span></div>`
-        })
-
-        kakao.maps.event.addListener(marker,"mouseover",function(){
-          infowindow.open(map, marker);
-        })
-
-        kakao.maps.event.addListener(marker,"mouseout",function(){
-          infowindow.close();
-        })
-      })
-
-
-      // var cafeteria1 = new kakao.maps.Marker({
-      //   map: map,
-      //   position: new kakao.maps.LatLng(37.222135, 127.188526), 
-      // });
-      // var cafeteria2 = new kakao.maps.Marker({
-      //   map: map,
-      //   position: new kakao.maps.LatLng(37.223814, 127.183199), 
-      // });
-      // var cafeteria3 = new kakao.maps.Marker({
-      //   map: map,
-      //   position: new kakao.maps.LatLng(37.223388, 127.187222),
-      // });
-      // var cafeteria4 = new kakao.maps.Marker({
-      //   map: map,
-      //   position: new kakao.maps.LatLng(37.220977, 127.187413),
-      // });
-      
-
-
-      // kakao.maps.event.addListener(cafeteria1, 'click', function() {
-      //   alert('명진당 지하1층');
-      // });
-      // kakao.maps.event.addListener(cafeteria2, 'click', function() {
-      //   alert('기숙사식당 1층');
-      // });
-      // kakao.maps.event.addListener(cafeteria3, 'click', function() {
-      //   alert('학생회관 1층');
-      // });
-      // kakao.maps.event.addListener(cafeteria4, 'click', function() {
-      //   alert('교직원식당 4층');
-      // });
-      
-    }
-
-  
 
     
   }
+
+  
+  if(showConvenience){
+    const markerPositions=[
+      new kakao.maps.LatLng(37.222135, 127.188526),
+      new kakao.maps.LatLng(37.223388, 127.187222),
+      new kakao.maps.LatLng(37.2192, 127.18255),
+      new kakao.maps.LatLng(37.221188, 127.188584),
+      new kakao.maps.LatLng(37.224024, 127.181838),
+      new kakao.maps.LatLng(37.223814, 127.183199),
+      new kakao.maps.LatLng(37.223105, 127.186841),
+    ];
+    
+    const markerMessages = [
+      'B1층 세븐일레븐, GS편의점',
+      '1층 세븐일레븐',
+      '1층 GS편의점,<br/>B1층 이마트24',
+      '3층 세븐일레븐',
+      '1층 세븐일레븐',
+      '1층 이마트24',
+      '2층 CU편의점',
+    ];
+  
+
+    markerPositions.forEach((position, index) => {
+        const marker = new kakao.maps.Marker({
+          map: map,
+          position: position,
+        });
+      
+      const infowindow = new kakao.maps.InfoWindow({
+        content:  `<div class="infowindow"><span class="infowindow-content ">${markerMessages[index]}</span></div>`
+      })
+
+      kakao.maps.event.addListener(marker,"mouseover",function(){
+        infowindow.open(map, marker)
+       
+      })
+
+      kakao.maps.event.addListener(marker,"mouseout",function(){
+        infowindow.close()
+     
+      })
+
+        
+    });
+  }
+  
+
+
+  //console.log("build",buildNum)
+
+  if(showCafeteria){
+
+   const markerPositions = [
+      new kakao.maps.LatLng(37.222135, 127.188526), 
+      new kakao.maps.LatLng(37.223814, 127.183199), 
+      new kakao.maps.LatLng(37.223388, 127.187222),
+      new kakao.maps.LatLng(37.220977, 127.187413),
+    ]
+
+    const markerMessages = [
+      'B1층 명진당',
+      '1층 기숙사식당',
+      '1층 학생회관',
+      '4층 교직원식당'
+    ]
+    
+
+    markerPositions.forEach((value, index)=>{
+      const marker = new kakao.maps.Marker({
+        map:map,
+        position:value
+      })
+      const infowindow = new kakao.maps.InfoWindow({
+        content: `<div class="infowindow"><span class="infowindow-content">${markerMessages[index]}</span></div>`
+      })
+
+      kakao.maps.event.addListener(marker,"mouseover",function(){
+        infowindow.open(map, marker);
+      })
+
+      kakao.maps.event.addListener(marker,"mouseout",function(){
+        infowindow.close();
+      })
+    })
+
+    
+  }
+
+  if(showBusStopDowntown){
+    const markerPositions = [
+      new kakao.maps.LatLng(37.222292, 127.189000),
+      new kakao.maps.LatLng(37.221600, 127.188363),
+      new kakao.maps.LatLng(37.222691, 127.186712),
+      new kakao.maps.LatLng(37.219900, 127.185341),
+      new kakao.maps.LatLng(37.219479, 127.183947),
+      new kakao.maps.LatLng(37.224288, 127.187727),
+      new kakao.maps.LatLng(37.230496, 127.188230),
+      new kakao.maps.LatLng(37.233993, 127.188850),
+      
+
+      new kakao.maps.LatLng(37.234786, 127.198828),
+      new kakao.maps.LatLng(37.235444,127.206617 ),
+      new kakao.maps.LatLng(37.234133, 127.208845 ),
+      
+
+
+      new kakao.maps.LatLng(37.233969, 127.188554),
+      new kakao.maps.LatLng(37.231395, 127.188159),
+    ]
+    
+    const markerMessages = [
+      "-명진당-<br/>차고지 방면",
+      "-함박관-<br/>차고지 방면",
+      "-1공학관-<br/>3공학관 방면",
+      "-건축관-<br/>3공학관 방면",
+      "-3공학관-<br/>회차지점",
+      "-차고지-<br/>기종점",
+
+      "-이마트,상공회의소-<br/>용인터미널 방면",
+      "-역북동행정복지센터,럭스나인-<br/>용인터미널 방면",
+
+      "-중앙지구대-<br/>용인터미널 방면",
+      "-용인시장-<br/>용인터미널 방면",
+      "-용인터미널-<br/>회차지점",
+
+      "-역북동행정복지센터,럭스나인-<br/>3공학관 방면",
+      "-이마트,상공회의소-<br/>3공학관 방면"
+    ]
+
+    markerPositions.forEach((value, index)=>{
+      const marker = new kakao.maps.Marker({
+        map:map,
+        position:value
+      })
+
+      const infowindow = new kakao.maps.InfoWindow({
+        content:`<div class="infowindow"><span class="infowindow-content">${markerMessages[index]}</span></div>`
+      })
+
+      kakao.maps.event.addListener(marker,'mouseover',function(){
+        infowindow.open(map,marker);
+      })
+    
+      kakao.maps.event.addListener(marker,'mouseout',function(){
+        infowindow.close();
+      })
+
+    })
+
+    var linePath = [
+
+  
+      new kakao.maps.LatLng(37.224307,127.187719 ),
+      new kakao.maps.LatLng(37.224521,127.1878941 ),
+      new kakao.maps.LatLng(37.224894, 127.187853),
+      new kakao.maps.LatLng(37.224953,127.187864 ),
+      new kakao.maps.LatLng(37.225025,127.187870 ),
+      new kakao.maps.LatLng(37.225601,127.188052 ),
+      new kakao.maps.LatLng(37.227386, 127.187650 ),
+      new kakao.maps.LatLng(37.227737,127.187640 ),
+      new kakao.maps.LatLng(37.229039,127.187885 ),
+      new kakao.maps.LatLng(37.230651, 127.188165),
+      new kakao.maps.LatLng(37.231030,127.188285 ),
+      new kakao.maps.LatLng(37.231773, 127.188416),
+      new kakao.maps.LatLng(37.231953,127.188439 ),
+      new kakao.maps.LatLng(37.235245,127.188960 ),
+      new kakao.maps.LatLng(37.236067,127.189213 ),
+      new kakao.maps.LatLng(37.235009, 127.194439),
+      new kakao.maps.LatLng(37.234611,127.195571),
+      new kakao.maps.LatLng( 37.234772, 127.196253),
+      new kakao.maps.LatLng(37.234895, 127.203297),
+      new kakao.maps.LatLng(37.23497, 127.203888 ),
+
+
+      new kakao.maps.LatLng(37.235555,127.2070683 ),
+      new kakao.maps.LatLng(37.235586,127.207643 ),
+      new kakao.maps.LatLng(37.235503,127.208713 ),
+      new kakao.maps.LatLng(37.23379, 127.208956),
+      new kakao.maps.LatLng(37.2332052,127.209017 ),
+      new kakao.maps.LatLng( 37.233029, 127.206182),
+      new kakao.maps.LatLng(37.232955,127.204779 ),
+      new kakao.maps.LatLng(37.232968,127.200080),
+      new kakao.maps.LatLng(37.2330138, 127.199787),
+      new kakao.maps.LatLng(37.233204,127.199201 ),
+      new kakao.maps.LatLng(37.234872, 127.195357),
+      new kakao.maps.LatLng(37.2350449, 127.1948567),
+      new kakao.maps.LatLng(37.236239,127.189123 ),
+      
+      //new kakao.maps.LatLng(, ),
+  
+ 
+   
+     new kakao.maps.LatLng(37.235246, 127.1888479 ),
+      new kakao.maps.LatLng( 37.231967,127.188304 ),
+      new kakao.maps.LatLng(37.231777, 127.188315),
+      new kakao.maps.LatLng(37.231012, 127.188155),
+      new kakao.maps.LatLng( 37.230706,127.188070 ),
+      new kakao.maps.LatLng(37.228111,127.187590 ),
+      new kakao.maps.LatLng(37.227346, 127.1875436),
+      new kakao.maps.LatLng(37.225856,127.187863 ),
+      new kakao.maps.LatLng(37.225588,127.187936 ),
+      new kakao.maps.LatLng(37.225460, 127.1879051),
+      new kakao.maps.LatLng(37.225036,127.187746),
+      new kakao.maps.LatLng(37.225000,127.187701),
+      new kakao.maps.LatLng(37.224917,127.187709),
+      new kakao.maps.LatLng(37.224705, 127.187756 ),
+      new kakao.maps.LatLng(37.224507, 127.187801),
+      new kakao.maps.LatLng( 37.223328, 127.188085),
+      new kakao.maps.LatLng(37.222506, 127.186419),
+      new kakao.maps.LatLng(37.222184,127.186666 ),
+
+      new kakao.maps.LatLng(37.2218874,127.186434 ),
+      new kakao.maps.LatLng(37.22184,127.1864145 ),
+      new kakao.maps.LatLng(37.221792,  127.186408),
+      new kakao.maps.LatLng(37.221738, 127.186422 ),
+      new kakao.maps.LatLng( 37.221042,127.186818 ),
+      
+
+       new kakao.maps.LatLng(37.220956, 127.1867475 ),
+       new kakao.maps.LatLng(37.220830, 127.186741),
+      new kakao.maps.LatLng(37.220461, 127.186740 ),
+      new kakao.maps.LatLng(37.2203733, 127.1866898),
+      new kakao.maps.LatLng(37.2201394, 127.186416 ),
+      new kakao.maps.LatLng( 37.220067,  127.186210),
+      new kakao.maps.LatLng(37.2196831,127.184344 ),
+      new kakao.maps.LatLng(37.219521, 127.183824),
+      new kakao.maps.LatLng(37.219479, 127.183947),
+      new kakao.maps.LatLng(37.2195306, 127.1839104),
+      new kakao.maps.LatLng(37.219563, 127.1840401),
+      new kakao.maps.LatLng(37.2196874,127.1845051),
+      new kakao.maps.LatLng(37.220005, 127.186218),
+      new kakao.maps.LatLng( 37.220129,127.186495),
+      new kakao.maps.LatLng(37.2201955, 127.186571),
+      new kakao.maps.LatLng(37.220355,127.186734 ),
+      new kakao.maps.LatLng(37.2204790, 127.186788 ),
+      new kakao.maps.LatLng(37.220895,127.186786 ),
+      
+      new kakao.maps.LatLng(37.220976, 127.186803),
+      new kakao.maps.LatLng(37.2210915, 127.1869112 ),
+      new kakao.maps.LatLng(37.2212280, 127.1874693),
+      new kakao.maps.LatLng(37.221663,127.1883859 ),
+      new kakao.maps.LatLng(37.221670, 127.1884929),
+      new kakao.maps.LatLng(37.221918, 127.188998),
+      new kakao.maps.LatLng(37.222027, 127.189172),
+      new kakao.maps.LatLng(37.223299,127.188161 ),
+      new kakao.maps.LatLng(37.224441, 127.187902),
+      new kakao.maps.LatLng(37.224307,127.187719 ),
+
+
+
+
+
+
+
+      
+  ];
+  
+  // 지도에 표시할 선을 생성합니다
+  var polyline = new kakao.maps.Polyline({
+      path: linePath, // 선을 구성하는 좌표배열 입니다
+      strokeWeight: 5, // 선의 두께 입니다
+      strokeColor: '#FFAE00', // 선의 색깔입니다
+      strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+      strokeStyle: 'solid' // 선의 스타일입니다
+  });
+  
+  // 지도에 선을 표시합니다 
+  polyline.setMap(map);  
+  
+
+   
+
+
+  }
+
+
+  if(showBusStopStation){
+    const markerPositions = [
+      new kakao.maps.LatLng(37.222292, 127.188851),
+      new kakao.maps.LatLng(37.221600, 127.188363),
+      new kakao.maps.LatLng(37.219900, 127.185341),
+      new kakao.maps.LatLng(37.219479, 127.183947),
+      new kakao.maps.LatLng(37.224288, 127.187727),
+      new kakao.maps.LatLng(37.230496, 127.188230),
+      new kakao.maps.LatLng(37.233993, 127.188850),
+      new kakao.maps.LatLng(37.238497, 127.189563),
+      new kakao.maps.LatLng(37.233969, 127.188554),
+      new kakao.maps.LatLng(37.231395, 127.188159),
+    ]
+    
+    const markerMessages = [
+      "-명진당-<br/>3공학관 방면",
+      "-함박관-<br/>차고지 방면",
+      "-건축관-<br/>3공학관 방면",
+      "-3공학관-<br/>회차지점",
+      "-차고지-<br/>기종점",
+      "-이마트,상공회의소-<br/>명지대역 방면",
+      "-역북동행정복지센터,럭스나인-<br/>명지대역 방면",
+      "-명지대역-<br/>회차지점",
+      "-역북동행정복지센터,럭스나인-<br/>3공학관 방면",
+      "-이마트,상공회의소-<br/>3공학관 방면"
+    ]
+
+    markerPositions.forEach((value, index)=>{
+      const marker = new kakao.maps.Marker({
+        map:map,
+        position:value
+      })
+
+      const infowindow = new kakao.maps.InfoWindow({
+        content:`<div class="infowindow"><span class="infowindow-content">${markerMessages[index]}</span></div>`
+      })
+
+      kakao.maps.event.addListener(marker,'mouseover',function(){
+        infowindow.open(map,marker);
+      })
+    
+      kakao.maps.event.addListener(marker,'mouseout',function(){
+        infowindow.close();
+      })
+
+    })
+
+    var linePath = [
+
+  
+      new kakao.maps.LatLng(37.224307,127.187719 ),
+      new kakao.maps.LatLng(37.224521,127.1878941 ),
+      new kakao.maps.LatLng(37.224894, 127.187853),
+      new kakao.maps.LatLng(37.224953,127.187864 ),
+      new kakao.maps.LatLng(37.225025,127.187870 ),
+      new kakao.maps.LatLng(37.225601,127.188052 ),
+      new kakao.maps.LatLng(37.227386, 127.187650 ),
+      new kakao.maps.LatLng(37.227737,127.187640 ),
+      new kakao.maps.LatLng(37.229039,127.187885 ),
+      new kakao.maps.LatLng(37.230651, 127.188165),
+      new kakao.maps.LatLng(37.231030,127.188285 ),
+      new kakao.maps.LatLng(37.231773, 127.188416),
+      new kakao.maps.LatLng(37.231953,127.188439 ),
+      new kakao.maps.LatLng(37.235245,127.188960 ),
+      new kakao.maps.LatLng(37.237947,127.189778 ),
+      new kakao.maps.LatLng(37.238362, 127.189954),
+      new kakao.maps.LatLng(37.238525, 127.189222),
+      new kakao.maps.LatLng(37.238635,  127.188236),
+      new kakao.maps.LatLng(37.238800,  127.186129),
+      new kakao.maps.LatLng(37.236932, 127.1850712),
+      new kakao.maps.LatLng( 37.236088,127.189058 ),
+      new kakao.maps.LatLng(37.235246, 127.1888479 ),
+      new kakao.maps.LatLng( 37.231967,127.188304 ),
+      new kakao.maps.LatLng(37.231777, 127.188315),
+      new kakao.maps.LatLng(37.231012, 127.188155),
+      new kakao.maps.LatLng( 37.230706,127.188070 ),
+      new kakao.maps.LatLng(37.228111,127.187590 ),
+      new kakao.maps.LatLng(37.227346, 127.1875436),
+      new kakao.maps.LatLng(37.225856,127.187863 ),
+      new kakao.maps.LatLng(37.225588,127.187936 ),
+      new kakao.maps.LatLng(37.225460, 127.1879051),
+      new kakao.maps.LatLng(37.225036,127.187746),
+      new kakao.maps.LatLng(37.225000,127.187701),
+      new kakao.maps.LatLng(37.224917,127.187709),
+      new kakao.maps.LatLng(37.224705, 127.187756 ),
+      new kakao.maps.LatLng(37.224507, 127.187801),
+      new kakao.maps.LatLng( 37.223328, 127.188085),
+      new kakao.maps.LatLng(37.222047,127.1891051 ),
+      new kakao.maps.LatLng(37.220994,127.190012 ),
+      new kakao.maps.LatLng(37.220847,127.190026 ),
+      new kakao.maps.LatLng(37.220710, 127.189913),
+      new kakao.maps.LatLng( 37.220685, 127.189867 ),
+      new kakao.maps.LatLng( 37.220438,127.188346 ),
+      new kakao.maps.LatLng(37.220362, 127.188072),
+      new kakao.maps.LatLng(37.220267,  127.187990),
+      new kakao.maps.LatLng(37.22004037,127.187829 ),
+      new kakao.maps.LatLng(37.220015,127.187779 ),
+      new kakao.maps.LatLng(37.2200157,127.1877311 ),
+      new kakao.maps.LatLng(37.2204877, 127.1869802),
+      new kakao.maps.LatLng(37.221022,127.186818 ),
+      new kakao.maps.LatLng(37.220956, 127.1867475 ),
+      new kakao.maps.LatLng(37.220830, 127.186741),
+      new kakao.maps.LatLng(37.220461, 127.186740 ),
+      new kakao.maps.LatLng(37.2203733, 127.1866898),
+      new kakao.maps.LatLng(37.2201394, 127.186416 ),
+      new kakao.maps.LatLng( 37.220067,  127.186210),
+      new kakao.maps.LatLng(37.2196831,127.184344 ),
+      new kakao.maps.LatLng(37.219521, 127.183824),
+      new kakao.maps.LatLng(37.219479, 127.183947),
+      new kakao.maps.LatLng(37.2195306, 127.1839104),
+      new kakao.maps.LatLng(37.219563, 127.1840401),
+      new kakao.maps.LatLng(37.2196874,127.1845051),
+      new kakao.maps.LatLng(37.220005, 127.186218),
+      new kakao.maps.LatLng( 37.220129,127.186495),
+      new kakao.maps.LatLng(37.2201955, 127.186571),
+      new kakao.maps.LatLng(37.220355,127.186734 ),
+      new kakao.maps.LatLng(37.2204790, 127.186788 ),
+      new kakao.maps.LatLng(37.220895,127.186786 ),
+      
+      new kakao.maps.LatLng(37.220976, 127.186803),
+      new kakao.maps.LatLng(37.2210915, 127.1869112 ),
+      new kakao.maps.LatLng(37.2212280, 127.1874693),
+      new kakao.maps.LatLng(37.221663,127.1883859 ),
+      new kakao.maps.LatLng(37.221670, 127.1884929),
+      new kakao.maps.LatLng(37.221918, 127.188998),
+      new kakao.maps.LatLng(37.222027, 127.189172),
+      new kakao.maps.LatLng(37.223299,127.188161 ),
+      new kakao.maps.LatLng(37.224441, 127.187902),
+      new kakao.maps.LatLng(37.224307,127.187719 ),
+
+
+
+      // new kakao.maps.LatLng( 37.221042,127.186818 ),
+      // new kakao.maps.LatLng(37.221738, 127.186422 ),
+      // new kakao.maps.LatLng(37.221792,  127.186408),
+      // new kakao.maps.LatLng(37.22184,127.1864145 ),
+      // new kakao.maps.LatLng(, ),
+
+
+
+
+      
+  ];
+  
+  // 지도에 표시할 선을 생성합니다
+  var polyline = new kakao.maps.Polyline({
+      path: linePath, // 선을 구성하는 좌표배열 입니다
+      strokeWeight: 5, // 선의 두께 입니다
+      strokeColor: '#FFAE00', // 선의 색깔입니다
+      strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+      strokeStyle: 'solid' // 선의 스타일입니다
+  });
+  
+  // 지도에 선을 표시합니다 
+  polyline.setMap(map);  
+  
+
+   
+
+
+  }
+
+
+
+
 
   if(findMyLectureRoom){
   console.log("build",eval(buildNum).getPosition())
@@ -824,7 +1069,7 @@ const map = new kakao.maps.Map(container, mapOptions);
 
 }catch(e){
 console.log(e)}
-},[customOveray,buildNum,dormitory,showConvenience, showCafeteria, findMyLectureRoom])
+},[customOveray,buildNum,dormitory,showConvenience, showCafeteria, showBusStopStation, showBusStopDowntown, findMyLectureRoom])
 
 
 
@@ -899,7 +1144,8 @@ return (
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" onClick={handleShowCafeteria}>교내식당</a></li>
             <li><a class="dropdown-item" onClick={handleShowConvenience}>편의점</a></li>
-            <li><a class="dropdown-item"  >도서관&서점</a></li>
+            <li><a class="dropdown-item" onClick={handleShowBusStopStation} >명지대역 셔틀</a></li>
+            <li><a class="dropdown-item" onClick={handleShowBusStopDowntown} >시내 셔틀</a></li>
             <li><a class="dropdown-item" onClick={veiwDomitory}>기숙사</a></li>
           </ul>
         </li>
