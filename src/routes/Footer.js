@@ -20,7 +20,7 @@ function Footer() {
     <footer className="text-muted py-5 footer">
     <div className="footer-container">
       
-      <p className="mb-0"> &copy; jher</p>
+      <p className="mb-0"> &copy; <img width="40px" height="40px" src={"../../jherMark.png"}/></p>
       <p className="mb-0">If you want to contact to me -&gt; <Link to="contact_me" className='contact-btn'>Click Here</Link> </p>
      
     </div>
