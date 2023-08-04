@@ -84,6 +84,7 @@ function Home() {
     setFindMyLectureRoom(false);
     setShowCafeteria(false);
     setShowBusStopStation(false);
+    setShowBusStopDowntown(false);
 
     setShowConvenience(!showConvenience);
 
@@ -207,6 +208,8 @@ const handleSearch=(event)=>{         //강의실 검색
   setAboutEvent("");
   setShowCafeteria(false)
   setShowConvenience(false);
+  setShowBusStopDowntown(false);
+  setShowBusStopStation(false);
   setFindMyLectureRoom(true);
   }
   else{
@@ -244,6 +247,8 @@ const handleSearch2=(event)=>{         //강의실 검색
   setAboutEvent("");
   setShowCafeteria(false)
   setShowConvenience(false);
+  setShowBusStopDowntown(false);
+  setShowBusStopStation(false);
   setFindMyLectureRoom(true);
   }
   else{
@@ -1116,7 +1121,7 @@ return (
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     {/* <Link to="/" class="nav-link ms-4 me-3"><a class="nav-link font-dokdo " ><h1>명지도</h1></a></Link> */}
-    <Link to="/" class="nav-link ms-4 me-3"><img className='titlePlus' width="70px" height="65px" src={"../../mjmapMark.png"}/></Link> 
+     <Link to="/" class="nav-link ms-4 me-3"><img className='titlePlus' width="70px" height="65px" src={"../../mjmapMark.png"}/></Link> 
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
