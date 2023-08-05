@@ -38,7 +38,9 @@ function PostNavi(){
     return(
     <nav className="content-left navbar navbar-expand-lg bg-body-tertiary ">
   <div className="container-fluid">
-    <Link to="/" className="nav-link ms-4 me-3"><a className="nav-link titlePlus ms-4" ><h1>명지도</h1></a></Link>
+    {/* <Link to="/" className="nav-link ms-4 me-3"><a className="nav-link titlePlus ms-4" ><h1>명지도</h1></a></Link> */}
+    <Link to="/" class="nav-link ms-4 me-3"><img className='titlePlus' width="70px" height="65px" src={"../../mjmapMark.png"}/></Link> 
+
 
     
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">

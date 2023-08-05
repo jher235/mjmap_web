@@ -49,7 +49,7 @@ function Posts(){
     .then(response=>{
       if(response.status<300){
         setPost(response.data);
-        console.log(post);
+        console.log(response.data);
         setNext(response.data.next);
         setPrevious(response.data.previous);
         console.log(next, previous)
@@ -101,7 +101,14 @@ return(
           </a>
           <br/>
           <br/>
-        <a className="post-date"> {new Date(value.published_date).toLocaleString()}</a>
+        <a className="post-date"> {new Date(value.created_at).toLocaleString()}</a>
+        {value.created_at.substring(0,19)!==value.modified_at.substring(0,19)?
+        <>
+          <br/>
+        <a className="post-date"> 수정됨 - {new Date(value.modified_at).toLocaleString()}</a>
+        </>
+        :null
+        }
       </div>
     </div>
     </Fragment>
