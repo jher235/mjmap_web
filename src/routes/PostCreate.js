@@ -7,8 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link, useNavigate} from "react-router-dom"
 import "../css/createpost.css";
 
+const {kakao} = window
 
 function PostCreate(props){
+    const firstLat = 37.222000
+    const firstLong = 127.186729 
     
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -16,6 +19,13 @@ function PostCreate(props){
     const [nickname, setNickname] = useState("");
     const [file, setFile] = useState(null);
     const [image, setImage] = useState(null);
+    const [map,setMap] = useState();
+    const [maplevel,setMaplevel] = useState(4);
+    const [loading, setLoading] = useState(true);
+    const [maplat,setMaplat] = useState(37.222000)
+    const [maplong,setMaplong] = useState(127.186729)
+    
+
     const navigate = useNavigate();
 
 
@@ -96,6 +106,26 @@ function PostCreate(props){
         alert(errorData)
         
       }})
+
+
+
+      useEffect(()=>{
+        try{
+      const container = document.getElementById('map')
+        const mapOptions = {
+          center: new kakao.maps.LatLng(maplat, maplong), // 지도의 중심좌표
+          level: maplevel, // 지도의 확대 레벨
+          mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
+        };
+       console.log(container)
+        if(container){
+    const map = new kakao.maps.Map(container, mapOptions);
+      
+      setLoading(false); 
+      setMap(map)
+    }}catch(e){
+      console.log(e)}}
+      ,[])
     
   };
 
@@ -177,7 +207,47 @@ function PostCreate(props){
         />
         <label htmlFor="floatingCategory">Category</label>
       </div>
+
+      <div>
+        <button className="btn btn-light" data-bs-toggle="modal" data-bs-target="#mapInfoModal">위치표시</button>
+      </div>
       
+          
+<div className="modal fade" id="mapInfoModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="loginModalLabel">  Position information</h1>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body">
+      <text className="profileModalWord">Class Number</text><br/>
+       <input 
+       className=""
+       type="number"
+       name="classnum"
+       //onChange={handleChange}
+       ></input>
+       <br/>
+       <br/>
+       <text className="profileModalWord">Class Name</text>
+       <input 
+       className="loginInput" 
+       type='text'
+      //onChange={handleChange}
+       name="classname"
+       ></input>
+       
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary me-auto" data-bs-dismiss="modal" href="#">Cancel</button>
+        {/* <button type="button" className="btn btn-secondary" onClick={handleStarSubmit}>등록</button> */}
+      </div>
+    </div>
+  </div>
+    </div>
+
+
 
       <div className="checkbox mb-3">
       </div>
