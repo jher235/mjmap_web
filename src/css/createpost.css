@@ -96,3 +96,33 @@ html{
 .uploadbt{
   margin-left: 80vw;
 }
+
+
+.modal-dialog{
+  width: 80%;
+  height: 80%;
+}
+
+#map{
+  margin-top: 4%;
+  /* width: 800px;
+  height: 700px; */
+  width: 80vw;
+  height: 70vh;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: solid;
+  border-radius: 15%;
+  border-color: white;
+  border-width: 5px;
+}
+
+#mapInfoModal{
+  width: 100vw;
+  height: 500px;
+}
+
+.marker-list {
+  display: flex;
+  flex-direction: row;
+}

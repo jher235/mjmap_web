@@ -10,6 +10,7 @@ import { Fade,Modal } from "react-bootstrap";
 import Footer from "./Footer"
 
 
+const {kakao} = window
 
 function PostDetail(){
     const navigate = useNavigate()
@@ -26,6 +27,11 @@ function PostDetail(){
     const [postnum, setPostnum] = useState("")
     const [reComment, setReComment] = useState("")
     const [commentPk, setCommentPk] = useState("")
+    const [map, setMap] = useState("")
+    const [showMap, setShowMap] = useState(false)
+    const [mapLat, setMapLat] = useState("")
+    const [mapLon, setMapLon] = useState("") 
+    const [markerExist, setMarkerExist] = useState(false)
 
 
     
@@ -146,7 +152,11 @@ function PostDetail(){
           console.log(response);
           setPostAuthor(response.data.profile.user);
           setPostnum(response.data.pk);
-
+          if(response.data.marker){
+              setMarkerExist(true)
+              setMapLat(response.data.markers.latitude)
+              setMapLon(response.data.markers.longitude)
+          }
         }
       })
       .catch((error)=>{
@@ -159,10 +169,46 @@ function PostDetail(){
     useEffect(() => {
       // post 상태 업데이트 후 출력
       console.log("2  " + JSON.stringify(post));
+      console.log(post);
       console.log(postAuthor);
       console.log(postnum);
       
   }, [post]);
+
+
+    
+
+
+      useEffect(()=>{
+        try{
+          const container = document.getElementById('map')
+            const mapOptions = {
+              center: new kakao.maps.LatLng(mapLat, mapLon), // 지도의 중심좌표
+              level: 4, // 지도의 확대 레벨
+              mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
+            };
+          console.log(container)
+          if(container){
+            const map = new kakao.maps.Map(container, mapOptions);
+      
+              setMap(map)
+
+              var marker = new kakao.maps.Marker({
+                    position: map.getCenter()
+              });
+              marker.setMap(map);
+
+
+
+          }}catch(e){
+            console.log(e)}}
+
+        ,[ showMap])
+
+
+
+
+
 
 
   return(
@@ -186,11 +232,19 @@ function PostDetail(){
             <h4 className="post-title ">{post.title}</h4>
             
                 <div className="post-author" >
-                <div className="post-date ms-3"> {new Date(post.published_date).toLocaleString()}</div>
                 
-                {/* <div href={`/profile/${post.profile.user}`}> */}
+                {
+                post&&post.modified_at&&post.created_at?
+                    (
+                      post.modified_at.substring(0,19)!==post.created_at.substring(0,19) 
+                      ?<div className="post-date ms-3">{new Date(post.modified_at).toLocaleString()} - 수정됨 - </div>
+                      :<div className="post-date ms-3"> {new Date(post.created_at).toLocaleString()}</div>
+                      )
+                :null
+                }
+               
+
                   <div>
-                    
                     {post.profile?
                     
                     <>
@@ -216,6 +270,7 @@ function PostDetail(){
             }
             <hr className="pd-featurette-divider"/>
           </div>
+          {}
 
           <p className="lead post-body">{post.body}</p>
           

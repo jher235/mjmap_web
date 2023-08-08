@@ -1,13 +1,15 @@
 import React, { useState,useEffect } from "react";
 import axios from "axios";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
+import { faLock,faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faFacebook, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link, useNavigate} from "react-router-dom"
 import "../css/createpost.css";
+import { Modal } from "react-bootstrap";
 
 const {kakao} = window
+const markerList = []
 
 function PostCreate(props){
     const firstLat = 37.222000
@@ -24,12 +26,54 @@ function PostCreate(props){
     const [loading, setLoading] = useState(true);
     const [maplat,setMaplat] = useState(37.222000)
     const [maplong,setMaplong] = useState(127.186729)
+    const [showMap, setShowMap] = useState(false);
+    const [markerCount, setMarkerCount] = useState(1);
+    const [markerLat, setMarkerLat] = useState("")
+    const [markerLon, setMarkerLon] = useState("")
+    const [markerContent, setMarkerContent] = useState("")
+    const [markerList, setMarkerList] = useState([])
+    const [postNum, setPostNum] = useState("")
     
 
-    const navigate = useNavigate();
+
 
 
   
+
+    const navigate = useNavigate();
+
+  const handlePostNum = (event) =>{
+      setPostNum(event.data.pk);
+      
+  }
+
+  const handleDeleteMarker = (event)=>{
+    event.preventDefault();
+    var index = parseInt(event.target.getAttribute('markerIndex'),10);
+
+
+    //var copyMarkerList = markerList;
+    if(!isNaN(index)){
+    const copyMarkerList = markerList.filter((value,idx)=>idx!==index);
+    setMarkerList(copyMarkerList);
+    }
+  }
+  
+  const handleMarkerList = (event)=>{
+    event.preventDefault();
+    var  markercontent = [markerContent, markerLat, markerLon]
+    setMarkerList((prevMarkerList)=>[...prevMarkerList, markercontent])
+    console.log(markerList);
+    setMarkerContent("");
+
+  }
+
+  const handleShowMap = (event)=>{
+    event.preventDefault();
+      setShowMap(!showMap);
+  }
+
+
     useEffect(()=>{
       if(localStorage.getItem("token") === null){
           alert("권한이 없습니다");
@@ -50,7 +94,9 @@ function PostCreate(props){
         setCategory(target.value);
     } else if (target.name === "file"){
       setFile(target.files)
-    } 
+    } else if(target.name = "markerContent"){
+      setMarkerContent(target.value);
+    }
         
   };
   
@@ -60,11 +106,14 @@ function PostCreate(props){
     event.preventDefault();
 
     
+  
 
   const requestdata = new FormData();
   requestdata.append("title",title);
   requestdata.append("body", content);
   requestdata.append("category", category);
+
+  
 
   if (image !==null && image.length!==0 ){
     for(let i=0; i<image.length; i++)
@@ -74,6 +123,7 @@ function PostCreate(props){
     for(let i=0; i<file.length; i++)
     requestdata.append("file", file[i]);
   }
+  
 
   
 
@@ -93,7 +143,36 @@ function PostCreate(props){
           if (props.doLogin) {
             props.doLogin();
           }
-          navigate("/posts")
+          handlePostNum(response)
+          
+          console.log(markerList)
+
+                  
+              for(var i = 0; i<markerList.length; i++){
+                axios
+                  .post("http://localhost:8000/markers/",{
+                    post: response.data.pk,
+                    name: markerList[i][0],
+                    latitude: markerList[i][1],
+                    longitude: markerList[i][2]
+                  },{
+                    headers:{
+                      'Content-Type': "multipart/form-data",
+                      //'Content-Type': "application/json",
+                      'Authorization': 'Token ' + localStorage.getItem("token")
+                    }
+                  })
+                  .then((response)=>{
+                    if(response.status<300){
+                        console.log(response.data)
+                        navigate(`/posts/${postNum}`)
+                    }
+                  })
+                  .catch((e)=>{
+                    console.log(e);
+                  })
+              }
+          //navigate("/posts")
         }
       })
       .catch((error)=>{
@@ -109,27 +188,52 @@ function PostCreate(props){
 
 
 
-      useEffect(()=>{
-        try{
-      const container = document.getElementById('map')
-        const mapOptions = {
-          center: new kakao.maps.LatLng(maplat, maplong), // 지도의 중심좌표
-          level: maplevel, // 지도의 확대 레벨
-          mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
-        };
-       console.log(container)
-        if(container){
-    const map = new kakao.maps.Map(container, mapOptions);
-      
-      setLoading(false); 
-      setMap(map)
-    }}catch(e){
-      console.log(e)}}
-      ,[])
+    //   const markerData = markerList.map(item =>({
+    //     post: postNum,
+    //     name: item[0],
+    //     latitude: item[1],
+    //     longitude: item[2]
+    // }))
+
+  
     
   };
 
 
+  useEffect(()=>{
+    try{
+  const container = document.getElementById('map')
+    const mapOptions = {
+      center: new kakao.maps.LatLng(maplat, maplong), // 지도의 중심좌표
+      level: maplevel, // 지도의 확대 레벨
+      mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
+    };
+   console.log(container)
+    if(container){
+const map = new kakao.maps.Map(container, mapOptions);
+  
+  setLoading(false); 
+  setMap(map)
+
+  var marker = new kakao.maps.Marker({
+    position: map.getCenter()
+  });
+  marker.setMap(map);
+
+  kakao.maps.event.addListener(map, 'click', function(mouseEvent){
+    var latLng = mouseEvent.latLng;
+    console.log(latLng)
+    setMarkerLat(mouseEvent.latLng.Ma)
+    setMarkerLon(mouseEvent.latLng.La)
+    marker.setPosition(latLng);
+
+   })
+
+
+}}catch(e){
+  console.log(e)}}
+
+  ,[showMap ])
 
 
 
@@ -207,13 +311,32 @@ function PostCreate(props){
         />
         <label htmlFor="floatingCategory">Category</label>
       </div>
+     
 
       <div>
-        <button className="btn btn-light" data-bs-toggle="modal" data-bs-target="#mapInfoModal">위치표시</button>
+        <button className="btn btn-light" type="button"  onClick={handleShowMap}>위치표시</button>
       </div>
+      {showMap?
+      <>
+       <div id="map" className='ms-5'></div>
+       <button type="button" className="btn btn-light mt-5" data-bs-toggle="modal" data-bs-target="#mapInfoModal">위치추가</button>
+  
+       </>
+       :null
+      }
+
+    <div className="marker-list mt-2">
+      {markerList.map((value, index)=>(
+          <div key={index}>
+          <span type="button" className="badge text-bg-light me-2" >{value[0]}  <FontAwesomeIcon className="ms-1" icon={faXmark} markerIndex={index} onClick={handleDeleteMarker}/> </span>
+          </div>
+        ))}
+    </div>
       
+
+
           
-<div className="modal fade" id="mapInfoModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+<div className="modal fade" id="mapInfoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
   <div className="modal-dialog">
     <div className="modal-content">
       <div className="modal-header">
@@ -221,27 +344,23 @@ function PostCreate(props){
         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div className="modal-body">
-      <text className="profileModalWord">Class Number</text><br/>
-       <input 
-       className=""
-       type="number"
-       name="classnum"
-       //onChange={handleChange}
-       ></input>
+      
+
+       <text className="profileModalWord">Content-Name</text>
        <br/>
-       <br/>
-       <text className="profileModalWord">Class Name</text>
        <input 
-       className="loginInput" 
+       className="" 
        type='text'
-      //onChange={handleChange}
-       name="classname"
+       onChange={handleChange}
+       name="markerContent"
+       value={markerContent}
        ></input>
-       
+
+
       </div>
       <div className="modal-footer">
         <button type="button" className="btn btn-secondary me-auto" data-bs-dismiss="modal" href="#">Cancel</button>
-        {/* <button type="button" className="btn btn-secondary" onClick={handleStarSubmit}>등록</button> */}
+        <button type="button" className="btn btn-secondary" onClick={handleMarkerList} data-bs-dismiss="modal">등록</button>
       </div>
     </div>
   </div>
@@ -250,6 +369,9 @@ function PostCreate(props){
 
 
       <div className="checkbox mb-3">
+
+
+   
       </div>
       <button className="w-50 uploadbt btn btn-lg btn-light" type="submit">
         Upload Post
