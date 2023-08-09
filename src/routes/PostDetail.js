@@ -28,12 +28,17 @@ function PostDetail(){
     const [reComment, setReComment] = useState("")
     const [commentPk, setCommentPk] = useState("")
     const [map, setMap] = useState("")
+    const [maplevel,setMaplevel] = useState(4);
     const [showMap, setShowMap] = useState(false)
-    const [mapLat, setMapLat] = useState("")
-    const [mapLon, setMapLon] = useState("") 
+    const [mapLat, setMapLat] = useState(37.222000)
+    const [mapLon, setMapLon] = useState(127.186729) 
     const [markerExist, setMarkerExist] = useState(false)
-
-
+    const [markerValue, setMarkerValue] = useState([]) 
+    
+    const markerLatList = []
+    const markerLonList = []
+    const markerNameList = []
+ 
     
 
     const handleStartCommentModify=(event)=>{
@@ -88,10 +93,10 @@ function PostDetail(){
 
     const handleChange=(event)=>{
       const target = event.target;
-      if(target.name="comment"){
+      if(target.name==="comment"){
         setComment(target.value);
       }
-      if(target.name="commentModify"){
+      if(target.name==="commentModify"){
         setReComment(target.value);
       }
 
@@ -152,11 +157,24 @@ function PostDetail(){
           console.log(response);
           setPostAuthor(response.data.profile.user);
           setPostnum(response.data.pk);
-          if(response.data.marker){
+          if(response.data.markers.length !==0 ){
               setMarkerExist(true)
-              setMapLat(response.data.markers.latitude)
-              setMapLon(response.data.markers.longitude)
+              setMapLat(response.data.markers[0].latitude)
+              setMapLon(response.data.markers[0].longitude)
+              setMarkerValue(response.data.markers)
+              // for(var i; i<response.data.markers.length;i++){
+              //   markerLatList.push(response.data.markers[i].latitude);
+              //   markerLonList.push(response.data.markers[i].longitude);
+              //   markerNameList.push(response.data.markers[i].name);
+              // }
+
+              response.data.markers.map((value)=>{
+                markerLatList.push(value.latitude);
+                markerLonList.push(value.longitude)
+                markerNameList.push(value.name)
+              })
           }
+          console.log(markerValue);
         }
       })
       .catch((error)=>{
@@ -181,29 +199,77 @@ function PostDetail(){
 
       useEffect(()=>{
         try{
-          const container = document.getElementById('map')
+          const container = document.getElementById('postdetail-map')
             const mapOptions = {
               center: new kakao.maps.LatLng(mapLat, mapLon), // 지도의 중심좌표
-              level: 4, // 지도의 확대 레벨
+              level: maplevel, // 지도의 확대 레벨
               mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
             };
           console.log(container)
           if(container){
             const map = new kakao.maps.Map(container, mapOptions);
-      
+
               setMap(map)
+              
+              //console.log(mapLat, mapLon)
+              //console.log(markerValue)
+              
+                
+                const markerPositions = markerValue.map((value)=>
+                  //console.log(value.latitude, value.longitude)
+                  new kakao.maps.LatLng(value.latitude, value.longitude)
 
-              var marker = new kakao.maps.Marker({
-                    position: map.getCenter()
-              });
-              marker.setMap(map);
+                 )
+                  
+                const markerMessages = markerValue.map((value)=>
+                  `${value.name}`
+                )
+                
+                console.log(markerPositions)
+                 if(markerExist){
+                markerPositions.forEach((value,index)=>{
 
+                  const marker = new kakao.maps.Marker({
+                    map:map,
+                    position:value
+                  })
+                  
+                  const infowindow = new kakao.maps.InfoWindow({
+                    content: `<div class="infowindow"><span class="infowindow-content">${markerMessages[index]}</span></div>`
+                  })
 
+                  kakao.maps.event.addListener(marker,"mouseover",function(){
+                    infowindow.open(map, marker)
+                   
+                  })
+
+                  kakao.maps.event.addListener(marker,"mouseout",function(){
+                    infowindow.close()
+                 
+                  })
+                  
+                
+                  
+                })
+                }
+              
+
+              // console.log(markerPositions)
+              
+              
+              
+              
+
+              
+              // var marker = new kakao.maps.Marker({
+              //       position: map.getCenter()
+              // });
+              // marker.setMap(map);
 
           }}catch(e){
             console.log(e)}}
 
-        ,[ showMap])
+        ,[ markerValue])
 
 
 
@@ -270,7 +336,15 @@ function PostDetail(){
             }
             <hr className="pd-featurette-divider"/>
           </div>
-          {}
+         
+            {markerExist? 
+              <>
+              <div id="postdetail-map" className=""></div>
+              {/* {setShowMap(true)} */}
+              <hr className="pd-featurette-divider"/>
+              </>
+              :null
+            }
 
           <p className="lead post-body">{post.body}</p>
           

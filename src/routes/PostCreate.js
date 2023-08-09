@@ -165,14 +165,15 @@ function PostCreate(props){
                   .then((response)=>{
                     if(response.status<300){
                         console.log(response.data)
-                        navigate(`/posts/${postNum}`)
+                        //navigate(`/posts/${postNum}`)
                     }
                   })
                   .catch((e)=>{
                     console.log(e);
                   })
               }
-          //navigate("/posts")
+              navigate(`/posts/${postNum}`)
+              
         }
       })
       .catch((error)=>{
@@ -354,6 +355,7 @@ const map = new kakao.maps.Map(container, mapOptions);
        onChange={handleChange}
        name="markerContent"
        value={markerContent}
+       maxLength={30}
        ></input>
 
 

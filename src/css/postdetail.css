@@ -315,3 +315,19 @@
       display: flex;
 
     }
+
+
+    
+    #postdetail-map{
+      
+      /* width: 800px;
+      height: 700px; */
+      width: 90%;
+      height: 65vh;
+      align-self: flex-start;
+      display: flex;
+      border-style: solid;
+      border-radius: 15px;
+      border-color: white;
+      border-width: 5px;
+    }

@@ -612,6 +612,7 @@ const map = new kakao.maps.Map(container, mapOptions);
       new kakao.maps.LatLng(37.223105, 127.186841),
     ];
     
+    
     const markerMessages = [
       'B1층 세븐일레븐, GS편의점',
       '1층 세븐일레븐',

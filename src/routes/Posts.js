@@ -79,7 +79,7 @@ return(
     <div className="row post" onClick={()=>handlePostDetail(value.pk)}>
       <div className="col-md-5 order-md-2">
         <h4 className="post-title">{value.title}</h4>
-        <p className="lead post-body">{value.body}</p>
+        <p className="lead post-body">{value.body.length<150? value.body: value.body.slice(0,150)+'...'}</p>
       </div>
       <div className="col-md-3 order-md-1">
         {value.image?<img src={value.image} className="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid ms-5"  width="150" height="150"/>
