@@ -17,7 +17,7 @@ function PostCreate(props){
     
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
-    const [category, setCategory] = useState("");
+    const [tag, setTag] = useState("");
     const [nickname, setNickname] = useState("");
     const [file, setFile] = useState(null);
     const [image, setImage] = useState(null);
@@ -90,8 +90,8 @@ function PostCreate(props){
       setContent(target.value);
     }  else if (target.name === "image"){
         setImage(target.files);
-    }   else if (target.name === "category"){
-        setCategory(target.value);
+    }   else if (target.name === "tag"){
+        setTag(target.value);
     } else if (target.name === "file"){
       setFile(target.files)
     } else if(target.name = "markerContent"){
@@ -109,9 +109,11 @@ function PostCreate(props){
   
 
   const requestdata = new FormData();
+
+
   requestdata.append("title",title);
   requestdata.append("body", content);
-  requestdata.append("category", category);
+  requestdata.append("tag", tag);
 
   
 
@@ -304,13 +306,13 @@ const map = new kakao.maps.Map(container, mapOptions);
         <input
           type="text"
           className="form-control"
-          name="category"
-          id="floatingCategory"
-          placeholder="Category"
+          name="tag"
+          id="floatingTag"
+          placeholder="Tag"
           onChange={handleChange}
           
         />
-        <label htmlFor="floatingCategory">Category</label>
+        <label htmlFor="floatingCategory">Tag</label>
       </div>
      
 

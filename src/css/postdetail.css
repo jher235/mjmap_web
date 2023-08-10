@@ -331,3 +331,11 @@
       border-color: white;
       border-width: 5px;
     }
+
+
+    .postdetail-tag{
+      font-size: 50%;
+      justify-self: center;
+      align-self:center ;
+      color: black;
+    }

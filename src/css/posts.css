@@ -200,3 +200,10 @@ user-select: none;
     color: black;
     /* opacity: 0.5 */
   }
+
+  .postlist-tag{
+    font-size: 50%;
+    justify-self: center;
+    align-self:center ;
+    color: black;
+  }

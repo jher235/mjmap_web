@@ -295,7 +295,7 @@ function PostDetail(){
       <div className=" post">
         <div className="col-md-9 ">
           <div className="post-head ">
-            <h4 className="post-title ">{post.title}</h4>
+            <h4 className="post-title ">{post.title}{post.tag?post.tag.map((t)=> <span className="badge bg-light postdetail-tag ms-1">{t.name}</span> ):null }</h4>
             
                 <div className="post-author" >
                 
