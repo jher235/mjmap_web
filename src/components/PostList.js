@@ -9,12 +9,17 @@ import { useState } from "react"
 function PostList({id,title,body,tag,created_at,modified_at,profile,image}){
     const navigate = useNavigate()
     
-    console.log(id)
+   
 
     function handlePostDetail(postId){
         navigate(`/posts/${postId}`);
         
       }
+    function handleTagPost(event,tagId){
+
+        event.stopPropagation(); //버블링 중단
+        navigate(`/posts/tag/${tagId}`)
+    }
 
     return(
 
@@ -23,7 +28,7 @@ function PostList({id,title,body,tag,created_at,modified_at,profile,image}){
      
         <div className="row post" onClick={()=>handlePostDetail(id)}>
           <div className="col-md-5 order-md-2">
-            <h4 className="post-title">{title}  {tag.slice(0,3).map((t)=> <span className="badge bg-light postlist-tag ms-1">{t.name}</span> ) }</h4>
+            <h4 className="post-title">{title}  {tag.slice(0,3).map((t)=> <span className="badge bg-light postlist-tag ms-1" onClick={(event)=>handleTagPost(event,t.id)}>{t.name}</span> ) }</h4>
             <p className="lead post-body">{body.length<150? body: body.slice(0,150)+'...'}</p>
           </div>
           <div className="col-md-3 order-md-1">

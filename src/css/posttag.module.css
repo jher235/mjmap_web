@@ -1,0 +1,49 @@
+
+.title{
+ color:aliceblue;
+ margin-left: 13%;
+ font-size: 40px;
+ 
+}
+
+.mainTagName{
+    border-radius: 20px;
+    color: black;
+}
+
+.postTagBack{
+    flex:1;
+
+    flex-direction: column;
+    min-height: 100%;
+    
+
+    overflow-x:hidden;
+    width: 100%;
+    
+    height: 100%;
+    display: block;
+    align-items: center;
+    justify-content: center;
+}
+
+.postContent{
+    min-height: 100%;
+}
+
+
+.pageBtnWrapper{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.pageBtn{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+    margin-top: auto;
+    bottom: 0;
+  }

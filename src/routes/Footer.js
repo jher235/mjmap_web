@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Fragment, useEffect,useState,} from 'react';
-import '../css/footer.css';
+import styles from '../css/footer.module.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRightToBracket} from "@fortawesome/free-solid-svg-icons";
 import {Button,Navbar} from 'react-bootstrap'
@@ -17,11 +17,11 @@ function Footer() {
     return(
 
            
-    <footer className="text-muted py-5 footer">
-    <div className="footer-container">
+    <footer className={`text-muted py-5 ${styles.footer}`}>
+    <div className={styles.footerContainer}>
       
       <p className="mb-0"> &copy; <img width="40px" height="40px" src={"../../jherMark.png"}/></p>
-      <p className="mb-0">If you want to contact to me -&gt; <Link to="contact_me" className='contact-btn'>Click Here</Link> </p>
+      <p className="mb-0">If you want to contact to me -&gt; <Link to="contact_me" className={styles.contactBtn}>Click Here</Link> </p>
      
     </div>
   </footer>
