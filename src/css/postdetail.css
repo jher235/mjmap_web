@@ -339,3 +339,27 @@
       align-self:center ;
       color: black;
     }
+
+
+    
+
+    .postdetail-heart-container{
+      width: 80%;
+      font-size: 5vh;
+      color: white;
+   
+      display: flex;
+     
+      justify-content: center; /* 수정된 부분 */
+      align-items: center;
+      margin: 10px;
+    }
+
+
+    .postdetail-heartset{
+      flex-direction: row;
+      border: solid;
+      border-radius: 15px;
+    }
+
+ 

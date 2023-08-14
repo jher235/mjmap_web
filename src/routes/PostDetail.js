@@ -2,7 +2,8 @@ import { React,Fragment,useState,useEffect } from "react";
 import "../css/postdetail.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRightToBracket, faPen, faTrashCan, faPaperclip, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {faArrowRightToBracket, faPen, faTrashCan, faPaperclip, faXmark, faHeart } from "@fortawesome/free-solid-svg-icons";
+import {faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate,Link,useParams } from "react-router-dom";
 import axios from "axios";
 import PostNavi from "./PostNavi";
@@ -17,9 +18,6 @@ function PostDetail(){
     const postid = useParams();
 
     const [post,setPost] = useState({})
-    const [page,setPage] = useState(1)
-    const [next, setNext] = useState(null)
-    const [previous,setPrevious] = useState(null)
     const [reason,setReason] = useState(null)
     const [deletePost,setDeletePost] = useState(false)
     const [postAuthor, setPostAuthor] = useState("")
@@ -34,12 +32,34 @@ function PostDetail(){
     const [mapLon, setMapLon] = useState(127.186729) 
     const [markerExist, setMarkerExist] = useState(false)
     const [markerValue, setMarkerValue] = useState([]) 
+    const [likeCount, setLikeCount] = useState(0)
+    const [userNum, setUserNum] = useState(0)
+    const [iLiked, setILiked] = useState(false)
     
     const markerLatList = []
     const markerLonList = []
     const markerNameList = []
  
     
+
+    const handleHeartClick = ()=>{
+      setILiked(!iLiked);
+      axios
+      .get(`http://127.0.0.1:8000/like/${postid.postId}/`,{
+        headers:{
+          'Authorization': 'Token ' + localStorage.getItem("token")
+        }
+      })
+      .then((response)=>{
+        console.log(response)
+        if(response.status<300){
+          setLikeCount(response.data.count)
+        }
+      })
+      .catch((error)=>{
+        console.log(error);
+      })
+    }
 
     const handleStartCommentModify=(event)=>{
       const commentText = event.currentTarget.getAttribute('data-comment-text')
@@ -145,7 +165,14 @@ function PostDetail(){
       })
     }
   
+
     useEffect(()=>{
+    
+      if(localStorage.usernum ){
+        setUserNum(localStorage.getItem('usernum'))
+        console.log(localStorage.getItem('usernum'))
+      }
+
       console.log(postid.postId);
       axios
       .get(`http://127.0.0.1:8000/posts/${postid.postId}/`,{
@@ -161,12 +188,7 @@ function PostDetail(){
               setMarkerExist(true)
               setMapLat(response.data.markers[0].latitude)
               setMapLon(response.data.markers[0].longitude)
-              setMarkerValue(response.data.markers)
-              // for(var i; i<response.data.markers.length;i++){
-              //   markerLatList.push(response.data.markers[i].latitude);
-              //   markerLonList.push(response.data.markers[i].longitude);
-              //   markerNameList.push(response.data.markers[i].name);
-              // }
+              setMarkerValue(response.data.markers) 
 
               response.data.markers.map((value)=>{
                 markerLatList.push(value.latitude);
@@ -174,7 +196,18 @@ function PostDetail(){
                 markerNameList.push(value.name)
               })
           }
+          if(response.data.likes){
+            
+            setLikeCount(response.data.likes.length);
+            if(response.data.likes.includes(parseInt(localStorage.getItem('usernum'),10))){
+              setILiked(true);
+            }
+           
+          }
+        
           console.log(markerValue);
+       
+          console.log(iLiked)
         }
       })
       .catch((error)=>{
@@ -201,9 +234,9 @@ function PostDetail(){
         try{
           const container = document.getElementById('postdetail-map')
             const mapOptions = {
-              center: new kakao.maps.LatLng(mapLat, mapLon), // 지도의 중심좌표
-              level: maplevel, // 지도의 확대 레벨
-              mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
+              center: new kakao.maps.LatLng(mapLat, mapLon),
+              level: maplevel, 
+              mapTypeId: kakao.maps.MapTypeId.ROADMAP 
             };
           console.log(container)
           if(container){
@@ -252,27 +285,12 @@ function PostDetail(){
                   
                 })
                 }
-              
-
-              // console.log(markerPositions)
-              
-              
-              
-              
-
-              
-              // var marker = new kakao.maps.Marker({
-              //       position: map.getCenter()
-              // });
-              // marker.setMap(map);
+            
 
           }}catch(e){
             console.log(e)}}
 
         ,[ markerValue])
-
-
-
 
 
 
@@ -347,7 +365,12 @@ function PostDetail(){
             }
 
           <p className="lead post-body">{post.body}</p>
-          
+          <div className="postdetail-heart-container " onClick={handleHeartClick}>
+            <div className=" postdetail-heartset">
+              {iLiked ? <FontAwesomeIcon className=" ms-3" icon={ faHeart}/> : <FontAwesomeIcon className=" ms-3" icon={ regularHeart}/>}
+              <span className=" ms-4 me-3">{likeCount}</span>
+            </div>
+          </div>
           
         {post.file!==null?
           <>
