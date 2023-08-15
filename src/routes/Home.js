@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Fragment, useEffect,useState,} from 'react';
 import '../css/home.css';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRightToBracket, faPen} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRightToBracket, faPen, faXmark} from "@fortawesome/free-solid-svg-icons";
 import {Button,Navbar} from 'react-bootstrap'
 import {Link, useNavigate} from 'react-router-dom'
 
@@ -48,6 +48,7 @@ function Home() {
   const [showCafeteria, setShowCafeteria] = useState(false)
   const [showBusStopStation, setShowBusStopStation] = useState(false)
   const [showBusStopDowntown, setShowBusStopDowntown] = useState(false)
+
 
 
   const handleShowBusStopDowntown = ()=>{
@@ -351,21 +352,24 @@ const handleSearch2=(event)=>{         //강의실 검색
 
   useEffect(()=>{
     try{
-  const container = document.getElementById('map')
-    const mapOptions = {
-      center: new kakao.maps.LatLng(maplat, maplong), // 지도의 중심좌표
-      level: maplevel, // 지도의 확대 레벨
-      mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
-    };
-   console.log(container)
-    if(container){
-const map = new kakao.maps.Map(container, mapOptions);
-  
-  setLoading(false); 
-  setMap(map)
-  // console.log("lat",map.getCenter().La)
-  // console.log("lon",map.getCenter().Ma)
 
+     
+        const container = document.getElementById('map')
+          const mapOptions = {
+            center: new kakao.maps.LatLng(maplat, maplong), // 지도의 중심좌표
+            level: maplevel, // 지도의 확대 레벨
+            mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
+          };
+        console.log(container)
+          if(container){
+          const map = new kakao.maps.Map(container, mapOptions);
+        
+        setLoading(false); 
+        setMap(map)
+        // console.log("lat",map.getCenter().La)
+        // console.log("lon",map.getCenter().Ma)
+          
+  
   if(customOveray){
     var y83 = new kakao.maps.CustomOverlay({
       map: map,
@@ -1072,7 +1076,7 @@ const map = new kakao.maps.Map(container, mapOptions);
  
 
 }  
-
+      
 }catch(e){
 console.log(e)}
 },[customOveray,buildNum,dormitory,showConvenience, showCafeteria, showBusStopStation, showBusStopDowntown, findMyLectureRoom])
@@ -1094,7 +1098,7 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
   console.log("level=",maplevel, "mapposition=",maplat,maplong)
 });
 }
-
+  
 return (
 
     <div   className='app-container'>
@@ -1118,9 +1122,10 @@ return (
 <button onClick={veiwDomitory}>기숙사</button>
 {floor?<text>{floor}층</text>:null}
 </div> */}
-
+  <div className='home-content'>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
+  
     {/* <Link to="/" class="nav-link ms-4 me-3"><a class="nav-link font-dokdo " ><h1>명지도</h1></a></Link> */}
      <Link to="/" class="nav-link ms-4 me-3"><img className='titlePlus' width="70px" height="65px" src={"../../mjmapMark.png"}/></Link> 
 
@@ -1130,9 +1135,6 @@ return (
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
-        {/* <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li> */}
         <li class="nav-item">
           <a role="button" class="nav-link" onClick={findCampus}>자연캠</a>
         </li>
@@ -1188,8 +1190,9 @@ return (
                   :<a>Loading..</a>}
                 </a>
               <ul class="dropdown-menu ">
-                  <li><Link to={`/profile/${localStorage.getItem("usernum")}`} class="dropdown-item" href="#">Profile</Link></li>
+                  <li><Link to={`/profile/${localStorage.getItem("usernum")}`} class="dropdown-item" >Profile</Link></li>
                   <li><a class="dropdown-item" onClick={handleLogout}>Log Out</a></li>
+                  <li><Link to={`/posts/likes/${localStorage.getItem("usernum")}`} class="dropdown-item">Liked Posts</Link></li>
               </ul>
             </li>  : 
              <li class="nav-item"> <Link to="/login" class="nav-link btn btn-light" >Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></Link></li>
@@ -1220,7 +1223,7 @@ return (
                   <li >
                     <div className="dropdown-item map-dropdown-menu" mylectureroom={event.classnum} onClick={handleFindMyLectureRoom}>
                       <a className='map-dropdown-classnum' mylectureroom={event.classnum} onClick={handleFindMyLectureRoom}>{event.classname}</a>
-                      <a className='btn btn-light map-dropdown-delete-btn' deletepk={event.pk} onClick={handleStarDelete}>x</a>
+                      <a className='btn btn-light map-dropdown-delete-btn' deletepk={event.pk} onClick={handleStarDelete}><FontAwesomeIcon icon={faXmark}/></a>
                     </div>
                   </li>
                 </Fragment>
@@ -1234,7 +1237,7 @@ return (
           </div>
       </div>
       </>
-      :<div id="map" ></div>
+      :<div id="map" className='map-unlogin' ></div>
     }
       {loading? <h1 className='loading'>Loading...</h1>:null}
        
@@ -1272,8 +1275,13 @@ return (
     </div>
   </div>
     </div>
-      
-    <Footer/>
+  
+<div className='mt-5'>
+      <Footer />
+    </div>
+    </div>
+    
+    
 
     </div>
   

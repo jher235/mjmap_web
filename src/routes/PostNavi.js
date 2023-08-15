@@ -76,6 +76,7 @@ function PostNavi(){
               <ul className="dropdown-menu ">
                   <li><a className="dropdown-item" href={`/profile/${localStorage.getItem("usernum")}`}>Profile</a></li>
                   <li><a className="dropdown-item" onClick={handleLogout}>Log Out</a></li>
+                  <li><Link to={`/posts/likes/${localStorage.getItem("usernum")}`} class="dropdown-item">Liked Posts</Link></li>
               </ul>
             </li>  : 
              <li className="nav-item"> <Link to="/login" className="nav-link btn btn-light" >Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></Link></li>

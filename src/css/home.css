@@ -51,6 +51,9 @@
     display: flex;
     flex-direction: column;
   }
+  .home-content{
+    min-height: 100vh;
+  }
   
   .title {
     text-align: center;
@@ -83,13 +86,17 @@
   #map{
     margin-top: 4%;
     width: 80%;
-    height: 70%;
+    height: 70vh;
     margin-left: auto;
     margin-right: auto;
     border-style: solid;
-    border-radius: 15%;
+    border-radius: 30px;
     border-color: white;
     border-width: 5px;
+  }
+
+  .map-unlogin{
+    height: 100vh;
   }
   
   .loading{
@@ -147,7 +154,7 @@
   }
   
   .search1{
-    border-radius: 12%;
+    border-radius: 12px;
     border-color: darkgray;
     border-style:solid;
     

@@ -65,12 +65,14 @@ function Posts(){
   },[page])
 
 return(
- <div>
- <div className="bgb">   
+ <div className="app-container">
+ <div className="post-bg">  
+ <div className="post-content">  
   <PostNavi/>
-
+  { localStorage.getItem('token')?
   <Link to="/post_create" className="btn btn-light createbt"><FontAwesomeIcon icon={faPen}/> 글쓰기</Link>
-  
+  :null
+  }
  {post.results.length!=0 ? post.results.map((value)=>(
 
 
@@ -137,11 +139,11 @@ return(
          <button className="btn btn-light" onClick={older}><FontAwesomeIcon icon={faAngleRight} /></button>
       </div>
 
-
+    </div> 
        <Footer/>
   </div>
 
- 
+    
   </div>
       
 

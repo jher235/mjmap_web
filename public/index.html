@@ -32,7 +32,18 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
    
-    <script  type="text/javascript" src='//dapi.kakao.com/v2/maps/sdk.js?appkey=47040307eaafc39a6f99984328039bd6&libraries=services'></script>
+    <!-- <script  type="text/javascript" src='//dapi.kakao.com/v2/maps/sdk.js?appkey=47040307eaafc39a6f99984328039bd6&libraries=services'></script> -->
+    <script  type="text/javascript" src="%REACT_APP_KAKAO_MAP_API_KEY%" ></script>
+    <!-- <script  type="text/javascript" src="apikey.js" ></script> -->
+    <!-- <script >
+      function loadKakaoMapScript() {
+      const kakaoApiKey = process.env.KAKAO_MAP_API_KEY;
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoApiKey}&libraries=services`;
+      document.head.appendChild(script);
+    }
+    </script> -->
      <title>kakao map api</title>
   </head>
   <body>
@@ -44,6 +55,13 @@
       const script = document.createElement('script');
       script.src=`//dapi.kakao.com/v2/maps/sdk.js?appkey=${mykey}`;
       document.head.appendChild(script);
+      </script> -->
+      <!-- <script>
+        var kakaoApiKey = "%REACT_APP_KAKAO_MAP_API_KEY%";
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoApiKey}&libraries=services`;
+        document.head.appendChild(script);
       </script> -->
     
     <!--

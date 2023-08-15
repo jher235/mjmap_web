@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link, useNavigate} from "react-router-dom"
 import "../css/createpost.css";
 import { Modal } from "react-bootstrap";
+import bootstrap,{Tooltip} from 'bootstrap'
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 const {kakao} = window
 const markerList = []
@@ -33,10 +35,10 @@ function PostCreate(props){
     const [markerContent, setMarkerContent] = useState("")
     const [markerList, setMarkerList] = useState([])
     const [postNum, setPostNum] = useState("")
+    const [loadMap, setLoadMap] = useState(false)
     
-
-
-
+    
+ 
 
   
 
@@ -190,53 +192,60 @@ function PostCreate(props){
       }})
 
 
-
-    //   const markerData = markerList.map(item =>({
-    //     post: postNum,
-    //     name: item[0],
-    //     latitude: item[1],
-    //     longitude: item[2]
-    // }))
-
+      
   
     
   };
 
+  // useEffect(()=>{
+  //   const script = document.createElement("script");
+  //   script.src = `${process.env.REACT_APP_KAKAO_MAP_API_KEY}`;
+  //   document.head.appendChild(script);
+  // },[])
+
 
   useEffect(()=>{
     try{
-  const container = document.getElementById('map')
-    const mapOptions = {
-      center: new kakao.maps.LatLng(maplat, maplong), // 지도의 중심좌표
-      level: maplevel, // 지도의 확대 레벨
-      mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
-    };
-   console.log(container)
-    if(container){
-const map = new kakao.maps.Map(container, mapOptions);
+     
+     
+        const container = document.getElementById('map')
+          const mapOptions = {
+            center: new kakao.maps.LatLng(maplat, maplong), // 지도의 중심좌표
+            level: maplevel, // 지도의 확대 레벨
+            mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
+          };
+            
+        console.log(container)
+        if(container){
+          const map = new kakao.maps.Map(container, mapOptions);
+          
+          setLoading(false); 
+          setMap(map)
+
+          var marker = new kakao.maps.Marker({
+            position: map.getCenter()
+          });
+          marker.setMap(map);
+
+          kakao.maps.event.addListener(map, 'click', function(mouseEvent){
+            var latLng = mouseEvent.latLng;
+            console.log(latLng)
+            setMarkerLat(mouseEvent.latLng.Ma)
+            setMarkerLon(mouseEvent.latLng.La)
+            marker.setPosition(latLng);
+
+          })
+        
+      }
+      
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new Tooltip(tooltipTriggerEl))
   
-  setLoading(false); 
-  setMap(map)
-
-  var marker = new kakao.maps.Marker({
-    position: map.getCenter()
-  });
-  marker.setMap(map);
-
-  kakao.maps.event.addListener(map, 'click', function(mouseEvent){
-    var latLng = mouseEvent.latLng;
-    console.log(latLng)
-    setMarkerLat(mouseEvent.latLng.Ma)
-    setMarkerLon(mouseEvent.latLng.La)
-    marker.setPosition(latLng);
-
-   })
-
-
-}}catch(e){
+  
+}catch(e){
   console.log(e)}}
 
-  ,[showMap ])
+  ,[showMap,loadMap ])
 
 
 
@@ -302,6 +311,7 @@ const map = new kakao.maps.Map(container, mapOptions);
         <label htmlFor="floatingFile">File</label>
       </div>
 
+
       <div className="form-floating">
         <input
           type="text"
@@ -309,6 +319,10 @@ const map = new kakao.maps.Map(container, mapOptions);
           name="tag"
           id="floatingTag"
           placeholder="Tag"
+          data-bs-toggle="tooltip" 
+          data-bs-placement="right"
+          data-bs-custom-class="custom-tooltip"
+          data-bs-title=",나 ;를 통해 여러 개의 태그를 등록하세요"
           onChange={handleChange}
           
         />
@@ -317,7 +331,7 @@ const map = new kakao.maps.Map(container, mapOptions);
      
 
       <div>
-        <button className="btn btn-light" type="button"  onClick={handleShowMap}>위치표시</button>
+        <button className="btn btn-light mt-4" type="button" onClick={handleShowMap}>위치표시</button>
       </div>
       {showMap?
       <>

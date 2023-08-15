@@ -43,22 +43,28 @@ function PostDetail(){
     
 
     const handleHeartClick = ()=>{
-      setILiked(!iLiked);
-      axios
-      .get(`http://127.0.0.1:8000/like/${postid.postId}/`,{
-        headers:{
-          'Authorization': 'Token ' + localStorage.getItem("token")
-        }
-      })
-      .then((response)=>{
-        console.log(response)
-        if(response.status<300){
-          setLikeCount(response.data.count)
-        }
-      })
-      .catch((error)=>{
-        console.log(error);
-      })
+      
+      if(localStorage.getItem('token')){
+        setILiked(!iLiked);
+        axios
+        .get(`http://127.0.0.1:8000/like/${postid.postId}/`,{
+          headers:{
+            'Authorization': 'Token ' + localStorage.getItem("token")
+          }
+        })
+        .then((response)=>{
+          console.log(response)
+          if(response.status<300){
+            setLikeCount(response.data.count)
+          }
+        })
+        .catch((error)=>{
+          console.log(error);
+        })
+      }
+      else{
+        alert("로그인 후 이용할 수 있습니다 :)");
+      }
     }
 
     const handleStartCommentModify=(event)=>{
@@ -453,7 +459,7 @@ function PostDetail(){
        
       </div>
         <div className="modal-footer">
-          <button type="button" className="btn btn-secondary me-auto"  aria-label="Close" data-bs-dismiss="modal" href="#">Cancel</button>
+          <button type="button" className="btn btn-secondary me-auto"  aria-label="Close" data-bs-dismiss="modal" >Cancel</button>
           <button type="button" className="btn btn-secondary"  onClick={handleCommentModify} >Modify</button>
         </div>
       </div>

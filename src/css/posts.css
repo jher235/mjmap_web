@@ -25,6 +25,25 @@ user-select: none;
     justify-content: center;
     
 }
+.post-bg{
+    flex:1;
+
+    flex-direction: column;
+    min-height: 100%;
+    
+
+    overflow-x:hidden;
+    width: 100%;
+    
+    height: 100%;
+    display: block;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-content{
+  min-height: 100%;
+}
 
 .title{
   display: flex; 

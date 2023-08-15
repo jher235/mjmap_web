@@ -112,7 +112,7 @@ html{
   margin-left: auto;
   margin-right: auto;
   border-style: solid;
-  border-radius: 15%;
+  border-radius: 30px;
   border-color: white;
   border-width: 5px;
 }
@@ -126,3 +126,17 @@ html{
   display: flex;
   flex-direction: row;
 }
+
+
+.custom-tooltip::before {
+  border-color: transparent transparent white; 
+}
+.custom-tooltip {
+  --bs-tooltip-bg: var(--bd-white-bg);
+  --bs-tooltip-color: var(--bs-black);
+  border-radius: 5px;
+  background-color: white;
+  color: white;
+
+}
+

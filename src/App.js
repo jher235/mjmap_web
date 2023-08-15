@@ -579,7 +579,7 @@ import Profile from "./routes/Profile";
 import Footer from "./routes/Footer";
 import ContactMe from "./routes/ContactMe";
 import PostTag from "./routes/PostTag";
-
+import PostLikes from "./routes/PostLIkes";
 
 
 //basename={process.env.PUBLIC_URL}
@@ -598,6 +598,7 @@ function App() {
       <Route path={"/footer"} element={<Footer/>}/>
       <Route path={"/contact_me"} element={<ContactMe/>}/>
       <Route path={"/posts/tag/:tagId"} element={<PostTag/>}/>
+      <Route path={"posts/likes/:userId"} element={<PostLikes/>}/>
     </Routes>
   </Router>);
 }
