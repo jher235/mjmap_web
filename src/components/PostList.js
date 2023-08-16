@@ -1,7 +1,6 @@
-import PropTypes from "prop-types"
-import {Link, useNavigate} from "react-router-dom"
-import styles from "../css/postlist.css"
-import { useState } from "react"
+
+import { useNavigate} from "react-router-dom"
+
 
 
 
