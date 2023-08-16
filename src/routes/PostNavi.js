@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRightToBracket, faPen} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
-// import { Dropdown } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 
 
 
@@ -64,7 +64,7 @@ function PostNavi(){
         
 
 
-      {/* {localStorage.getItem('token') ? (
+      {localStorage.getItem('token') ? (
           <Dropdown>
             <Dropdown.Toggle
               as='a'
@@ -100,11 +100,11 @@ function PostNavi(){
           <li className="nav-item"> <Link to="/login" className="nav-link btn btn-light" >Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></Link></li>
            
         )}
-      </ul> */}
+      </ul>
 
 
           
-           {localStorage.getItem("token") ? 
+           {/* {localStorage.getItem("token") ? 
              <li className="nav-item dropdown ">
                 <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   {myNickname!==""?
@@ -122,7 +122,7 @@ function PostNavi(){
             </li>  : 
              <li className="nav-item"> <Link to="/login" className="nav-link btn btn-light" >Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></Link></li>
            } 
-        </ul>
+        </ul> */}
 
         
         </div>

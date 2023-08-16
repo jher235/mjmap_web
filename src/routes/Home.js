@@ -10,6 +10,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import axios from 'axios';
 import Footer from "./Footer"
+import { Dropdown } from 'react-bootstrap';
 
 
 
@@ -1133,7 +1134,7 @@ return (
           <a role="button" class="nav-link" onClick={customOverayonoff}>건물번호</a>
         </li>
         
-        <li className="nav-item dropdown">
+        {/* <li className="nav-item dropdown">
           <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             편의시설
           </a>
@@ -1144,7 +1145,22 @@ return (
             <li><a className="dropdown-item" onClick={handleShowBusStopDowntown} >시내 셔틀</a></li>
             <li><a className="dropdown-item" onClick={veiwDomitory}>기숙사</a></li>
           </ul>
-        </li>
+        </li> */}
+
+        <Dropdown className="nav-item ">
+          <Dropdown.Toggle className='nav-link  btn btn-light'  aria-expanded="false" role="button">
+            편의시설
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item  onClick={handleShowCafeteria}>교내식당</Dropdown.Item>
+            <Dropdown.Item onClick={handleShowConvenience}>편의점</Dropdown.Item>
+            <Dropdown.Item onClick={handleShowBusStopStation}>명지대역 셔틀</Dropdown.Item>
+            <Dropdown.Item onClick={handleShowBusStopDowntown}>시내 셔틀</Dropdown.Item>
+            <Dropdown.Item onClick={veiwDomitory}>기숙사</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+
+
         <li>
           <Link to="posts" class="nav-link">게시판</Link>
         </li>
@@ -1168,21 +1184,21 @@ return (
           {/* <a class="nav-link btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal" href="#">Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></a>
            */}
            {localStorage.getItem("token") ? 
-             <li className="nav-item dropdown ">
-                <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+             <Dropdown className="nav-item">
+                <Dropdown.Toggle className="nav-link btn btn-light" aria-expanded="false">
                   {myNickname!==""?
                   <>
                     <img src={myImage} className="profile-image  img-fluid ms-3 me-3" width="40" height="40"/>
                      {myNickname}
                   </>
                   :<a>Loading..</a>}
-                </a>
-              <ul className="dropdown-menu ">
-                  <li><Link to={`/profile/${localStorage.getItem("usernum")}`} className="dropdown-item" >Profile</Link></li>
-                  <li><a className="dropdown-item" onClick={handleLogout}>Log Out</a></li>
-                  <li><Link to={`/posts/likes/${localStorage.getItem("usernum")}`} className="dropdown-item">Liked Posts</Link></li>
-              </ul>
-            </li>  : 
+                </Dropdown.Toggle>
+              <Dropdown.Menu>
+                  <Dropdown.Item><Link to={`/profile/${localStorage.getItem("usernum")}`} className="dropdown-item" >Profile</Link></Dropdown.Item>
+                  <Dropdown.Item><a className="dropdown-item" onClick={handleLogout}>Log Out</a></Dropdown.Item>
+                  <Dropdown.Item><Link to={`/posts/likes/${localStorage.getItem("usernum")}`} className="dropdown-item">Liked Posts</Link></Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>  : 
              <li class="nav-item"> <Link to="/login" class="nav-link btn btn-light" >Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></Link></li>
            }
           
@@ -1200,29 +1216,29 @@ return (
       <>
       <div className='map-dropdown-container'>
         <div id="map" className='ms-5'></div>
-        <div className="dropdown-center map-dropdown-main">
-            <button className="btn btn-light dropdown-toggle me-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <Dropdown className="dropdown-center map-dropdown-main">
+            <Dropdown.Toggle className="btn btn-light me-4" type="button" aria-expanded="false">
               내 강의실
-            </button>
-            <ul className="dropdown-menu">
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
               {myStars!==""?
                 myStars.map((event)=>(
                 <Fragment>
                   <li >
-                    <div className="dropdown-item map-dropdown-menu" mylectureroom={event.classnum} onClick={handleFindMyLectureRoom}>
+                    <Dropdown.Item className="dropdown-item map-dropdown-menu" mylectureroom={event.classnum} onClick={handleFindMyLectureRoom}>
                       <a className='map-dropdown-classnum' mylectureroom={event.classnum} onClick={handleFindMyLectureRoom}>{event.classname}</a>
                       <a className='btn btn-light map-dropdown-delete-btn' deletepk={event.pk} onClick={handleStarDelete}><FontAwesomeIcon icon={faXmark}/></a>
-                    </div>
+                    </Dropdown.Item>
                   </li>
                 </Fragment>
                 ))
                 :null
               }
               <li><hr class="dropdown-divider"/></li>
-              <li className='dropdown-item' data-bs-toggle="modal" data-bs-target="#profileModifyModal"><a>내 강의실 추가</a></li>
+              <Dropdown.Item className="btn btn-light" data-bs-toggle="modal" data-bs-target="#profileModifyModal"><a>내 강의실 추가</a></Dropdown.Item>
 
-            </ul>
-          </div>
+            </Dropdown.Menu>
+          </Dropdown>
       </div>
       </>
       :<div id="map" className='map-unlogin' ></div>
