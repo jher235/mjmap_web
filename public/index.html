@@ -33,8 +33,11 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
    
-    <!-- <script  type="text/javascript" src='//dapi.kakao.com/v2/maps/sdk.js?appkey=47040307eaafc39a6f99984328039bd6&libraries=services'></script> -->
-    <script  type="text/javascript" src="%REACT_APP_KAKAO_MAP_API_KEY%" ></script>
+<!--    
+    <script  type="text/javascript" src="%REACT_APP_KAKAO_MAP_API_KEY%" ></script> -->
+    <script  type="text/javascript" src="%process.env.REACT_APP_KAKAO_MAP_API_KEY%"></script>
+  
+   
     <!-- <script  type="text/javascript" src="apikey.js" ></script> -->
     <!-- <script >
       function loadKakaoMapScript() {
@@ -45,7 +48,7 @@
       document.head.appendChild(script);
     }
     </script> -->
-     <title>kakao map api</title>
+     <title>MjMap</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
