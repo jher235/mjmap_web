@@ -81,14 +81,14 @@ html{
 }
 
 .homelink{
-  justify-content: start;
+  justify-content: flex-start;
   color: aliceblue;
   text-decoration: none;
 }
 
 .calink{
   color: aliceblue;
-  justify-content: end;
+  justify-content: flex-end;
   text-decoration: none;
 
 }

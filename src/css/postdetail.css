@@ -129,13 +129,13 @@
       }
     
       .post-sub{
-        justify-content: end;
+        justify-content: flex-end;
       }
       .post-head{
         display: flex;
         justify-content: space-between;
         flex-direction: column;
-        align-items: end;
+        align-items: flex-end;
       }
 
       .post-title{

@@ -126,11 +126,11 @@
     
       .post{
         margin-left: 10%;
-        justify-content: start;
+        justify-content: flex-start;
       }
     
       .post-sub{
-        justify-content: end;
+        justify-content: flex-end;
       }
       .post-title{
         font-weight: 1000;

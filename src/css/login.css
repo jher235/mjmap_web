@@ -71,7 +71,7 @@ body{
 
 .calink{
   color: aliceblue;
-  justify-content: end;
+  justify-content: flex-end;
   text-decoration: none;
 
 }
