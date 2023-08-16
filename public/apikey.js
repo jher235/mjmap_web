@@ -1,6 +1,16 @@
+// const config = {
+//     apikey : "//dapi.kakao.com/v2/maps/sdk.js?appkey=47040307eaafc39a6f99984328039bd6&libraries=services"
+// }
+
 const config = {
-    apikey : "https://dapi.kakao.com/v2/maps/sdk.js?appkey=47040307eaafc39a6f99984328039bd6&libraries=services"
+    apikey : "47040307eaafc39a6f99984328039bd6"
 }
+
+
+
+
+
+
 
 // const kakaoApiKey = "47040307eaafc39a6f99984328039bd6";
 // const script = document.createElement('script');

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import loadKakaoMap from './apikey';
+
 
 
 
@@ -12,7 +14,10 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+
 reportWebVitals();
+
 // const kakaoApiKey = process.env.REACT_APP_KAKAO_MAP_API_KEY;
 // const script = document.createElement('script');
 // script.type = 'text/javascript';

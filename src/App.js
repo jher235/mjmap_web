@@ -21,10 +21,13 @@ import Footer from "./routes/Footer";
 import ContactMe from "./routes/ContactMe";
 import PostTag from "./routes/PostTag";
 import PostLikes from "./routes/PostLIkes";
+import { useEffect } from 'react';
 
 
 //basename={process.env.PUBLIC_URL}
 function App() {
+
+    
   return(<Router basename={process.env.PUBLIC_URL} >
     <Routes>
       <Route path={"/"} element={<Home />}/>
