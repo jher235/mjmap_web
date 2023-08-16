@@ -132,7 +132,7 @@ function PostCreate(props){
 
     console.log("[Register.js] handleSubmit");
     axios
-      .post("http://localhost:8000/posts/", requestdata,{
+      .post("https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/posts/", requestdata,{
         headers:{
           'Content-Type': "multipart/form-data",
           'Authorization': 'Token ' + localStorage.getItem("token")
@@ -151,7 +151,7 @@ function PostCreate(props){
                   
               for(var i = 0; i<markerList.length; i++){
                 axios
-                  .post("http://localhost:8000/markers/",{
+                  .post("https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/markers/",{
                     post: response.data.pk,
                     name: markerList[i][0],
                     latitude: markerList[i][1],

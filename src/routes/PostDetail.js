@@ -46,7 +46,7 @@ function PostDetail(){
       if(localStorage.getItem('token')){
         setILiked(!iLiked);
         axios
-        .get(`http://127.0.0.1:8000/like/${postid.postId}/`,{
+        .get(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/like/${postid.postId}/`,{
           headers:{
             'Authorization': 'Token ' + localStorage.getItem("token")
           }
@@ -77,7 +77,7 @@ function PostDetail(){
 
        
         axios
-        .put(`http://127.0.0.1:8000/comments/${commentPk}/`,{
+        .put(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/comments/${commentPk}/`,{
           post:postid.postId,
           text:reComment
         },{
@@ -101,7 +101,7 @@ function PostDetail(){
       const commentPk = event.currentTarget.getAttribute("data-comment-pk")
       console.log(commentPk)
       axios
-      .delete(`http://127.0.0.1:8000/comments/${commentPk}/`,{
+      .delete(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/comments/${commentPk}/`,{
         headers:{
           'Authorization': 'Token ' + localStorage.getItem("token")
         }
@@ -129,7 +129,7 @@ function PostDetail(){
 
     const handleComment=(event)=>{
       axios
-        .post(`http://127.0.0.1:8000/comments/`,
+        .post(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/comments/`,
           {
             post:parseInt(postnum,10),
             text:comment
@@ -155,7 +155,7 @@ function PostDetail(){
     const handledeletePost=(event)=>{
       
       axios
-      .delete(`http://127.0.0.1:8000/posts/${postid.postId}/`,{
+      .delete(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/posts/${postid.postId}/`,{
         headers:{
           'Authorization': 'Token ' + localStorage.getItem("token")
         }
@@ -180,7 +180,7 @@ function PostDetail(){
 
       console.log(postid.postId);
       axios
-      .get(`http://127.0.0.1:8000/posts/${postid.postId}/`,{
+      .get(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/posts/${postid.postId}/`,{
   
       })
       .then(response=>{

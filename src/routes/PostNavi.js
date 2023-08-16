@@ -1,11 +1,12 @@
 import { React, useEffect, useState} from "react"
 import "../css/posts.css"
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 import { useNavigate,Link } from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRightToBracket, faPen} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
+import { Dropdown } from 'react-bootstrap';
 
 
 
@@ -23,7 +24,7 @@ function PostNavi(){
 
       useEffect(()=>{
         axios
-        .get(`http://127.0.0.1:8000/users/profile/${localStorage.getItem('usernum')}/`,{})
+        .get(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/users/profile/${localStorage.getItem('usernum')}/`,{})
         .then((response)=>{
           if(response.status<300){
               setMyNickname(response.data.nickname);
@@ -61,8 +62,48 @@ function PostNavi(){
       <div>
       <ul className=" navbar-nav ms-auto login-margin ">
         
-          {/* <a class="nav-link btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal" href="#">Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></a>
-           */}
+
+
+      {/* {localStorage.getItem('token') ? (
+          <Dropdown>
+            <Dropdown.Toggle
+              as='a'
+              className="nav-link dropdown-toggle"
+              role="button"
+              id="dropdownMenuLink"
+            >
+              {myNickname !== '' ? (
+                <>
+                  <img
+                    src={myImage}
+                    className="profile-image  img-fluid ms-3 me-3"
+                    width="40"
+                    height="40"
+                  />
+                  {myNickname}
+                </>
+              ) : (
+                <a>Loading..</a>
+              )}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href={`/profile/${localStorage.getItem('usernum')}`}>
+                Profile
+              </Dropdown.Item>
+              <Dropdown.Item onClick={handleLogout}>Log Out</Dropdown.Item>
+              <Dropdown.Item as={Link} to={`/posts/likes/${localStorage.getItem('usernum')}`}>
+                Liked Posts
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        ) : (
+          <li className="nav-item"> <Link to="/login" className="nav-link btn btn-light" >Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></Link></li>
+           
+        )}
+      </ul> */}
+
+
+          
            {localStorage.getItem("token") ? 
              <li className="nav-item dropdown ">
                 <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -82,6 +123,8 @@ function PostNavi(){
              <li className="nav-item"> <Link to="/login" className="nav-link btn btn-light" >Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></Link></li>
            } 
         </ul>
+
+        
         </div>
       </div>
     </div>

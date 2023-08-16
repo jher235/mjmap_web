@@ -37,7 +37,7 @@ function PostTag(){
 
   useEffect(()=>{
     axios
-    .get(`http://127.0.0.1:8000/posts/?page=${page}&tag=${tagId.tagId}`,{
+    .get(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/posts/?page=${page}&tag=${tagId.tagId}`,{
 
     })
     .then(response=>{

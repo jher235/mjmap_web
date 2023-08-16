@@ -47,7 +47,7 @@ function ContactMe(props){
     setIsSubmitting(true);
 
     axios
-      .post("http://localhost:8000/connect_me/", {
+      .post("https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/connect_me/", {
         position:position,
         content:content
       },{

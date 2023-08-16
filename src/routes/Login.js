@@ -31,7 +31,7 @@ function Login(props){
     event.preventDefault();
     console.log("[Login.js] handleSubmit");
     axios
-      .post("http://localhost:8000/users/login/", {
+      .post("https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/users/login/", {
         username: username,
         password: password,
       })

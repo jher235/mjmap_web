@@ -1,3 +1,5 @@
+
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Fragment, useEffect,useState,} from 'react';
 import '../css/home.css';
@@ -8,6 +10,8 @@ import {Link, useNavigate} from 'react-router-dom'
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import axios from 'axios';
 import Footer from "./Footer"
+
+
 
 <script src="https://kit.fontawesome.com/51ed27ab31"></script>
 
@@ -110,7 +114,7 @@ function Home() {
   const handleStarDelete = (event) =>{
     const deletenum = event.target.getAttribute('deletepk')
     axios
-    .delete(`http://127.0.0.1:8000/users/stars/${deletenum}`,{
+    .delete(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/users/stars/${deletenum}`,{
       headers:{
         'Authorization': 'Token ' + localStorage.getItem("token")
       }
@@ -129,7 +133,7 @@ function Home() {
 
   const handleStarSubmit = (event)=>{
     axios
-    .post(`http://127.0.0.1:8000/users/stars/`,{
+    .post(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/users/stars/`,{
       classnum : starNum,
       classname : starName
     },
@@ -319,7 +323,7 @@ const handleSearch2=(event)=>{         //강의실 검색
 
     useEffect(()=>{
         axios
-        .get(`http://127.0.0.1:8000/users/profile/${localStorage.getItem("usernum")}/`,{})
+        .get(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/users/profile/${localStorage.getItem("usernum")}/`,{})
         .then((response)=>{
           if(response.status<300){
             setMyStars(response.data.stars);
@@ -334,7 +338,7 @@ const handleSearch2=(event)=>{         //강의실 검색
 
   useEffect(()=>{
     axios
-    .get(`http://127.0.0.1:8000/users/profile/${localStorage.getItem('usernum')}/`,{})
+    .get(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/users/profile/${localStorage.getItem('usernum')}/`,{})
     .then((response)=>{
       if(response.status<300){
           setMyNickname(response.data.nickname);
@@ -1105,22 +1109,7 @@ return (
 
    
     
-{/*       
-    <div  className='title'>
 
-
-<h1>명지도</h1>
-<button onClick={customOverayonoff}>표시</button>
-<button onClick={find_my_position}>내 위치</button>
-<text>Y_</text>
-<form onSubmit={onsubmit}>
-<input type='number' value={inputText} onChange={(event)=>setInputText(event.target.value)} placeholder="강의실 번호 검색" />
-<button onClick={onsubmit}>검색</button>
-</form>
-<button onClick={test}>test</button>
-<button onClick={veiwDomitory}>기숙사</button>
-{floor?<text>{floor}층</text>:null}
-</div> */}
   <div className='home-content'>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
@@ -1129,58 +1118,58 @@ return (
      <Link to="/" class="nav-link ms-4 me-3"><img className='titlePlus' width="70px" height="65px" src={"../../mjmapMark.png"}/></Link> 
 
     
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
+    <div className="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul className="navbar-nav">
+        <li className="nav-item">
           <a role="button" class="nav-link" onClick={findCampus}>자연캠</a>
         </li>
-        <li class="nav-item">
+        <li className="nav-item">
           <a role="button" class="nav-link" onClick={find_my_position} >내 위치</a>
         </li>
-        <li class="nav-item">
+        <li className="nav-item">
           <a role="button" class="nav-link" onClick={customOverayonoff}>건물번호</a>
         </li>
         
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <li className="nav-item dropdown">
+          <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             편의시설
           </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" onClick={handleShowCafeteria}>교내식당</a></li>
-            <li><a class="dropdown-item" onClick={handleShowConvenience}>편의점</a></li>
-            <li><a class="dropdown-item" onClick={handleShowBusStopStation} >명지대역 셔틀</a></li>
-            <li><a class="dropdown-item" onClick={handleShowBusStopDowntown} >시내 셔틀</a></li>
-            <li><a class="dropdown-item" onClick={veiwDomitory}>기숙사</a></li>
+          <ul className="dropdown-menu">
+            <li><a className="dropdown-item" onClick={handleShowCafeteria}>교내식당</a></li>
+            <li><a className="dropdown-item" onClick={handleShowConvenience}>편의점</a></li>
+            <li><a className="dropdown-item" onClick={handleShowBusStopStation} >명지대역 셔틀</a></li>
+            <li><a className="dropdown-item" onClick={handleShowBusStopDowntown} >시내 셔틀</a></li>
+            <li><a className="dropdown-item" onClick={veiwDomitory}>기숙사</a></li>
           </ul>
         </li>
         <li>
           <Link to="posts" class="nav-link">게시판</Link>
         </li>
       </ul>
-
+    
         
 
-      <div class="search floor" >
-      <text class="floor">Y_</text>
+      <div className="search floor" >
+      <text className="floor">Y_</text>
       <form onSubmit={handleSearch}>
-      <input class='search1'type='number' value={inputText} onChange={(event)=>setInputText(event.target.value)} placeholder="강의실 번호 검색" />
-      <button class='search1 btn-sm btn-block' onClick={handleSearch} >검색</button>
+      <input className='search1'type='number' value={inputText} onChange={(event)=>setInputText(event.target.value)} placeholder="강의실 번호 검색" />
+      <button className='search1 btn-sm btn-block' onClick={handleSearch} >검색</button>
       {currnetClass!=="" ? <text className='ms-4'>{currnetClass}</text>:null }
       {floor?(<text className="floor ms-3">{floor==="0"? "지하 1층" : floor +"층"}</text>):null}
       </form>
       
       </div>
-      
-      <ul class="navbar-nav ms-auto login-margin ">
+   
+      <ul className="navbar-nav ms-auto login-margin ">
         
           {/* <a class="nav-link btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal" href="#">Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></a>
            */}
            {localStorage.getItem("token") ? 
-             <li class="nav-item dropdown ">
-                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+             <li className="nav-item dropdown ">
+                <a className="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   {myNickname!==""?
                   <>
                     <img src={myImage} className="profile-image  img-fluid ms-3 me-3" width="40" height="40"/>
@@ -1188,10 +1177,10 @@ return (
                   </>
                   :<a>Loading..</a>}
                 </a>
-              <ul class="dropdown-menu ">
-                  <li><Link to={`/profile/${localStorage.getItem("usernum")}`} class="dropdown-item" >Profile</Link></li>
-                  <li><a class="dropdown-item" onClick={handleLogout}>Log Out</a></li>
-                  <li><Link to={`/posts/likes/${localStorage.getItem("usernum")}`} class="dropdown-item">Liked Posts</Link></li>
+              <ul className="dropdown-menu ">
+                  <li><Link to={`/profile/${localStorage.getItem("usernum")}`} className="dropdown-item" >Profile</Link></li>
+                  <li><a className="dropdown-item" onClick={handleLogout}>Log Out</a></li>
+                  <li><Link to={`/posts/likes/${localStorage.getItem("usernum")}`} className="dropdown-item">Liked Posts</Link></li>
               </ul>
             </li>  : 
              <li class="nav-item"> <Link to="/login" class="nav-link btn btn-light" >Log In <FontAwesomeIcon icon={faArrowRightToBracket}/></Link></li>

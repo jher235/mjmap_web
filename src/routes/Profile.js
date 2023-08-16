@@ -36,7 +36,7 @@ function Profile(){
 
   const handleModifyProfile = (event)=>{
       axios
-      .put(`http://127.0.0.1:8000/users/profile/${usernum.usernum}/`,{
+      .put(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/users/profile/${usernum.usernum}/`,{
         nickname:profileNickname,
         image:profileImage
       },
@@ -74,7 +74,7 @@ function Profile(){
 
   useEffect(()=>{
     axios
-    .get(`http://127.0.0.1:8000/users/profile/${usernum.usernum}/`,{})
+    .get(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/users/profile/${usernum.usernum}/`,{})
     .then((response)=>{
       if(response.status<300){
         console.log(response);
@@ -89,7 +89,7 @@ function Profile(){
 
   useEffect(()=>{
     axios
-    .get(`http://127.0.0.1:8000/posts/?author=${usernum.usernum}&&page=${page}`,{
+    .get(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/posts/?author=${usernum.usernum}&&page=${page}`,{
 
     })
     .then(response=>{

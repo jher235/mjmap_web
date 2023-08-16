@@ -52,7 +52,7 @@ function PostModify(props){
 
     useEffect(()=>{
         axios
-            .get(`http://localhost:8000/posts/${postid.postId}/`,{})
+            .get(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/posts/${postid.postId}/`,{})
             .then((response)=>{
                 if(response.status <300){
                     console.log(response);
@@ -178,7 +178,7 @@ function PostModify(props){
    
    
     const response = axios
-      .put(`http://localhost:8000/posts/${postid.postId}/`, requestdata,{
+      .put(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/posts/${postid.postId}/`, requestdata,{
         headers:{
           'Content-Type': "multipart/form-data",
           'Authorization': 'Token ' + localStorage.getItem("token")
@@ -192,7 +192,7 @@ function PostModify(props){
 
           const newMarkerPromises = newMarkerList.map(([name, latitude, longitude])=>{
                       axios
-                        .post("http://localhost:8000/markers/",{
+                        .post("https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/markers/",{
                           post: response.data.pk,
                           name: name,
                           latitude: latitude,
@@ -216,7 +216,7 @@ function PostModify(props){
 
                   const deleteMarkerPromises = deleteMaker.map((num)=>  
                     axios
-                      .delete(`http://localhost:8000/markers/${num}`,{
+                      .delete(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/markers/${num}`,{
                         headers:{
                         // 'Content-Type': "multipart/form-data",
                         'Content-Type': "application/json",

@@ -43,7 +43,7 @@ function Register(props){
     event.preventDefault();
     console.log("[Register.js] handleSubmit");
     axios
-      .post("http://localhost:8000/users/register/", {
+      .post("https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/users/register/", {
         username: username,
         password: password,
         password2: password2,
