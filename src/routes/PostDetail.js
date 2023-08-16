@@ -339,7 +339,7 @@ function PostDetail(){
                     <>
                       <a href={`/profile/${post.profile.user}`} className="postdetail-profile-text">
                           by 
-                          <img src={post.profile.image} className="profile-image  img-fluid ms-3 me-3" width="40" height="40"/>
+                          <img src={post.profile.image} className="profile-image  img-fluid ms-3 me-3" width="40" height="40" alt="프로필이미지"/>
                           {post.profile.nickname}
                       </a>
                     </>
@@ -353,7 +353,7 @@ function PostDetail(){
           <div className="post-mainimage">
             {post.image?
             <>
-            <img className="post-image" src={post.image}/>
+            <img className="post-image" src={post.image} alt=""/>
             </>
             : <svg className="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid post-noimage ms-4" width="150" height="150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: no-image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text font-size="50%" x="50%" y="50%" fill="#aaa" dy=".3em">No-Image</text></svg>
             }
@@ -391,7 +391,7 @@ function PostDetail(){
                    <Fragment key={value.pk}>
                     <div  className="comment-container ms-3">
                         <div className="comment-profile">
-                          <img src={value.profile.image} className="profile-image  img-fluid ms-3 me-3" width="40" height="40"/>
+                          <img src={value.profile.image} className="profile-image  img-fluid ms-3 me-3" width="40" height="40" alt="프로필이미지"/>
                           {value.profile.nickname}
                           {value.profile?
                           <>
