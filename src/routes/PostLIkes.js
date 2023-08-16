@@ -1,4 +1,4 @@
-import {Fragment, React, useEffect, useState} from "react"
+import {React, useEffect, useState} from "react"
 import "../css/posts.css"
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { useNavigate,Link,useParams } from "react-router-dom";
@@ -6,7 +6,6 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowRightToBracket, faPen,faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import PostNavi from "./PostNavi";
-import PostDetail from "./PostDetail";
 import Footer from "./Footer"
 import PostList from "../components/PostList"
 

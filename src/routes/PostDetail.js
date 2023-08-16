@@ -7,7 +7,6 @@ import {faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate,Link,useParams } from "react-router-dom";
 import axios from "axios";
 import PostNavi from "./PostNavi";
-import { Fade,Modal } from "react-bootstrap";
 import Footer from "./Footer"
 
 

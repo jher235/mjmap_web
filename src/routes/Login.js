@@ -1,10 +1,8 @@
-import React, { useState,useEffect, useReducer } from "react";
+import React, { useState,useEffect} from "react";
 import axios from "axios";
-import {faArrowRightToBracket} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {useNavigate, Link} from "react-router-dom"
 import "../css/login.css";
-import Footer from "./Footer"
+
 
 
 function Login(props){

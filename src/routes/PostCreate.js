@@ -1,13 +1,10 @@
 import React, { useState,useEffect } from "react";
 import axios from "axios";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faLock,faXmark } from "@fortawesome/free-solid-svg-icons";
-import { faFacebook, faGithub } from "@fortawesome/free-brands-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link, useNavigate} from "react-router-dom"
 import "../css/createpost.css";
-import { Modal } from "react-bootstrap";
-import bootstrap,{Tooltip} from 'bootstrap'
+import {Tooltip} from 'bootstrap'
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 const {kakao} = window

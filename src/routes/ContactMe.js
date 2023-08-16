@@ -1,9 +1,5 @@
 import React, { useState,useEffect } from "react";
 import axios from "axios";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { faLock } from "@fortawesome/free-solid-svg-icons";
-import { faFacebook, faGithub } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link, useNavigate} from "react-router-dom"
 import "../css/contactme.css";
 
