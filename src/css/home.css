@@ -157,17 +157,23 @@
     border-radius: 12px;
     border-color: darkgray;
     border-style:solid;
-    
+    max-width: 300px;
   }
   
   .font-dokdo{
+    
     font-family: 'East Sea Dokdo', cursive;
     
+  }
+
+  .font-gasoek{
+    font-family: 'Gasoek One', sans-serif;
   }
   
   
   .floor{
-    font-family: 'East Sea Dokdo', cursive;
+
+    /* font-family: 'East Sea Dokdo', cursive; */
     margin-left: 10px;
     font-size: xx-large;
   }

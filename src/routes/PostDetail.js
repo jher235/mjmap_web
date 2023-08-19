@@ -405,8 +405,15 @@ function PostDetail(){
                               }
                           </>
                           :null}
-                          <div className="comment-date ms-4">{new Date(value.date).toLocaleString()}</div>
-                              
+                          
+                          {
+                          value.created_at&& value.modified_at?
+                            (
+                              value.modified_at.substring(0,19)!==value.created_at.substring(0,19) 
+                              ?<div className="comment-date ms-4">{new Date(value.modified_at).toLocaleString()} - 수정됨</div>
+                              :<div className="comment-date ms-4">{new Date(value.created_at).toLocaleString()}</div>
+                            ):null
+                          }
                         </div>
                         <a className="comment-text ms-3">{value.text}</a>
                     </div>

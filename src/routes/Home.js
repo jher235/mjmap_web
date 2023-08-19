@@ -1,5 +1,3 @@
-
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Fragment, useEffect,useState,} from 'react';
 import '../css/home.css';
@@ -316,10 +314,10 @@ const handleSearch2=(event)=>{         //강의실 검색
       }
   },[mylat, mylong, map]);
 
-  if(map){
-    console.log("lat",map.getCenter().La)
-    console.log("lon",map.getCenter().Ma)
-  }
+  // if(map){
+  //   console.log("lat",map.getCenter().La)
+  //   console.log("lon",map.getCenter().Ma)
+  // }
 
 
     useEffect(()=>{
@@ -1168,13 +1166,13 @@ return (
     
         
 
-      <div className="search floor" >
-      <text className="floor">Y_</text>
+      <div className="search floor font-gasoek" >
+      <text className="floor ">Y_</text>
       <form onSubmit={handleSearch}>
-      <input className='search1'type='number' value={inputText} onChange={(event)=>setInputText(event.target.value)} placeholder="강의실 번호 검색" />
-      <button className='search1 btn-sm btn-block' onClick={handleSearch} >검색</button>
+      <input className='search1 'type='number' value={inputText} onChange={(event)=>setInputText(event.target.value)} placeholder="강의실 찾기" />
+      <button className='search1  btn-sm btn-block ' onClick={handleSearch} >검색</button>
       {currnetClass!=="" ? <text className='ms-4'>{currnetClass}</text>:null }
-      {floor?(<text className="floor ms-3">{floor==="0"? "지하 1층" : floor +"층"}</text>):null}
+      {floor?(<text className="floor  ms-3">{floor==="0"? "지하 1층" : floor +"층"}</text>):null}
       </form>
       
       </div>
