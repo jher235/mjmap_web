@@ -112,7 +112,7 @@
   
   
   .customOveray{
-    font-size: 1px;
+    font-size: 1vh;
     align-items: center;
     justify-content: center;
     min-height:20px;
