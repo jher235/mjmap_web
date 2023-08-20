@@ -113,13 +113,15 @@
   
   .customOveray{
     font-size: 1px;
-    width:99%;
-    height:3%;
+    align-items: center;
+    justify-content: center;
+    min-height:20px;
     padding:3px;
     background-color: #fff;
-    border-radius: 40%;
+    border-radius: 10px;
     color: gray;
     border-style: solid;
+    viewport-fit: auto;
   }
   
   
