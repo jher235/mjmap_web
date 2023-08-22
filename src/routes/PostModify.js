@@ -17,11 +17,8 @@ function PostModify(props){
     const [nickname, setNickname] = useState("");
     const [file, setFile] = useState(null);
     const [image, setImage] = useState(null);
-    const [preImage, setPreImage] = useState(false);
-    const [preFile, setPreFile] = useState(false);
-    const [existPreImage, setExistPreImage] = useState(false);
-    const [existPreFile, setExistPreFile] = useState(false);
-    
+
+  
     const [map,setMap] = useState();
     const [maplevel,setMaplevel] = useState(4);
     const [loading, setLoading] = useState(true);
@@ -37,6 +34,12 @@ function PostModify(props){
     const [postNum, setPostNum] = useState("")
     const [loadMap, setLoadMap] = useState(false)
     const [deleteMaker, setDeleteMarker] = useState([])
+    const [imageList, setImageList] = useState([])
+    const [fileList, setFileList] = useState([])
+    const [deleteImageList, setDeleteImageList] = useState([])
+    const [deleteFileList, setDeleteFileList] = useState([])
+    const [preImageList, setPreImageList] = useState([]);
+    const [preFileList, setPreFileList] = useState([]);
 
 
     const navigate = useNavigate();
@@ -50,6 +53,8 @@ function PostModify(props){
       }
     },[])
 
+
+
     useEffect(()=>{
         axios
             .get(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/posts/${postid.postId}/`,{})
@@ -59,12 +64,9 @@ function PostModify(props){
                     setTitle(response.data.title);
                     setContent(response.data.body);
                     setTag(response.data.tag.map((t)=>`${t.name}`));
-                    if(response.data.image!==null){
-                      setExistPreImage(true);
-                    }
-                    if(response.data.file!==null){
-                      setExistPreFile(true);
-                    }
+                    setPreImageList(response.data.image);
+                    setPreFileList(response.data.file);
+                    
                     
                     setMarkerList(response.data.markers.map((marker)=>[ marker.name, marker.latitude, marker.longitude, marker.pk]))
                     setMarkerCount(response.data.markers.length)
@@ -76,6 +78,79 @@ function PostModify(props){
     },[])
    
 
+
+    const handleFileList =  (event) =>{
+      event.preventDefault();
+      var  filecontent = file
+      setFileList((prevFileList)=>[...prevFileList, filecontent])
+      console.log(fileList);
+      setFile(null);
+    }
+
+    
+
+    const handleDeleteFile=(event)=>{
+      event.preventDefault();
+      var index = parseInt(event.target.getAttribute('fileIndex'),10);
+
+  
+      if(!isNaN(index)){
+      const copyFileList = fileList.filter((value,idx)=>idx!==index);
+      setFileList(copyFileList);
+      }
+    }
+
+    const handleDeletePreFile=(event)=>{
+      event.preventDefault();
+      var index = parseInt(event.target.getAttribute('fileIndex'),10);
+      var filepk = parseInt(event.target.getAttribute('prefileId'),10);
+
+      if(filepk){
+        setDeleteFileList((prevDeleteFileList)=>[...prevDeleteFileList, filepk])
+      }
+  
+      if(!isNaN(index)){
+      const copyFileList = preFileList.filter((value,idx)=>idx!==index);
+      setPreFileList(copyFileList);
+      }
+    }
+
+
+
+    const handleImageList =  (event) =>{
+      event.preventDefault();
+      var  imagecontent = image
+      setImageList((prevImageList)=>[...prevImageList, imagecontent])
+      console.log(imageList);
+      setImage(null);
+    }
+
+
+    const handleDeleteImage=(event)=>{
+      event.preventDefault();
+      var index = parseInt(event.target.getAttribute('imageIndex'),10);
+     
+      if(!isNaN(index)){
+      const copyImageList = imageList.filter((value,idx)=>idx!==index);
+      setImageList(copyImageList);
+      }
+    }
+
+    const handleDeletePreImage=(event)=>{
+      event.preventDefault();
+      var index = parseInt(event.target.getAttribute('imageIndex'),10);
+      var imagepk = parseInt(event.target.getAttribute('preimageId'),10);
+
+      if(imagepk){
+        setDeleteImageList((prevDeleteImageList)=>[...prevDeleteImageList, imagepk])
+      }
+
+      if(!isNaN(index)){
+      const copyImageList = preImageList.filter((value,idx)=>idx!==index);
+      setPreImageList(copyImageList);
+      }
+    }
+  
 
 
     const handleDeleteMarker = (event)=>{
@@ -92,6 +167,21 @@ function PostModify(props){
       if(!isNaN(index)){
       const copyMarkerList = markerList.filter((value,idx)=>idx!==index);
       setMarkerList(copyMarkerList);
+
+      }
+    }
+
+    const handleDeleteNewMarker = (event)=>{
+      event.preventDefault();
+      var index = parseInt(event.target.getAttribute('markerIndex'),10);
+     
+
+    
+      
+      if(!isNaN(index)){
+
+      const copyNewMarkerList = newMarkerList.filter((value,idx)=>idx!==index);
+      setNewMarkerList(copyNewMarkerList);
       }
     }
 
@@ -115,15 +205,7 @@ function PostModify(props){
 
 
   
-  const deletepreimage=(event)=>{
-    event.preventDefault();
-    setPreImage(true);
-  }
-
-  const deleteprefile=(event)=>{
-    event.preventDefault();
-    setPreFile(true);
-  }
+ 
     
   const handleChange = (event) => {
     const target = event.target;
@@ -156,20 +238,20 @@ function PostModify(props){
   requestdata.append("body", content);
   requestdata.append("tag", tag);
 
-  if (image !==null && image.length!==0 ){
-    for(let i=0; i<image.length; i++)
-    requestdata.append("image", image[i]);
-  }
-  if (file !== null && file.length !==0){
-    for(let i=0; i<file.length; i++)
-    requestdata.append("file", file[i]);
-  }
-  if(preImage===true){
-    requestdata.append("remove_image",preImage);
-  }
-  if(preFile===true){
-    requestdata.append("remove_file", preFile);
-  }
+  // if (image !==null && image.length!==0 ){
+  //   for(let i=0; i<image.length; i++)
+  //   requestdata.append("image", image[i]);
+  // }
+  // if (file !== null && file.length !==0){
+  //   for(let i=0; i<file.length; i++)
+  //   requestdata.append("file", file[i]);
+  // }
+  // if(preImage===true){
+  //   requestdata.append("remove_image",preImage);
+  // }
+  // if(preFile===true){
+  //   requestdata.append("remove_file", preFile);
+  // }
  
   
 
@@ -187,10 +269,91 @@ function PostModify(props){
       .then(async(response) => {
         if (response.status < 300) {
 
-              
+                  const newImagePromises = imageList.map(([image])=>{
+                    axios
+                      .post("https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/images/",{
+                        post: response.data.pk,
+                        image:image
+                      },{
+                        headers:{
+                          // 'Content-Type': "multipart/form-data",
+                          'Content-Type': "multipart/form-data",
+                          'Authorization': 'Token ' + localStorage.getItem("token")
+                        }
+                      })
+                      .then((response)=>{
+                        if(response.status<300){
+                            console.log(response)
+                        }
+                      })
+                      .catch((e)=>{
+                        console.log(e);
+                      })
+                  })
+
+                const deleteImagePromises = deleteImageList.map((num)=>  
+                  axios
+                    .delete(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/images/${num}`,{
+                      headers:{
+                      // 'Content-Type': "multipart/form-data",
+                      'Content-Type': "application/json",
+                      'Authorization': 'Token ' + localStorage.getItem("token")
+                      }
+                    })
+                    .then((response)=>{
+                      if(response.status){
+                        console.log(response)
+                      }
+                    })
+                    .catch((e)=>{
+                      console.log(e);
+                    })
+                )
+
+                const newFilePromises = fileList.map(([file])=>{
+                  axios
+                    .post("https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/files/",{
+                      post: response.data.pk,
+                      file:file
+                    },{
+                      headers:{
+                        // 'Content-Type': "multipart/form-data",
+                        'Content-Type': "multipart/form-data",
+                        'Authorization': 'Token ' + localStorage.getItem("token")
+                      }
+                    })
+                    .then((response)=>{
+                      if(response.status<300){
+                          console.log(response)
+                      }
+                    })
+                    .catch((e)=>{
+                      console.log(e);
+                    })
+                })
+
+              const deleteFilePromises = deleteFileList.map((num)=>  
+                axios
+                  .delete(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/files/${num}`,{
+                    headers:{
+                    // 'Content-Type': "multipart/form-data",
+                    'Content-Type': "application/json",
+                    'Authorization': 'Token ' + localStorage.getItem("token")
+                    }
+                  })
+                  .then((response)=>{
+                    if(response.status){
+                      console.log(response)
+                    }
+                  })
+                  .catch((e)=>{
+                    console.log(e);
+                  })
+              )
+                  
 
 
-          const newMarkerPromises = newMarkerList.map(([name, latitude, longitude])=>{
+              const newMarkerPromises = newMarkerList.map(([name, latitude, longitude])=>{
                       axios
                         .post("https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/markers/",{
                           post: response.data.pk,
@@ -259,7 +422,7 @@ function PostModify(props){
                   
                  
 
-                  const allPromises = [...newMarkerPromises, ...deleteMarkerPromises];
+                  const allPromises = [...newMarkerPromises, ...deleteMarkerPromises, ...newImagePromises, ...deleteImagePromises, ...newFilePromises, deleteFilePromises];
                   try {
                     await Promise.all(allPromises);
                     navigate(`/posts/${postid.postId}`);
@@ -368,7 +531,7 @@ function PostModify(props){
         <label htmlFor="floatingContent">Content</label>
       </div>
 
-    <div className="img-container">
+    {/* <div className="img-container">
       <div className="form-floating">
         <input
           type="file"
@@ -384,9 +547,25 @@ function PostModify(props){
         <label htmlFor="floatingImage">Image</label>
       </div>
       {existPreImage? <button className="btn btn-light deletedefaultbtn"  onClick={deletepreimage}>기존 이미지 삭제</button>:null}
+      </div> */}
+      <div>
+      <button type="button" className="btn btn-light mt-4" data-bs-toggle="modal" data-bs-target="#InfoModal-image" >Image</button>
+        <div className="marker-list mt-2">
+        {preImageList.map((value, index)=>(
+            <div key={index}>
+            <span type="button" className="badge text-bg-light me-2" >{"image"+(index+1)}  <FontAwesomeIcon className="ms-1" icon={faXmark} imageIndex={index} preimageId={value.id} onClick={handleDeletePreImage}/> </span>
+            </div>
+          ))}
+           {imageList.map((value, index)=>(
+            <div key={index}>
+            <span type="button" className="badge text-bg-light me-2" >{"new image"+(index+1)}  <FontAwesomeIcon className="ms-1" icon={faXmark} imageIndex={index} onClick={handleDeleteImage}/> </span>
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="img-container">
+
+      {/* <div className="img-container">
       <div className="form-floating">
         <input
           type="file"
@@ -401,9 +580,27 @@ function PostModify(props){
         <label htmlFor="floatingFile">File</label>
       </div>
        {existPreFile? <button className="btn btn-light deletedefaultbtn" onClick={deleteprefile}>기존 첨부파일 삭제</button>:null}
-       </div>
+       </div> */}
 
-     <div className="form-floating">
+       <div>
+      <button type="button" className="btn btn-light mt-4" data-bs-toggle="modal" data-bs-target="#InfoModal-file" >File</button>
+        <div className="marker-list mt-2">
+        {preFileList.map((value, index)=>(
+            <div key={index}>
+            <span type="button" className="badge text-bg-light me-2" >{"file"+(index+1)}  <FontAwesomeIcon className="ms-1" icon={faXmark} fileIndex={index} prefileId={value.id} onClick={handleDeletePreFile}/> </span>
+            </div>
+          ))}
+          {fileList.map((value, index)=>(
+            <div key={index}>
+            <span type="button" className="badge text-bg-light me-2" >{"new file"+(index+1)}  <FontAwesomeIcon className="ms-1" icon={faXmark} fileIndex={index}  onClick={handleDeleteFile}/> </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+
+
+     <div className="form-floating mt-4">
         <input
           type="text"
           className="form-control"
@@ -442,12 +639,89 @@ function PostModify(props){
         ))}
         {newMarkerList.map((value, index)=>(
           <div key={index}>
-          <span type="button" className="badge text-bg-light me-2" >{value[0]}  <FontAwesomeIcon className="ms-1" icon={faXmark} markerIndex={index} markerPk={value[3]} onClick={handleDeleteMarker}/> </span>
+          <span type="button" className="badge text-bg-light me-2" >{value[0]}  <FontAwesomeIcon className="ms-1" icon={faXmark} markerIndex={index} markerPk={value[3]} onClick={handleDeleteNewMarker}/> </span>
           </div>
         ))}
 
     </div>
       
+
+
+
+          
+    <div className="modal fade" id="InfoModal-image" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="loginModalLabel">  Position information</h1>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body">
+      
+
+       <text className="profileModalWord">Add - Image</text>
+       <br/>
+       <div className="form-floating">
+        <input
+          type="file"
+          className="form-control"
+          name="image"
+          id="floatingImage"
+          placeholder="Image"
+          onChange={handleChange}
+         multiple 
+         accept="image/*"
+        />
+        <label htmlFor="floatingImage">Image</label>
+      </div>
+
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary me-auto" data-bs-dismiss="modal" href="#">Cancel</button>
+        <button type="button" className="btn btn-secondary" onClick={handleImageList} data-bs-dismiss="modal">등록</button>
+      </div>
+    </div>
+  </div>
+    </div>
+
+
+
+    <div className="modal fade" id="InfoModal-file" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="loginModalLabel">  Position information</h1>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body">
+      
+
+       <text className="profileModalWord">Add - File</text>
+       <br/>
+       <div className="form-floating">
+        <input
+          type="file"
+          className="form-control"
+          name="file"
+          id="floatingFile"
+          placeholder="file"
+          onChange={handleChange}
+          multiple
+        />
+        <label htmlFor="floatingFile">File</label>
+      </div> 
+       
+
+
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary me-auto" data-bs-dismiss="modal" href="#">Cancel</button>
+        <button type="button" className="btn btn-secondary" onClick={handleFileList} data-bs-dismiss="modal">등록</button>
+      </div>
+    </div>
+  </div>
+    </div>
+
 
 
           

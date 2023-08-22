@@ -8,7 +8,7 @@ import {Tooltip} from 'bootstrap'
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 const {kakao} = window
-const markerList = []
+
 
 function PostCreate(props){
     const firstLat = 37.222000
@@ -33,13 +33,56 @@ function PostCreate(props){
     const [markerList, setMarkerList] = useState([])
     const [postNum, setPostNum] = useState("")
     const [loadMap, setLoadMap] = useState(false)
+    const [imageList, setImageList] = useState([])
+    const [fileList, setFileList] = useState([])
     
     
- 
-
-  
-
     const navigate = useNavigate();
+
+
+
+
+  const handleFileList =  (event) =>{
+    event.preventDefault();
+    var  filecontent = [file]
+    setFileList((prevFileList)=>[...prevFileList, filecontent])
+    console.log(fileList);
+    setFile(null);
+  }
+
+  const handleDeleteFile=(event)=>{
+    event.preventDefault();
+    var index = parseInt(event.target.getAttribute('fileIndex'),10);
+
+
+    //var copyMarkerList = markerList;
+    if(!isNaN(index)){
+    const copyFileList = fileList.filter((value,idx)=>idx!==index);
+    setFileList(copyFileList);
+    }
+  }
+
+
+  const handleImageList =  (event) =>{
+    event.preventDefault();
+    var  imagecontent = [image]
+    setImageList((prevImageList)=>[...prevImageList, imagecontent])
+    console.log(imageList);
+    setImage(null);
+  }
+
+  const handleDeleteImage=(event)=>{
+    event.preventDefault();
+    var index = parseInt(event.target.getAttribute('imageIndex'),10);
+
+
+    //var copyMarkerList = markerList;
+    if(!isNaN(index)){
+    const copyImageList = imageList.filter((value,idx)=>idx!==index);
+    setImageList(copyImageList);
+    }
+  }
+
 
   const handlePostNum = (event) =>{
       setPostNum(event.data.pk);
@@ -116,14 +159,14 @@ function PostCreate(props){
 
   
 
-  if (image !==null && image.length!==0 ){
-    for(let i=0; i<image.length; i++)
-    requestdata.append("image", image[i]);
-  }
-  if (file !== null && file.length !==0){
-    for(let i=0; i<file.length; i++)
-    requestdata.append("file", file[i]);
-  }
+  // if (image !==null && image.length!==0 ){
+  //   for(let i=0; i<image.length; i++)
+  //   requestdata.append("image", image[i]);
+  // }
+  // if (file !== null && file.length !==0){
+  //   for(let i=0; i<file.length; i++)
+  //   requestdata.append("file", file[i]);
+  // }
   
 
   
@@ -148,6 +191,59 @@ function PostCreate(props){
           
           console.log(markerList)
 
+          for(var i = 0; i<imageList.length; i++){
+
+            const formData = new FormData();
+            formData.append("post", response.data.pk);
+            formData.append("image", imageList[i][0][0]);
+
+            axios
+              .post("https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/images/",formData,{
+                headers:{
+                  'Content-Type': "multipart/form-data",
+                  //'Content-Type': "application/json",
+                  'Authorization': 'Token ' + localStorage.getItem("token")
+                }
+              })
+              .then((response)=>{
+                if(response.status<300){
+                    console.log(response.data)
+                   
+                }
+              })
+              .catch((e)=>{
+                console.log(e);
+              })
+          }
+
+          for(var i = 0; i<fileList.length; i++){
+
+            const formData = new FormData();
+            formData.append("post", response.data.pk);
+            formData.append("file", fileList[i][0][0]);
+
+            axios
+              .post("https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/files/",formData,{
+                headers:{
+                  'Content-Type': "multipart/form-data",
+                  //'Content-Type': "application/json",
+                  'Authorization': 'Token ' + localStorage.getItem("token")
+                }
+              })
+              .then((response)=>{
+                if(response.status<300){
+                    console.log(response.data)
+                   
+                }
+              })
+              .catch((e)=>{
+                console.log(e);
+              })
+          }
+
+
+
+              
                   
               for(var i = 0; i<markerList.length; i++){
                 axios
@@ -280,7 +376,7 @@ function PostCreate(props){
         <label htmlFor="floatingContent">Content</label>
       </div>
 
-      <div className="form-floating">
+      {/* <div className="form-floating">
         <input
           type="file"
           className="form-control"
@@ -292,10 +388,19 @@ function PostCreate(props){
          accept="image/*"
         />
         <label htmlFor="floatingImage">Image</label>
+      </div> */}
+      <div>
+      <button type="button" className="btn btn-light mt-4" data-bs-toggle="modal" data-bs-target="#InfoModal-image" >Image 추가</button>
+        <div className="marker-list mt-2">
+        {imageList.map((value, index)=>(
+            <div key={index}>
+            <span type="button" className="badge text-bg-light me-2" >{"image"+(index+1)}  <FontAwesomeIcon className="ms-1" icon={faXmark} imageIndex={index} onClick={handleDeleteImage}/> </span>
+            </div>
+          ))}
+        </div>
       </div>
-      
 
-      <div className="form-floating">
+      {/* <div className="form-floating">
         <input
           type="file"
           className="form-control"
@@ -306,10 +411,23 @@ function PostCreate(props){
           multiple
        />
         <label htmlFor="floatingFile">File</label>
+      </div> */}
+
+    <div>
+      <button type="button" className="btn btn-light mt-4" data-bs-toggle="modal" data-bs-target="#InfoModal-file" >File 추가</button>
+      <div className="marker-list mt-2">
+      {fileList.map((value, index)=>(
+          <div key={index}>
+          <span type="button" className="badge text-bg-light me-2" >{"file"+(index+1)}  <FontAwesomeIcon className="ms-1" icon={faXmark} fileIndex={index} onClick={handleDeleteFile}/> </span>
+          </div>
+        ))}
       </div>
+    </div>
 
 
-      <div className="form-floating">
+
+
+      <div className="form-floating  mt-4">
         <input
           type="text"
           className="form-control"
@@ -346,7 +464,97 @@ function PostCreate(props){
           </div>
         ))}
     </div>
+
+
+
+
+
+    
+          
+    <div className="modal fade" id="InfoModal-file" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+  <div className="modal-dialog file-select">
+    <div className="modal-content ">
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="loginModalLabel">  Position information</h1>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body">
       
+
+       <text className="profileModalWord">Add - File</text>
+       <br/>
+       <div className="form-floating">
+        <input
+          type="file"
+          className="form-control "
+          name="file"
+          id="floatingFile"
+          placeholder="file"
+          onChange={handleChange}
+          multiple
+          
+        />
+        <label htmlFor="floatingFile">File</label>
+      </div> 
+       
+
+
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary me-auto" data-bs-dismiss="modal" href="#">Cancel</button>
+        <button type="button" className="btn btn-secondary" onClick={handleFileList} data-bs-dismiss="modal">등록</button>
+      </div>
+    </div>
+  </div>
+    </div>
+
+      
+
+
+
+
+          
+    <div className="modal fade" id="InfoModal-image" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="loginModalLabel">  Position information</h1>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body">
+      
+
+       <text className="profileModalWord">Add - Image</text>
+       <br/>
+       <div className="form-floating">
+        <input
+          type="file"
+          className="form-control"
+          name="image"
+          id="floatingImage"
+          placeholder="Image"
+          onChange={handleChange}
+         multiple 
+         accept="image/*"
+        />
+        <label htmlFor="floatingImage">Image</label>
+      </div>
+
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary me-auto" data-bs-dismiss="modal" href="#">Cancel</button>
+        <button type="button" className="btn btn-secondary" onClick={handleImageList} data-bs-dismiss="modal">등록</button>
+      </div>
+    </div>
+  </div>
+    </div>
+
+
+
+
+
+
+
 
 
           

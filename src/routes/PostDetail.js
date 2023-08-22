@@ -351,9 +351,10 @@ function PostDetail(){
           </div>
           <hr className="pd-featurette-divider"/>
           <div className="post-mainimage">
-            {post.image?
+            {post.image && post.image.length>0 ?
             <>
-            <img className="post-image" src={post.image} alt=""/>
+            {post.image.map((value,index)=>(<img key={index} className="post-image" src={value.image} alt=""/>))}
+            {/* {<img className="post-image" src={post.image[0].image} alt=""/>} */}
             </>
             : <svg className="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid post-noimage ms-4" width="150" height="150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: no-image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text font-size="50%" x="50%" y="50%" fill="#aaa" dy=".3em">No-Image</text></svg>
             }
@@ -377,10 +378,14 @@ function PostDetail(){
             </div>
           </div>
           
-        {post.file!==null?
+        {post.file && post.file.length>0?
           <>
             <hr className="pd-featurette-divider"/>
-            <a href={post.file} target="_blank" download rel="noopener noreferrer" className="ms-5 post-file"><FontAwesomeIcon icon={faPaperclip}/> 첨부파일</a>
+            {post.file.map((value, index)=>(<> 
+                <a href={value.file} target="_blank" download rel="noopener noreferrer" className="ms-5 post-file"><FontAwesomeIcon icon={faPaperclip}/> 첨부파일 {index+1} </a>
+                <br/>
+              </>))}
+           
           </>
           :null
         }

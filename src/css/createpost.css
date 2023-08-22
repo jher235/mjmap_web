@@ -140,3 +140,11 @@ html{
 
 }
 
+
+/* .modal-dialog {
+  max-width: 80%; 
+} */
+
+.form-control[type="file"]{
+  max-width: 80%; 
+}
