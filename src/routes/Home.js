@@ -111,7 +111,11 @@ function Home() {
 
 
   const handleStarDelete = (event) =>{
-    const deletenum = event.target.getAttribute('deletepk')
+    event.stopPropagation()
+  
+    const deletenum = event.currentTarget.getAttribute('deletepk')
+    //const deletenum = event.pk
+    console.log("deletepk"+ event.target.getAttribute('deletepk'))
     axios
     .delete(`https://port-0-mjmap-drf-20zynm2mljtk8awd.sel4.cloudtype.app/users/stars/${deletenum}`,{
       headers:{
@@ -1222,10 +1226,11 @@ return (
               {myStars!==""?
                 myStars.map((event)=>(
                 <Fragment>
+                  {console.log(event)}
                   <li >
-                    <Dropdown.Item className="dropdown-item map-dropdown-menu" mylectureroom={event.classnum} onClick={handleFindMyLectureRoom}>
-                      <a className='map-dropdown-classnum' mylectureroom={event.classnum} onClick={handleFindMyLectureRoom}>{event.classname}</a>
-                      <a className='btn btn-light map-dropdown-delete-btn' deletepk={event.pk} onClick={handleStarDelete}><FontAwesomeIcon icon={faXmark}/></a>
+                    <Dropdown.Item className="dropdown-item map-dropdown-menu" mylectureroom={event.classnum} onClick={handleFindMyLectureRoom} >
+                      <a className='map-dropdown-classnum' mylectureroom={event.classnum} >{event.classname}</a>
+                      <a className='btn btn-light map-dropdown-delete-btn' deletepk={event.pk} onClick={(event)=>handleStarDelete(event)}><FontAwesomeIcon icon={faXmark}/></a>
                     </Dropdown.Item>
                   </li>
                 </Fragment>
