@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import axios from "axios";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faXmark, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link, useNavigate} from "react-router-dom"
 import "../css/createpost.css";
@@ -390,7 +390,7 @@ function PostCreate(props){
         <label htmlFor="floatingImage">Image</label>
       </div> */}
       <div>
-      <button type="button" className="btn btn-light mt-4" data-bs-toggle="modal" data-bs-target="#InfoModal-image" >Image 추가</button>
+      <button type="button" className="btn btn-light mt-4" data-bs-toggle="modal" data-bs-target="#InfoModal-image" >Image  <FontAwesomeIcon className="ms-1" icon={faCirclePlus} /></button>
         <div className="marker-list mt-2">
         {imageList.map((value, index)=>(
             <div key={index}>
@@ -414,7 +414,7 @@ function PostCreate(props){
       </div> */}
 
     <div>
-      <button type="button" className="btn btn-light mt-4" data-bs-toggle="modal" data-bs-target="#InfoModal-file" >File 추가</button>
+      <button type="button" className="btn btn-light mt-4" data-bs-toggle="modal" data-bs-target="#InfoModal-file" >File <FontAwesomeIcon className="ms-1" icon={faCirclePlus} /></button>
       <div className="marker-list mt-2">
       {fileList.map((value, index)=>(
           <div key={index}>

@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import axios from "axios";
-import {  faXmark  } from "@fortawesome/free-solid-svg-icons";
+import {  faXmark,faCirclePlus  } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link, useNavigate, useParams} from "react-router-dom"
 import "../css/postmodify.css";
@@ -549,7 +549,7 @@ function PostModify(props){
       {existPreImage? <button className="btn btn-light deletedefaultbtn"  onClick={deletepreimage}>기존 이미지 삭제</button>:null}
       </div> */}
       <div>
-      <button type="button" className="btn btn-light mt-4" data-bs-toggle="modal" data-bs-target="#InfoModal-image" >Image</button>
+      <button type="button" className="btn btn-light mt-4" data-bs-toggle="modal" data-bs-target="#InfoModal-image" >Image <FontAwesomeIcon className="ms-1" icon={faCirclePlus} /></button>
         <div className="marker-list mt-2">
         {preImageList.map((value, index)=>(
             <div key={index}>
@@ -583,7 +583,7 @@ function PostModify(props){
        </div> */}
 
        <div>
-      <button type="button" className="btn btn-light mt-4" data-bs-toggle="modal" data-bs-target="#InfoModal-file" >File</button>
+      <button type="button" className="btn btn-light mt-4" data-bs-toggle="modal" data-bs-target="#InfoModal-file" >File <FontAwesomeIcon className="ms-1" icon={faCirclePlus} /></button>
         <div className="marker-list mt-2">
         {preFileList.map((value, index)=>(
             <div key={index}>
