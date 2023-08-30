@@ -204,6 +204,7 @@
       .post-body{
         padding: 5%;
         color: aliceblue;
+        white-space: pre-line;
       }
       
       .post-file{
