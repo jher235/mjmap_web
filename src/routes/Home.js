@@ -12,6 +12,8 @@ import { Dropdown } from 'react-bootstrap';
 
 
 
+
+
 <script src="https://kit.fontawesome.com/51ed27ab31"></script>
 
 const {kakao} = window;
@@ -20,6 +22,8 @@ const firstLat = 37.222000
 const firstLong = 127.186729
 
 function Home() {
+  
+  
   const [loading,setLoading] = useState(true)
   const [customOveray,setCustomOveray] = useState(true)
   const [mylat,setMylat] = useState('')
@@ -1114,18 +1118,18 @@ return (
     
 
   <div className='home-content'>
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <nav  role="navigation" class="navbar navbar-expand-md bg-body-tertiary">
   <div class="container-fluid">
   
     {/* <Link to="/" class="nav-link ms-4 me-3"><a class="nav-link font-dokdo " ><h1>명지도</h1></a></Link> */}
      <Link to="/" class="nav-link ms-4 me-3"><img className='titlePlus' width="70px" height="65px" src={"../../mjmapMark.png"}/></Link> 
 
-    
+    {/* 지금 여기 밑이 문제 */}
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
+      <span className="navbar-toggler-icon" ></span>
     </button>
-    <div className="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul className="navbar-nav">
+    <div className="collapse  navbar-collapse" id="navbarNavDropdown">
+      <ul className="navbar-nav ">
         <li className="nav-item">
           <a role="button" class="nav-link" onClick={findCampus}>자연캠</a>
         </li>
@@ -1226,7 +1230,7 @@ return (
               {myStars!==""?
                 myStars.map((event)=>(
                 <Fragment>
-                  {console.log(event)}
+                  
                   <li >
                     <Dropdown.Item className="dropdown-item map-dropdown-menu" mylectureroom={event.classnum} onClick={handleFindMyLectureRoom} >
                       <a className='map-dropdown-classnum' mylectureroom={event.classnum} >{event.classname}</a>

@@ -226,3 +226,25 @@ user-select: none;
     align-self:center ;
     color: black;
   }
+
+
+  @media screen and (max-width:767) {
+    
+    .title{
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      color: black;
+      font-size: 50px;
+      margin-top: -45%;
+    }
+    .post-title{
+      font-weight: 1000;
+      line-height: 1;
+      /* rtl:remove */
+      letter-spacing: -.05rem;
+      font-size: 30px;
+      color: aliceblue;
+    }
+
+  }

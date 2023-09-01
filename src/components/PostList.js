@@ -1,6 +1,6 @@
 
 import { useNavigate} from "react-router-dom"
-import styles from "../css/postlist.css"
+import styles from "../css/postlist.module.css"
 
 
 
@@ -27,12 +27,12 @@ function PostList({id,title,body,tag,created_at,modified_at,profile,image}){
      
         <div className="row post" onClick={()=>handlePostDetail(id)}>
           <div className="col-md-5 order-md-2">
-            <h4 className="post-title">{title}  {tag.slice(0,3).map((t)=> <span className="badge bg-light postlist-tag ms-1" onClick={(event)=>handleTagPost(event,t.id)}>{t.name}</span> ) }</h4>
+            <h4 className={styles.postListTitle}>{title}  {tag.slice(0,3).map((t)=> <span className={`${styles.postlistTag}  badge bg-light ms-1`} onClick={(event)=>handleTagPost(event,t.id)}>{t.name}</span> ) }</h4>
             <p className="lead post-body">{body.length<150? body: body.slice(0,150)+'...'}</p>
           </div>
-          <div className="col-md-3 order-md-1">
-            {image.length>0 ?<img src={image[0].image} className="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid ms-5"  width="150" height="150" alt=""/>
-              :<svg className="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid ms-5" width="150" height="150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: no-image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text font-size="50%" x="50%" y="50%" fill="#aaa" dy=".3em">No-Image</text></svg>
+          <div className="col-md-3 order-md-1 ">
+            {image.length>0 ?<img src={image[0].image} className={`${styles.bdPlaceholderImg}  bd-placeholder-img-lg featurette-image img-fluid ms-5`}  width="150" height="150" alt=""/>
+              :<svg className={styles.bdPlaceholderImg+" bd-placeholder-img-lg featurette-image img-fluid ms-5"} width="150" height="150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: no-image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text font-size="50%" x="50%" y="50%" fill="#aaa" dy=".3em">No-Image</text></svg>
             }
           </div>
           <div className="col-md-4 order-md-2 post-sub">
